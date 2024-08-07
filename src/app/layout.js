@@ -1,7 +1,5 @@
 import { Alata } from "next/font/google";
 import "./globals.scss";
-import Header from "@/components/Header/Header";
-import Footer from "@/components/Footer/Footer";
 
 const alata = Alata({ 
   weight: '400',
@@ -17,9 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={alata.className + ` dark`}>
-        {/* <Header/> */}
           {children}
-        {/* <Footer/> */}
       </body>
     </html>
   );

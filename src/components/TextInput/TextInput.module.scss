@@ -4,10 +4,15 @@
 .TextInput {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: start;
   width: 100%;
   height: fit-content;
+  margin: 0.5rem 0 ;
+  gap:0.5rem;
 
   input {
+    width: 100%;
     outline: none;
     padding:0.5rem 1rem;
     border: solid 1px $tea-green;
@@ -18,9 +23,5 @@
       border: solid 1px $brand-colors-orange;
       transition: all 300ms ease-in-out;
     }
-  }
-  label {
-    padding: 0.5rem;
-    
   }
 }

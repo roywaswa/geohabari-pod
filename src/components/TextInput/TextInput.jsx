@@ -8,7 +8,8 @@ const TextInput = (props) => {
   return (
     <div className={styles.TextInput} data-testid="TextInput">
       <label htmlFor={props.name}>
-        <small>{labelName}</small></label>
+        <small>{labelName}</small>
+      </label>
       <input id={props.name} className='input_field' placeholder={props.placeholder} />
     </div>
   );

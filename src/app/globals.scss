@@ -1,5 +1,5 @@
 @import '/src/styles/variables.scss';
-
+@import '/src/styles/reset.scss';
 
 
 h1 {
@@ -130,6 +130,8 @@ small {
 }
 
 body.dark{
+  height: 100vh;
+  overflow: hidden;
   color: $light;
   background: linear-gradient(to bottom, $backgrounds-screen-background-dark, $backgrounds-screen-background-dark), linear-gradient(123deg, #fd5 0%, #98b680 94%);
 }
