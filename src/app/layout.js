@@ -1,7 +1,12 @@
-import { Inter } from "next/font/google";
-import "./globals.css";
+import { Alata } from "next/font/google";
+import "./globals.scss";
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const alata = Alata({ 
+  weight: '400',
+  subsets: ["latin"] 
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -11,7 +16,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={alata.className + ` dark`}>
+        {/* <Header/> */}
+          {children}
+        {/* <Footer/> */}
+      </body>
     </html>
   );
 }
