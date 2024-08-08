@@ -7,9 +7,7 @@ const Button = (props) => {
   
   return(
     <div className={styles.Button} data-testid="Button">
-      <button onClick={function (){
-        console.log("This was clicked")
-      }}>{props.text}</button>
+      <button onClick={props.clickHandler} type="submit">{props.text}</button>
       <div className={styles.icon_container}>
         {/* <props.icon/> */}
       </div>
@@ -19,9 +17,9 @@ const Button = (props) => {
 }
 
 Button.propTypes = {
-  text: String,
+  text: PropTypes.string,
+  type: PropTypes.string,
+  clickHandler: PropTypes.func //(e)=>{}
 };
-
-Button.defaultProps = {};
 
 export default Button;

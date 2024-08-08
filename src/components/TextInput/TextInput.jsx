@@ -1,28 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './TextInput.module.scss';
 
 const TextInput = (props) => { 
-  const labelName = String(props.name).toUpperCase()
+  const labelName = String(props.label).toUpperCase()
 
   return (
     <div className={styles.TextInput} data-testid="TextInput">
       <label htmlFor={props.name}>
         <small>{labelName}</small>
       </label>
-      <input id={props.name} className='input_field' placeholder={props.placeholder} />
+      <input type={props.type} value={props.textValue} onChange={(e) => props.setTextValue(e.target.value)} id={props.name} className='input_field' placeholder={props.placeholder} />
     </div>
   );
 }
 
 TextInput.propTypes = {
-  name: String,
-  placeholder: String
-};
-
-TextInput.defaultProps = {
-  name:"text_input",
-  placeholder:"This is a Placeholder"
+  name: PropTypes.string,
+  label:PropTypes.string,
+  type: PropTypes.string,
+  placeholder: PropTypes.string,
+  textValue: PropTypes.string,
+  setTextValue: PropTypes.any,
 };
 
 export default TextInput;
