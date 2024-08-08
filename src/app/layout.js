@@ -16,6 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={alata.className + ` dark`}>
+      <Analytics/>
           {children}
       </body>
     </html>
