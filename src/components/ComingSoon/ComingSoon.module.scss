@@ -12,6 +12,7 @@
   align-items: center;
 
   .loading {
+    position: absolute;
     width: 40vw;
   }
   .success_alert {
@@ -70,7 +71,6 @@
         align-items: center;
       }
       div.text_inputs {
-        width: 100%;
         display: flex;
         flex-direction: row;
         gap: 1.5rem;

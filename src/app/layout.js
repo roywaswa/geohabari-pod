@@ -1,4 +1,5 @@
 import { Alata } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react"
 import "./globals.scss";
 
 const alata = Alata({ 
