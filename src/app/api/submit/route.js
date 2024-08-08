@@ -25,6 +25,7 @@ export async function POST(request) {
     },
     groups: [`${GROUP_ID}`],
   };
+
   let response = await fetch(url, {
     method:"POST",
     headers: {
@@ -34,15 +35,20 @@ export async function POST(request) {
     },
     body: JSON.stringify(data)
   })
-  response.json().then(res => {
-    return sendStatusCode(
-      NextResponse.json({message:"Success"}),201
-    )
+
+  let res 
+
+  response = await response.json().then(res => {
+    return {
+      code: response.status,
+      message: "Success"
+    }
   }).catch(err => {
-    console.log(err)
-    return sendStatusCode(
-      NextResponse.json({message:err}), 500
-    )
-  })
+    return {
+      code: response.status,
+      error: err
+    }
+  })  
+  return NextResponse.json(response)
 }
 

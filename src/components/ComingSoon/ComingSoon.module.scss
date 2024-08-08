@@ -14,6 +14,38 @@
   .loading {
     width: 40vw;
   }
+  .success_alert {
+    position: absolute;
+    top: -10rem;
+    opacity: 0;
+
+    &.hide {
+      top: -10rem;
+      visibility: hidden;
+    }
+
+    &.show {
+      animation-name: alertin;
+      top: 1rem;
+      visibility: visible;
+      opacity: 0;
+      animation-duration: 2s;
+      animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+      animation-delay: 200ms;
+    }
+  }
+  @keyframes alertin {
+    from {
+      top: -10rem;
+      visibility: hidden;
+      opacity: 0;
+    }
+    to{
+      top: 1rem;
+      visibility: visible;
+      opacity: 1;
+    }
+  }
   div{
     display: flex;
     flex-direction: column;

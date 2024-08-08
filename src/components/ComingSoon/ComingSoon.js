@@ -6,7 +6,7 @@ import LottieAnimation from '../LottieAnimation/LottieAnimation';
 import TextInput from '../TextInput/TextInput';
 import Button from '../Button/Button';
 import { z } from 'zod';
-import { LinearProgress } from '@mui/material';
+import { LinearProgress, Alert, CheckIcon } from '@mui/material';
 
 
 const ComingSoon = () => {
@@ -14,6 +14,17 @@ const ComingSoon = () => {
   const [subscriberName, setSubscriberName] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSuccess(false)
+    }, 7000);
+  
+    return () => clearTimeout()
+  }, [success,setSuccess])
+  
 
   const handleSubmit = async (e) => {
     setLoading(true)
@@ -44,7 +55,7 @@ const ComingSoon = () => {
     })
     response.json().then(res => {
       if (res.message == "Success"){
-        alert("You have Successfully been added to the List")
+        setSuccess(true)
         setSubscriberEmail('')
         setSubscriberName('')
       }
@@ -64,6 +75,12 @@ const ComingSoon = () => {
         <h2>COMING SOON</h2>
         <h3>Sign Up for a Heads Up</h3>
       </div>
+      {/* <div className={styles.success_alert}>
+        <Alert severity="success">Your Email has been received Succesfully</Alert>
+      </div> */}
+      <div className={`${styles.success_alert} ${success? styles.show : styles.hide}` }>
+        <Alert severity="success">Your Email has been received <b>Succesfully</b></Alert>
+      </div> 
       {loading ? <div className={styles.loading}>
         <LinearProgress />
       </div> : null}
