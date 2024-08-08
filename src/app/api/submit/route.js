@@ -25,32 +25,24 @@ export async function POST(request) {
     },
     groups: [`${GROUP_ID}`],
   };
-
-  let options = {
+  let response = await fetch(url, {
+    method:"POST",
     headers: {
       "Content-Type": "application/json",
       "Accept": "application/json",
       "Authorization": `Bearer ${API_KEY}`
-    }
-  }
-  try {
-    await fetch(url, {
-      method:"POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Authorization": `Bearer ${API_KEY}`
-      },
-      body: JSON.stringify(data)
-    })
+    },
+    body: JSON.stringify(data)
+  })
+  response.json().then(res => {
     return sendStatusCode(
       NextResponse.json({message:"Success"}),201
     )
-  } catch (error) {
-    console.log(error)
+  }).catch(err => {
+    console.log(err)
     return sendStatusCode(
-      NextResponse.json({message:error}), 500
+      NextResponse.json({message:err}), 500
     )
-  }
+  })
 }
 
