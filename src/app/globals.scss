@@ -1,7 +1,6 @@
 @import '/src/styles/variables.scss';
 @import '/src/styles/reset.scss';
-
-
+// Base styles (Desktop default)
 h1 {
   font-size: 61px;
   font-weight: normal;
@@ -11,7 +10,7 @@ h1 {
   letter-spacing: 4.27px;
 }
 
-h2 { 
+h2 {
   font-size: 48.8px;
   font-weight: normal;
   font-stretch: normal;
@@ -20,7 +19,7 @@ h2 {
   letter-spacing: 3.42px;
 }
 
-h3 { 
+h3 {
   font-size: 39.1px;
   font-weight: normal;
   font-stretch: normal;
@@ -29,7 +28,7 @@ h3 {
   letter-spacing: 2.73px;
 }
 
-h4 { 
+h4 {
   font-size: 31.2px;
   font-weight: normal;
   font-stretch: normal;
@@ -38,7 +37,7 @@ h4 {
   letter-spacing: 2.19px;
 }
 
-h5 { 
+h5 {
   font-size: 25px;
   font-weight: normal;
   font-stretch: normal;
@@ -47,11 +46,11 @@ h5 {
   letter-spacing: 1.75px;
 }
 
-@mixin Subtitle { 
+@mixin Subtitle {
   font-size: 24px;
 }
 
-h6 { 
+h6 {
   font-size: 20px;
   font-weight: normal;
   font-stretch: normal;
@@ -60,13 +59,13 @@ h6 {
   letter-spacing: 1.4px;
 }
 
-@mixin regular { 
+@mixin regular {
   font-size: 16px;
   line-height: 1.2;
   letter-spacing: 1.12px;
 }
 
-link { 
+link {
   font-size: 16px;
   font-weight: normal;
   font-stretch: normal;
@@ -75,7 +74,7 @@ link {
   letter-spacing: normal;
 }
 
-button { 
+button {
   font-size: 16px;
   font-weight: normal;
   font-stretch: normal;
@@ -84,11 +83,11 @@ button {
   letter-spacing: 0.64px;
 }
 
-@mixin Bold { 
+@mixin Bold {
   font-size: 16px;
 }
 
-body { 
+body {
   font-size: 16px;
   font-weight: normal;
   font-stretch: normal;
@@ -97,7 +96,7 @@ body {
   letter-spacing: normal;
 }
 
-small { 
+small {
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -106,46 +105,70 @@ small {
   letter-spacing: normal;
 }
 
-@mixin sm { 
+@mixin sm {
   font-size: 12.8px;
   line-height: 1.2;
   letter-spacing: 0.9px;
 }
 
-@mixin Pretitle { 
+@mixin Pretitle {
   font-size: 12px;
   letter-spacing: 0.36px;
 }
 
-@mixin xsm { 
+@mixin xsm {
   font-size: 10.2px;
   line-height: 1.2;
   letter-spacing: 0.72px;
 }
 
-@mixin xxsm { 
+@mixin xxsm {
   font-size: 8.2px;
   line-height: 1.2;
   letter-spacing: 0.57px;
 }
 
-body.dark{
+body.dark {
   height: 100vh;
   overflow: hidden;
   color: $light;
   background: linear-gradient(to bottom, $backgrounds-screen-background-dark, $backgrounds-screen-background-dark), linear-gradient(123deg, #fd5 0%, #98b680 94%);
 }
 
+// Tablet (768px - 1024px)
+@media (max-width: 1024px) {
+  h1 { font-size: 50px; }
+  h2 { font-size: 40px; }
+  h3 { font-size: 32px; }
+  h4 { font-size: 26px; }
+  h5 { font-size: 20px; }
+  h6 { font-size: 18px; }
+  @mixin Subtitle { font-size: 20px; }
+  @mixin regular { font-size: 14px; }
+  @mixin Bold {}
+  link, button, body { font-size: 14px; }
+  small { font-size: 12px; }
+  @mixin sm { font-size: 11px; }
+  @mixin Pretitle { font-size: 10px; }
+  @mixin xsm { font-size: 9px; }
+  @mixin xxsm { font-size: 8px; }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+// Mobile (320px - 767px)
+@media (max-width: 767px) {
+  h1 { font-size: 40px; }
+  h2 { font-size: 32px; }
+  h3 { font-size: 28px; }
+  h4 { font-size: 22px; }
+  h5 { font-size: 18px; }
+  h6 { font-size: 16px; }
+  @mixin Subtitle { font-size: 18px; }
+  @mixin regular { font-size: 12px; }
+  @mixin Bold{}
+  link, button,  body { font-size: 12px; }
+  small { font-size: 10px; }
+  @mixin sm { font-size: 10px; }
+  @mixin Pretitle { font-size: 8px; }
+  @mixin xsm { font-size: 7px; }
+  @mixin xxsm { font-size: 6px; }
+}

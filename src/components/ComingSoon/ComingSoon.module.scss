@@ -57,6 +57,9 @@
       display: flex;
       align-items: center;
       gap:1.5rem;
+      h2,h3 {
+        text-align: center;
+      }
     }
     &.form_field{
       min-width: 60vw;
@@ -73,7 +76,8 @@
       div.text_inputs {
         display: flex;
         flex-direction: row;
-        gap: 1.5rem;
+        justify-content: space-evenly;
+        gap: 1rem;
       }
     }
   }
@@ -82,5 +86,20 @@
     padding: 1rem;
     width: 320px;
     height: 320px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .ComingSoon {
+    height: 100vh;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    div.text_inputs {
+      display: flex;
+      flex-direction: row;
+    }
   }
 }
