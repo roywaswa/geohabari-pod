@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './TextInput.module.scss';
+import styles from '@/components/TextInput/TextInput.module.scss';
 
 const TextInput = (props) => { 
   const labelName = String(props.label).toUpperCase()
