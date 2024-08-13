@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Footer.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInstagram, faLinkedin, faTwitter,
+  faSpotify, faPodcast, faYoutube
+} from "@fortawesome/free-brands-svg-icons";
+
 import Link from 'next/link';
 
 const Footer = () => (
@@ -15,47 +20,61 @@ const Footer = () => (
         </span>
       </div>
       <div className={styles.quick_links}>
-        <span className={styles.links_title}>
+        <h3 className={styles.links_title}>
           QUICK LINKS
-        </span>
-        <div className={styles.quick_links}>
-          <Link href={"#"} className={styles.quick_links_item}>
+        </h3>
+        <ul className={styles.quick_links_list}>
+          <li><Link href={"#"} className={styles.quick_links_item}>
             Home
-          </Link>
-          <Link href={"#"} className={styles.quick_links_item}>
+          </Link></li>
+          <li><Link href={"#"} className={styles.quick_links_item}>
             EPISODES
-          </Link>
-          <Link href={"#"} className={styles.quick_links_item}>
+          </Link></li>
+          <li><Link href={"#"} className={styles.quick_links_item}>
             Contact Us
-          </Link>
-        </div>
+          </Link></li>
+        </ul>
       </div>
       <div className={styles.email_contacts}>
         <h3 className={styles.reach_out}>REACH OUT</h3>
-        <div className={styles.contact_emails}>
-          <Link href={"#"} className={styles.contact_emails_item}>yariwo@geohabari.io</Link>
-          <Link href={"#"} className={styles.contact_emails_item}>producer@geohabari.io</Link>
-          <Link href={"#"} className={styles.contact_emails_item}>partnership@geohabari.io</Link>
-          <Link href={"#"} className={styles.contact_emails_item}>media@geohabari.io</Link>
-        </div>
+        <ul className={styles.contact_emails}>
+          <li><Link href={"#"} className={styles.contact_emails_item}>yariwo@geohabari.io</Link></li>
+          <li><Link href={"#"} className={styles.contact_emails_item}>producer@geohabari.io</Link></li>
+          <li><Link href={"#"} className={styles.contact_emails_item}>partnership@geohabari.io</Link></li>
+          <li><Link href={"#"} className={styles.contact_emails_item}>media@geohabari.io</Link></li>
+        </ul>
       </div>
       <div className={styles.engagement}>
         <div className={styles.subscriptions}>
           <h3 className={styles.subscriptions_title}>SUBSCRIBE</h3>
-          <div className={styles.host_sites}>
-            <div className={styles.host_sites_item}>Apple Podcast</div>
-            <div className={styles.host_sites_item}>Google Podcast</div>
-            <div className={styles.host_sites_item}>Spotify</div>
-            <div className={styles.host_sites_item}>YouTube</div>
-          </div>
+          <ul className={styles.host_sites}>
+            <li className={styles.host_sites_item}>
+              <FontAwesomeIcon icon={faSpotify} beatFade style={{color: "#F0F0F0",}} />
+            </li>
+            <li className={styles.host_sites_item}>
+              <FontAwesomeIcon icon={faSpotify} beatFade style={{color: "#F0F0F0",}} />
+            </li>
+            <li className={styles.host_sites_item}>
+            <FontAwesomeIcon icon={faSpotify} beatFade style={{color: "#F0F0F0",}} />
+            </li>
+            <li className={styles.host_sites_item}>
+              <FontAwesomeIcon icon={faYoutube} beatFade style={{color: "#F0F0F0",}} />
+            </li>
+          </ul>
         </div>
         <div className={styles.socials}>
-          <h3 className={styles.socials_title}>SUBSCRIBE</h3>
-          <div className={styles.social_sites}>
-            <div className={styles.social_sites_item}>Twitter</div>
-            <div className={styles.social_sites_item}>LinkedIn</div>
-            <div className={styles.social_sites_item}>Instagram</div>
-          </div>
+          <h3 className={styles.socials_title}>FOLLOW US</h3>
+          <ul className={styles.social_sites}>
+            <li className={styles.social_sites_item}>
+              <FontAwesomeIcon icon={faTwitter} beatFade style={{color: "#F0F0F0",}} />
+            </li>
+            <li className={styles.social_sites_item}>
+              <FontAwesomeIcon icon={faLinkedin} beatFade style={{color: "#F0F0F0",}} />
+            </li>
+            <li className={styles.social_sites_item}>
+              <FontAwesomeIcon icon={faInstagram} beatFade style={{color: "#F0F0F0",}} />
+            </li>
+          </ul>
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.scss";
 import Head from "next/head";
+import Footer from "@/components/Footer/Footer";
 
 const alata = Alata({ 
   weight: '400',
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
       <Analytics/>
       <SpeedInsights/>
           {children}
+        <Footer/>
       </body>
     </html>
   );
