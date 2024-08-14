@@ -22,7 +22,7 @@ const about = () => (
     <div className={styles.about_podcast}>
       <div className={styles.pod_description}>
         <h2>GEOHABARI Podcast is</h2>
-        <span className={styles.subtitle}>a vibrant community of geospatial professionals, experts, and enthusiasts. We delve into topics ranging from GIS technology and remote sensing to mapping and geospatial data analysis. But that’s not all! Geohabari Podcast features exclusive interviews with industry leaders, thought-provoking discussions, and exciting debates on pressing geospatial issues. Our interactive Q&A sessions allow you to engage with guests and get your burning questions answered.</span>
+        <span className={styles.subtitle}>a vibrant community of geospatial professionals, experts, and enthusiasts. We delve into topics ranging from GIS technology and remote sensing to mapping and geospatial data analysis. But that&apos;s not all! Geohabari Podcast features exclusive interviews with industry leaders, thought-provoking discussions, and exciting debates on pressing geospatial issues. Our interactive Q&A sessions allow you to engage with guests and get your burning questions answered.</span>
       </div>
       <div className={styles.pod_image}>
         <Image src='' alt="Studio for recording" fill={true}/>

@@ -15,7 +15,7 @@ const contact = () => {
   return(
     <div className={styles.contact} data-testid="contact">
       <div className={styles.banner}>
-        <h1>Let's <br/> Collaborate</h1>
+        <h1>Let&apos;s <br/> Collaborate</h1>
         <Image className={styles.banner_bg} src={'/images/camera_studio.jpg'} fill={true} />
       </div>
       <div className={styles.form_container}>
