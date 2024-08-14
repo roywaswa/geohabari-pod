@@ -1,1 +1,25 @@
-.about {}
+@import '/src/styles/variables.scss';
+
+.about {
+
+  &>div.page_title{
+    min-height:10vh;
+    background: $basic-black-50;
+    &>div.heading_main{}
+    &>div.heading_sub{}
+  }
+  &>div.about_podcast{
+    min-height: 10vh;
+    background: $white;
+
+    &>div.pod_description{}
+    &>div.pod_image{}
+  }
+  &>div.about_host{
+    min-height:10vh;
+    background: $basic-black-50;
+
+    &>div.host_image{}
+    &>div.host_description{}
+  }
+}

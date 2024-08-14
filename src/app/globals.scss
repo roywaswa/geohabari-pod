@@ -141,7 +141,8 @@ body{
   }
 
   &.light {
-
+    color: $basic-black-100;
+    background: linear-gradient(to bottom, $backgrounds-screen-background-light, $backgrounds-screen-background-light), linear-gradient(129deg, #fd5 0%, #98b680 94%);
   }
 }
 

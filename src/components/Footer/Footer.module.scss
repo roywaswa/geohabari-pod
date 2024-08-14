@@ -2,6 +2,7 @@
 
 div.Footer {
   @include flex_column(px_to_rem(24));
+  color: $white;
   align-items: center;
   padding: px_to_rem(24) px_to_rem(48);
   width: 100vw;
