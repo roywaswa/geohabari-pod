@@ -3,13 +3,13 @@ import ComingSoon from "../components/ComingSoon/ComingSoon"
 import Head from "next/head";
 
 export const metadata = {
-  title: "GEOHABARI | Coming Soon"
+  title: "Geohabari Podcast | Home"
 }
 
 export default function Home() {
   return (
-    <main className={styles.page}>
+    <div className={styles.page}>
       {/* <ComingSoon/> */}
-    </main>
+    </div>
   );
 }

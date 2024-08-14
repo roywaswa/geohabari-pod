@@ -8,7 +8,7 @@ const Header = () => {
   return(
     <div className={styles.Header} data-testid="Header">
       <div className={styles.logo}>
-        <Image href="#" src='/logo_colored.png' width={42} height={42} alt='Geohabari Logo'/>
+        <Image href="#" src='/images/logo_colored.png' width={42} height={42} alt='Geohabari Logo'/>
       </div>
       <div className={styles.navigation}>
         <div className={styles.nav_links}>

@@ -10,7 +10,10 @@ const TextInput = (props) => {
       <label htmlFor={props.name}>
         <small>{labelName}</small>
       </label>
-      <input type={props.type} value={props.textValue} onChange={(e) => props.setTextValue(e.target.value)} id={props.name} className='input_field' placeholder={props.placeholder} />
+      {props.type == "textarea"? 
+        <textarea value={props.textValue} onChange={(e) => props.setTextValue(e.target.value)} id={props.name} className={styles.input_field} placeholder={props.placeholder} rows="5" cols="33"/> :
+        <input type={props.type} value={props.textValue} onChange={(e) => props.setTextValue(e.target.value)} id={props.name} className={styles.input_field} placeholder={props.placeholder} />
+      }
     </div>
   );
 }

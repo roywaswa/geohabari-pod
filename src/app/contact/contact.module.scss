@@ -1,0 +1,46 @@
+@import '/src/styles/variables.scss';
+
+.contact {
+  @include flex_row(2rem);
+  justify-content: space-around;
+  align-items: center;
+  height: fit-content;
+  // margin: 3rem 1rem;
+  width: 100vw;
+
+  .banner {
+    @include flex_column;
+    position: relative;
+    overflow: hidden;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 2rem;
+    min-width: 40%;
+    max-width: 80%;
+    min-height: 320px;
+    height: 440px;
+    max-height: 480px;
+    border-radius: px_to_rem(32);
+
+    .banner_bg {
+      min-height: 400px;
+      height: 440px;
+      max-height: 480px;
+      object-fit: cover;
+    }
+    h1 {
+      padding: 1rem;
+      z-index: 100;
+    }
+  }
+  .form_container {
+    min-width: 40%;
+    max-width: 95%;
+  }
+  .contact_form {
+    width: 100%;
+    @include flex_column(0.1rem);
+    justify-content: center;
+    align-items: center;
+  }
+}
