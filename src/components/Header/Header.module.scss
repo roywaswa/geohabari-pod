@@ -2,7 +2,7 @@
 
 
 .Header {
-  background: $rich-black;
+  // background: $rich-black;
   width: 100%;
   padding: px_to_rem(10) px_to_rem(32); 
   @include flex_row;
