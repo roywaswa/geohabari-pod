@@ -2,7 +2,7 @@ import { Alata } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.scss";
-import Head from "next/head";
+import Header from "@/components/Header/Header"
 import Footer from "@/components/Footer/Footer";
 
 const alata = Alata({ 
@@ -24,6 +24,7 @@ export default function RootLayout({ children }) {
       <body className={alata.className + ` dark`}>
       <Analytics/>
       <SpeedInsights/>
+      <Header/>
           {children}
         <Footer/>
       </body>

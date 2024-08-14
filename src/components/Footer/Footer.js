@@ -13,7 +13,7 @@ const Footer = () => (
     <div className={styles.main_footer}>
       <div className={styles.description}>
         <h3 className={styles.podcast_title}>GEOHABARI<br/>Podcast</h3>
-        <span class={styles.podcast_description}>
+        <span className={styles.podcast_description}>
           Geohabari is an African tech podcast that celebrates innovations 
           fosters community engagement among geospatial professionals, 
           and explores impactful technologies. 🎙️🌍🔍

@@ -1,0 +1,29 @@
+@import '/src/styles/variables.scss';
+
+
+.Header {
+  background: $rich-black;
+  width: 100%;
+  padding: px_to_rem(10) px_to_rem(32); 
+  @include flex_row;
+  justify-content: space-between;
+
+  .logo {
+    cursor: pointer;
+  }
+  .navigation {
+    @include flex_column;
+
+    .nav_links {
+      @include flex_row;
+
+      .link_item{
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+    .theme_switch {
+      cursor: pointer;
+    }
+  }
+}
