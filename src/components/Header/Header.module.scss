@@ -13,6 +13,7 @@
   }
   .navigation {
     @include flex_column;
+    align-items: flex-end;
 
     .nav_links {
       @include flex_row;
@@ -23,7 +24,14 @@
       }
     }
     .theme_switch {
+      width: 36px;
+      height: 36px;
+      padding: 4px;
+      border: 2px solid inherit;
+      border-radius: 100px;
       cursor: pointer;
+      transition: all 300ms ease-in-out;
     }
+    // .theme_swit
   }
 }
