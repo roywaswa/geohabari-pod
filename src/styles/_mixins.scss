@@ -1,40 +1,33 @@
-
 @mixin Subtitle {
-  font-size: 24px;
+  font-size: 1.275em;
 }
-
 
 @mixin regular {
-  font-size: 16px;
+  font-size: 0.85em;
   line-height: 1.2;
-  letter-spacing: 1.12px;
+  letter-spacing: 0.06em;
 }
-
 
 @mixin Bold {
-  font-size: 16px;
+  font-size: 0.85em;
 }
-
 
 @mixin sm {
-  font-size: 12.8px;
+  font-size: 0.68em;
   line-height: 1.2;
-  letter-spacing: 0.9px;
+  letter-spacing: 0.048em;
 }
-
 @mixin Pretitle {
-  font-size: 12px;
-  letter-spacing: 0.36px;
+  font-size: 0.64em;
+  letter-spacing: 0.019em;
 }
-
 @mixin xsm {
-  font-size: 10.2px;
+  font-size: 0.54em;
   line-height: 1.2;
-  letter-spacing: 0.72px;
+  letter-spacing: 0.038em;
 }
-
 @mixin xxsm {
-  font-size: 8.2px;
+  font-size: 0.44em;
   line-height: 1.2;
-  letter-spacing: 0.57px;
+  letter-spacing: 0.03em;
 }
