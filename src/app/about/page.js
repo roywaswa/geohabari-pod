@@ -25,16 +25,16 @@ const about = () => (
         <span className={styles.sec_description}>a vibrant community of geospatial professionals, experts, and enthusiasts. We delve into topics ranging from GIS technology and remote sensing to mapping and geospatial data analysis. But that&apos;s not all! Geohabari Podcast features exclusive interviews with industry leaders, thought-provoking discussions, and exciting debates on pressing geospatial issues. Our interactive Q&A sessions allow you to engage with guests and get your burning questions answered.</span>
       </div>
       <div className={`${styles.pod_image} ${styles.graphic}`}>
-        {/* <Image src='/images/studio_photo.png' alt="Studio for recording" fill={true}/> */}
+        <Image className={styles.image} src='/images/studio_photo.png' alt="Studio for recording" fill={true}/>
       </div>
     </div>
     <div className={`${styles.about_host} ${styles.details}`}>
       <div className={`${styles.host_image} ${styles.graphic}`}>
-        {/* <Image src='/images/host_photo.JPG' alt="Portait of Yariwo" fill={true}/> */}
+        <Image className={styles.image} src='/images/host_photo.JPG' alt="Portait of Yariwo" fill={true}/>
       </div>
       <div className={`${styles.host_description} ${styles.text}`}>
-        <h2>Enter the Host YARIWO</h2>
-        <span className={styles.host}>
+        <h2  className={styles.sec_title}>Enter the Host YARIWO</h2>
+        <span className={styles.sec_description}>
         YARIWO KITIYO, the founder and host of the GEOHABARI Podcast, is passionate about amplifying African tech stories and building technical brilliance. She co-founded Women in GIS Kenya and has been instrumental in creating a platform that fosters communities defined by their technical prowess. Through Geohabari, Yariwo engages with experts, professionals, and enthusiasts in the geospatial field, sharing insights, experiences, and knowledge.
         </span>
       </div>

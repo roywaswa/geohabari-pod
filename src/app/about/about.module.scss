@@ -1,12 +1,25 @@
-@import '/src/styles/colors';
+@import '/src/styles/variables';
 
 div.about {
-  // width: 100vw;
+  @include flex_column(2rem);
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  width: 100%;
+  
   &>div.page_title{
+    @include flex_column;
+    justify-content: center;
+    align-items: center;
     min-height:10vh;
-    background: $basic-black-50;
-    &>div.heading_main{}
-    &>div.heading_sub{}
+    width: 80%;
+    &>div.heading_main{
+      width: 60%;
+    }
+    &>div.heading_sub{
+      @include flex_row;
+      width: 80%;
+    }
   }
   &>div.details{
     @include flex_row;
@@ -16,48 +29,34 @@ div.about {
     &>div.text{
       @include flex_column;
       min-width: 300px;
-      max-width: 50vw;
+      max-width: 45vw;
 
       &>.sec_title {
         
       }
       &>.sec_description {
-        @include Subtitle;
+        @include regular;
       }
     }
     &>div.graphic {
-      background-color: red;
+      position: relative;
+      overflow: hidden;
       min-width: 300px;
-      width: 45vw;
-      max-width: 50vw;
-      height:400px;
-      object-fit: cover;
-    }
-  }
-  &>div.about_podcast{
-    
-    
+      min-height: 320px;
+      max-width: 45vw;
 
-    &>div.pod_description{
-      @include flex_column;
-      min-width: 300px;
-      max-width: 50vw;
-    }
-    &>div.pod_image{
-      background-color: red;
-      min-width: 300px;
-      width: 45vw;
-      max-width: 50vw;
-      height:400px;
-      object-fit: cover;
+      &>.image{
+        object-fit: cover;
+      }
     }
   }
-  &>div.about_host{
-    @include flex_row;
+  // &>div.about_podcast{
+  //   &>div.pod_description{}
+  //   &>div.pod_image{}
+  // }
+  // &>div.about_host{
 
-    &>div.host_image{
-      object-fit: cover;
-    }
-    &>div.host_description{}
-  }
+  //   &>div.host_image{}
+  //   &>div.host_description{}
+  // }
 }
