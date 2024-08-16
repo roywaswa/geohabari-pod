@@ -1,25 +1,63 @@
-@import '/src/styles/variables.scss';
+@import '/src/styles/colors';
 
-.about {
-
+div.about {
+  // width: 100vw;
   &>div.page_title{
     min-height:10vh;
     background: $basic-black-50;
     &>div.heading_main{}
     &>div.heading_sub{}
   }
-  &>div.about_podcast{
-    min-height: 10vh;
-    background: $white;
+  &>div.details{
+    @include flex_row;
+    justify-content: center;
+    align-items: center;
 
-    &>div.pod_description{}
-    &>div.pod_image{}
+    &>div.text{
+      @include flex_column;
+      min-width: 300px;
+      max-width: 50vw;
+
+      &>.sec_title {
+        
+      }
+      &>.sec_description {
+        @include Subtitle;
+      }
+    }
+    &>div.graphic {
+      background-color: red;
+      min-width: 300px;
+      width: 45vw;
+      max-width: 50vw;
+      height:400px;
+      object-fit: cover;
+    }
+  }
+  &>div.about_podcast{
+    
+    
+
+    &>div.pod_description{
+      @include flex_column;
+      min-width: 300px;
+      max-width: 50vw;
+    }
+    &>div.pod_image{
+      background-color: red;
+      min-width: 300px;
+      width: 45vw;
+      max-width: 50vw;
+      height:400px;
+      object-fit: cover;
+    }
   }
   &>div.about_host{
-    min-height:10vh;
-    background: $basic-black-50;
+    @include flex_row;
 
-    &>div.host_image{}
+    &>div.host_image{
+      object-fit: cover;
+    }
     &>div.host_description{}
   }
 }
