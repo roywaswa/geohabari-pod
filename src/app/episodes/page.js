@@ -10,7 +10,7 @@ import EpisodeCard from '@/components/EpisodeCard/EpisodeCard';
 
 const base_url = process.env.NEXT_PUBLIC_API_BASE_URL
 
-function episodes(){
+function Episodes(){
   const [episodes, setEpisodes] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   
@@ -32,8 +32,8 @@ function episodes(){
       <div className={styles.episodes_list}>
         {isLoading? 
         <div>LOADING ...</div>: 
-        episodes.map((episode) => <div className={styles.card_container}>
-          <EpisodeCard key={episode.id} episode={episode}/>
+        episodes.map((episode) => <div key={episode.id}  className={styles.card_container}>
+          <EpisodeCard episode={episode}/>
         </div>)
         }
       </div>
@@ -42,6 +42,6 @@ function episodes(){
   )
 }
 
-episodes.propTypes = {};
+Episodes.propTypes = {};
 
-export default episodes;
+export default Episodes;
