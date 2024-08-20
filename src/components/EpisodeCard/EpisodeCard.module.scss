@@ -1,0 +1,29 @@
+@import '/src/styles/variables';
+
+.EpisodeCard {
+  @include flex_row;
+  width: 90vw;
+  justify-content: space-between;
+  align-items: center;
+
+  .artwork_container {
+    position: relative;
+    overflow: hidden;
+    width: 40vw;
+    height: auto;
+    min-width: 300px;
+    min-height: 300px;
+    max-width: 45vw;
+    border-radius: px_to_rem(16);
+
+    &>.image{
+      object-fit: cover;
+    }
+  }
+  .description_container {
+    @include flex_column;
+    width: 45vw;
+    min-width: 300px;
+    padding: 1.5rem;
+  }
+}

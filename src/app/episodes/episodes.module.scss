@@ -1,1 +1,17 @@
-.episodes {}
+@import '/src/styles/variables';
+
+
+div.episodes {
+
+
+  &>div.episodes_list {
+    @include flex_column;
+    justify-content: center;
+    align-items: center;
+    gap: px_to_rem(48);
+    width: 100%;
+    .card_container{
+      align-items: center;
+    }
+  }
+}
