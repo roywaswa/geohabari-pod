@@ -75,8 +75,15 @@ div.Footer {
           list-style: none;
 
           &>li.host_sites_item{
-            width: 48px;
-            height: 48px;
+            .link{
+              @include flex_column;
+              gap:0;
+              color: inherit;
+              justify-content: center;
+              align-items: center;
+              width: 48px;
+              height: 48px;
+            }
           }
         }
       }
@@ -87,15 +94,22 @@ div.Footer {
 
         &>div.socials_title{}
 
-        &>ul.social_sites{
+        ul.social_sites{
           @include flex_row(0.5rem);
           justify-content: space-evenly;
           margin: 1rem;
           list-style: none;
 
-          &>li.social_sites_item{
-            width: 48px;
-            height: 48px;
+          li.social_sites_item{
+            .link{
+              @include flex_column;
+              gap:0;
+              color: inherit;
+              justify-content: center;
+              align-items: center;
+              width: 48px;
+              height: 48px;
+            }
           }
         }
       }
