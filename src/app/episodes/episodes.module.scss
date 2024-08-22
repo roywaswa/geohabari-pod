@@ -12,6 +12,9 @@ div.episodes {
     width: 100%;
     .card_container{
       align-items: center;
+      *{
+        text-decoration: none;
+      }
     }
   }
 }

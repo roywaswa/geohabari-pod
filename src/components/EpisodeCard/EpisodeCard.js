@@ -11,7 +11,6 @@ const EpisodeCard = (props) => {
   title.shift()
   title = title.join(":")
   let pub_date = moment(episode.published_at)
-  console.log(pub_date.format("MM-DD-YYYY"));
   
 
   

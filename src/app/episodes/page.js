@@ -3,6 +3,8 @@ import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import styles from './episodes.module.scss';
 import EpisodeCard from '@/components/EpisodeCard/EpisodeCard';
+import { getEpisodes } from '@/app/utils'
+import Link from 'next/link';
 
 // export const metadata = {
 //   title: "Geohabari Podcast | Episodes"
@@ -14,17 +16,11 @@ function Episodes(){
   const [episodes, setEpisodes] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   
-  useEffect(() => {    
-    fetch(`${base_url}/api/buzzsprout`, {
-      method:"GET",
-      header:{
-        "Content-Type": "application/json",
-      },
-    }).then((res) => res.json())
-      .then((data) => {
-        setEpisodes(data.data);
-        setIsLoading(false);
-      });
+  useEffect(() => {
+    getEpisodes().then(res =>{
+      setEpisodes(res);
+      setIsLoading(false);
+    })
   }, []);
 
   return(
@@ -32,10 +28,13 @@ function Episodes(){
       <div className={styles.episodes_list}>
         {isLoading? 
         <div>LOADING ...</div>: 
-        episodes.map((episode) => <div key={episode.id}  className={styles.card_container}>
-          <EpisodeCard episode={episode}/>
-        </div>)
-        }
+        episodes.map((episode) => 
+          <div key={episode.id}  className={styles.card_container}>
+            <Link href={`/episodes/${episode.id}`}>
+              <EpisodeCard episode={episode}/>
+            </Link>
+          </div>
+        )}
       </div>
       
     </div>
