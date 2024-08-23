@@ -26,7 +26,7 @@ function Episodes(){
       setIsLoading(false);
       setUniqueTags(getUniqueTags(episodes))
     })
-  }, []);
+  },[]);
 
 
   const checkAndRemoveOrAddValue = (value) => {
@@ -66,7 +66,7 @@ function Episodes(){
       <div className={styles.container_tags}>
         {
           uniqueTags.map(utag => 
-            <Tag setTags={checkAndRemoveOrAddValue} value={utag}>{utag}</Tag>
+            <Tag setTags={checkAndRemoveOrAddValue} key={utag} value={utag}>{utag}</Tag>
           )
         }
         <Tag setTags={checkAndRemoveOrAddValue} value='tags1'>Tag</Tag>
