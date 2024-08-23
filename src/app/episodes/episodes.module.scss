@@ -2,9 +2,43 @@
 
 
 div.episodes {
+  @include flex_column;
+  justify-content: center;
+  width: 100%;
+  gap: px_to_rem(24);
+  .container_page_title {
+    @include flex_column;
+    gap: px_to_rem(24);
+    width: 100%;
+    align-items: center;
+    .page_title {
+      width: 60%;
+    }
+    .page_subtitle {
+      width: 80%;
+      @include Subtitle
+    }
+  }
+  .container_tags {
+    @include flex_row;
+    gap: 1rem;
+    align-items: center;
+    justify-content:center;
+    // margin: 1rem 0;
+    .tag {
+      cursor: pointer;
+      padding: 0 1rem;
+      border-radius: px_to_rem(12);
+      border: 2px solid $rich-black;
+    }
+    .tag_checked {
+      background-color: $rich-black;
+      color: $white;
+      border: 2px solid $white;
+    }
+  }
 
-
-  &>div.episodes_list {
+  div.episodes_list {
     @include flex_column;
     justify-content: center;
     align-items: center;

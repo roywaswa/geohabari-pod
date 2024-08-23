@@ -1,31 +1,49 @@
+@import '/src/styles/variables';
+
+
 .episode {
+
+
+
+
 
   // AudioPlayer.module.scss
 
   .playerContainer {
-    display: flex;
+    @include flex_row;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    max-width: 400px;
+    justify-content: space-evenly;
+    width: 80vw;
+    min-width: 300px;
     margin: 20px auto;
     background-color: #f0f0f0;
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+    .image_container {
+      position: relative;
+      overflow: hidden;
+      // width: 100%;
+      height: auto;
+      min-width: 100px;
+      min-height: 100px;
+      max-width: 45vw;
+      border-radius: px_to_rem(16);
+
+      &>.image{
+        object-fit: cover;
+      }
+    }
+    .controls {
+      text-align: center;
+      width: 70%;
+    }
   }
 
-  .artwork {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 20px;
-  }
+  
 
-  .controls {
-    text-align: center;
-  }
+  
 
   .title {
     font-size: 18px;
@@ -37,4 +55,10 @@
     width: 100%;
   }
 
+  .description{
+    @include flex_column;
+    gap: 1rem;
+    padding: 1rem;
+    align-items: center;
+  }
 }

@@ -11,6 +11,7 @@ const EpisodeCard = (props) => {
   title.shift()
   title = title.join(":")
   let pub_date = moment(episode.published_at)
+  const tags = props.episode.tags.split(',').map(tag => tag.trim())
   
 
   
@@ -36,14 +37,12 @@ const EpisodeCard = (props) => {
           <h4>{title}</h4>
         </div>
         <div className={styles.episode_features}>
-          <h6>Featuring Yariwo</h6>
+          <h6>{episode.artist}</h6>
         </div>
         <div className={styles.episode_tags}>
-          <span>tag</span>
-          <span>tag</span>
-          <span>tag</span>
-          <span>tag</span>
-          <span>tag</span>
+          {
+            tags.map(tag => <span>{tag}</span>)
+          }
         </div>
       </div>
     </div>
