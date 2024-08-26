@@ -11,6 +11,28 @@ body{
     min-height: 50vh;
   }
 }
+
+header {
+  width: 100%;
+}
+
+// header {
+//   position: fixed;
+//   top: 0;
+//   width: 100%;
+//   background: rgba(256,256,256, 0.25);
+//   backdrop-filter: blur(16px);
+//   z-index: 100;
+// }
+// @media only screen and (max-width: 767px) {
+//   header {
+//     position: relative;
+//   }
+// }
+main {
+  padding-top: 18vh;
+}
+
 /* Base Styles */
 h1 {
   font-size: 3.24em;

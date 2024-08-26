@@ -27,7 +27,9 @@ export default function RootLayout({ children }) {
           <Analytics/>
           <SpeedInsights/>
           <header><Header/></header>
-          <main>{children}</main>
+          <main>
+            {children}
+          </main>
           <footer><Footer/></footer>
         </ThemedLayout>
         </ThemeProvider>

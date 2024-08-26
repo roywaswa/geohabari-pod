@@ -22,9 +22,12 @@ function Episodes(){
   
   useEffect(() => {
     getEpisodes().then(res =>{
+      let untags = getUniqueTags(episodes)
       setEpisodes(res);
       setIsLoading(false);
-      setUniqueTags(getUniqueTags(episodes))
+      setUniqueTags(untags)
+      console.log(untags);
+      
     })
   },[]);
 

@@ -41,7 +41,7 @@ const EpisodeCard = (props) => {
         </div>
         <div className={styles.episode_tags}>
           {
-            tags.map(tag => <span key={tag}>{tag}</span>)
+            tags.map(tag => <span key={tag}>{tag}</span> )
           }
         </div>
       </div>
