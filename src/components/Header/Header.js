@@ -18,11 +18,11 @@ const Header = () => {
   const {width } = useWindowDimensions()
   const [mobileNav, setMobileNav] = useState(false)
   const pathname = usePathname
-  const searchParams = useSearchParams()
+  // const searchParams = useSearchParams()
 
   useEffect(() => {
     setMobileNav(false)
-  }, [pathname, searchParams])
+  }, [pathname])
   
 
   function toggleMobileNav() {

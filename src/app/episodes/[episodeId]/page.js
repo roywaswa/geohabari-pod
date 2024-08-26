@@ -9,6 +9,9 @@ export const revalitdate = 60*60*24/5
 export  async function generateStaticParams() {
   const episodeIds = await getEpisodes().then(res => {
     return res.map(ep => String(ep.id))
+  }).catch(err => {
+    console.log("Fetching Error",err);
+    
   })
   return episodeIds.map(episodeId => {
     return {
@@ -17,8 +20,9 @@ export  async function generateStaticParams() {
   })
 }
 
-export default async function episode({params}) {
-  const episode = await getEpisodeById(params.episodeId)
+export default function episode({params}) {
+  const episode = getEpisodeById(params.episodeId)
+  const descriptionHtml = {__html: episode.description}
   return (
     <div className={styles.episode}>
       <Suspense fallback = {<div>Loading ... </div>}>
@@ -27,7 +31,7 @@ export default async function episode({params}) {
           mp3Url={episode.audio_url} 
           artworkUrl={episode.artwork_url}
           title={episode.title}/>
-        <div className={styles.description} dangerouslySetInnerHTML={{ __html: episode.description }} />
+        {/* <div className={styles.description} dangerouslySetInnerHTML={descriptionHtml} /> */}
       </Suspense>
     </div>
   )

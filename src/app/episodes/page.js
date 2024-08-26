@@ -19,15 +19,22 @@ function Episodes(){
   const [isLoading, setIsLoading] = useState(true)
   const [selectedTags, setSelectedTags] = useState([])
   const [uniqueTags, setUniqueTags] = useState([])
+
+
+  function getUniqueTags(objectsArray) {
+    const allTags = objectsArray.flatMap(obj => obj.tags.split(',').map(tag => tag.trim())).filter(element => element !== '');
+    console.log(allTags);
+    
+    const uniqueTags = [...new Set(allTags)];
+    return uniqueTags;
+  }
   
   useEffect(() => {
     getEpisodes().then(res =>{
-      let untags = getUniqueTags(episodes)
+      let untags = getUniqueTags(res)      
       setEpisodes(res);
       setIsLoading(false);
-      setUniqueTags(untags)
-      console.log(untags);
-      
+      setUniqueTags(untags)      
     })
   },[]);
 
@@ -46,11 +53,7 @@ function Episodes(){
     });
   };
   
-  function getUniqueTags(objectsArray) {
-    const allTags = objectsArray.flatMap(obj => obj.tags.split(',').map(tag => tag.trim()));
-    const uniqueTags = [...new Set(allTags)];
-    return uniqueTags;
-  }
+  
 
 
 
@@ -72,10 +75,6 @@ function Episodes(){
             <Tag setTags={checkAndRemoveOrAddValue} key={utag} value={utag}>{utag}</Tag>
           )
         }
-        <Tag setTags={checkAndRemoveOrAddValue} value='tags1'>Tag</Tag>
-        <Tag setTags={checkAndRemoveOrAddValue} value='tags2'>Tag</Tag>
-        <Tag setTags={checkAndRemoveOrAddValue} value='tags3'>Tag</Tag>
-        <Tag setTags={checkAndRemoveOrAddValue} value='tags4'>Tag</Tag>
       </div> 
       <div className={styles.episodes_list}>
         {isLoading? <div>LOADING ... </div> : null}
