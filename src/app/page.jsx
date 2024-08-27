@@ -2,17 +2,21 @@
 import Image from "next/image";
 import styles from "./page.module.scss";
 import TextInput from "@/components/TextInput/TextInput";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight, faDatabase } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "@/context/ThemeContext";
 import { getEpisodes } from "./utils";
 import Button from "@/components/Button/Button";
+import Carousel from "@/components/Carousel/Carousel";
 
-export default function Home() {
-  const {isDarkMode} = useTheme()
+export default async function Home() {
+  const episodes = await getEpisodes().then(res =>{
+    return res.slice(0,5)
+  })
+
   return (
-    <main className={`${styles.page} ${ isDarkMode && styles.dark}`}>
+    <main className={`${styles.page}`}>
       <div className={`${styles.section} ${styles.section_hero}`}>
         <div className={styles.hero_text}>
           <div className={`${styles.image_container} ${styles.logo_container}`}>
@@ -46,7 +50,9 @@ export default function Home() {
       </div>
       <div className={`${styles.section} ${styles.section_recent_episodes}`}>
         <h3>Some of Our Latest</h3>
-        <RecentEpisodes/>
+        <Suspense fallback={<div> LOADING ... </div>}>
+          <Carousel  episodes={episodes}/>
+        </Suspense>
       </div>
       <div className={`${styles.section} ${styles.section_about_host}`}>
         <AboutHost />
@@ -81,7 +87,7 @@ export function RecentEpisodes() {
       try {
         const res = await getEpisodes();  
         setEpisodes(res.slice(0, 1)); 
-        setLoading(false)
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching episodes:", error);
       }
@@ -92,30 +98,10 @@ export function RecentEpisodes() {
   
   return (
     <div className={styles.recent_container}>
-      <div className={styles.carousel}>
-        <EisodeCarouselCard active={true} />
-        <EisodeCarouselCard active={true} />
-      {/* {
-        loading? <div>LOADING ...</div> :
-        episodes.map(episode => (
-          <Fragment key={episode.id}>
-            <div className={styles.episode_details}>
-              <h3>Episode Number: {episode.episode_number}</h3> 
-              <p>Episode title that will probaly be something very long as so</p>
-            </div>
-            <div className={styles.episode_poster}>
-              <Image className={styles.image} fill
-                alt="Carousel BG" 
-                src='/images/studio_photo.png'
-                />
-            </div>
-          </Fragment>
-        ))
-      } */}
-      </div>
+      
       <div className={styles.navigation}>
-        <FontAwesomeIcon icon={faArrowLeft} size="3x" />
-        <FontAwesomeIcon icon={faArrowRight} size="3x" />
+        <FontAwesomeIcon icon={faArrowLeft} size="xl" />
+        <FontAwesomeIcon icon={faArrowRight} size="xl" />
       </div>
     </div>
   )
@@ -123,7 +109,7 @@ export function RecentEpisodes() {
 
 export  function EisodeCarouselCard(props) {
   return (
-    <div className={props.active && styles.active_card}>
+    <div className={styles.carousel_card}>
       {/* Image background */}
       active
     </div>

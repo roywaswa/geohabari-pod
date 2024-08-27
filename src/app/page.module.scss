@@ -123,29 +123,10 @@ div.topics_contianer {
 div.section_recent_episodes {
   @include flex_column;
   align-items: center;
-  justify-content: flex-start;
-  background: #848484;
+  justify-content: center;
   width: 90%;
-  height: 80vh;
+  // height: 80vh;
 
-  .recent_container {
-    position: relative;
-    @include flex_column;
-    justify-content: space-between;
-    width: 100%;
-    height: 90%;
-    .carousel {
-      display: flex;
-      flex-direction: row;
-      overflow-x: scroll;
-      width: 100%;
-      .active_card {
-        width: 90vw;
-        height: 70vh;
-        background: red;
-      }
-    }
-  }
 }
 
 div.section_about_host {

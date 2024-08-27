@@ -21,7 +21,6 @@ export  async function generateStaticParams() {
 
 export default async function EpisodeDetailsPage({params}) {
   const episode = await getEpisodeById(params.episodeId).then(res => {
-    console.log(res);
     return res
   })
 
