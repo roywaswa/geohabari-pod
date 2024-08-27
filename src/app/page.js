@@ -2,13 +2,12 @@
 import Image from "next/image";
 import styles from "./page.module.scss";
 import TextInput from "@/components/TextInput/TextInput";
-import { useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDatabase } from "@fortawesome/free-solid-svg-icons";
-
-// export const metadata = {
-//   title: "Geohabari Podcast"
-// }
+import { faArrowLeft, faArrowRight, faDatabase } from "@fortawesome/free-solid-svg-icons";
+import { useTheme } from "@/context/ThemeContext";
+import { getEpisodes } from "./utils";
+import Button from "@/components/Button/Button";
 
 export default function Home() {
   return (
@@ -40,9 +39,11 @@ export default function Home() {
         </div>
       </div>
       <div className={`${styles.section} ${styles.section_topics}`}>
+        <h3>We are all about</h3>
         <TopicsSection />
       </div>
       <div className={`${styles.section} ${styles.section_recent_episodes}`}>
+        <h3>Some of Our Latest</h3>
         <RecentEpisodes/>
       </div>
       <div className={`${styles.section} ${styles.section_about_host}`}>
@@ -58,33 +59,75 @@ export default function Home() {
 
 export  function TopicsSection() {
   return (
-    <>
+    <div className={styles.topics_contianer}>
       <TopicCard topic={"data"}/>
       <TopicCard topic={"academia"}/>
       <TopicCard topic={"career"}/>
       <TopicCard topic={"bunter"}/>
       <TopicCard topic={"bunter"}/>
       <TopicCard topic={"bunter"}/>
-    </>
+    </div>
   )
 }
 
-export function RecentEpisodes() {
+export function RecentEpisodes() { 
+  const [episodes, setEpisodes] = useState([])
+  const [loading, setLoading] = useState(true)
+  
+  useEffect(() => {
+    const fetchEpisodes = async () => {
+      try {
+        const res = await getEpisodes();  
+        setEpisodes(res.slice(0, 1)); 
+        setLoading(false)
+      } catch (error) {
+        console.error("Error fetching episodes:", error);
+      }
+    };
+    fetchEpisodes();
+  }, [])
+
+  
   return (
     <div className={styles.recent_container}>
-      <div className={styles.episode_details}>
-        <h3>Episode Number: ##</h3>
-        <p>Episode title that will probaly be something very long as so</p>
+      <div className={styles.carousel}>
+        <EisodeCarouselCard active={true} />
+        <EisodeCarouselCard active={true} />
+      {/* {
+        loading? <div>LOADING ...</div> :
+        episodes.map(episode => (
+          <Fragment key={episode.id}>
+            <div className={styles.episode_details}>
+              <h3>Episode Number: {episode.episode_number}</h3> 
+              <p>Episode title that will probaly be something very long as so</p>
+            </div>
+            <div className={styles.episode_poster}>
+              <Image className={styles.image} fill
+                alt="Carousel BG" 
+                src='/images/studio_photo.png'
+                />
+            </div>
+          </Fragment>
+        ))
+      } */}
       </div>
-      <div className={styles.episode_poster}>
-        <h3>Episode Poster</h3>
-      </div>
-      <div className={styles.episode_poster}>
-        Navigation Options
+      <div className={styles.navigation}>
+        <FontAwesomeIcon icon={faArrowLeft} size="3x" />
+        <FontAwesomeIcon icon={faArrowRight} size="3x" />
       </div>
     </div>
   )
 }
+
+export  function EisodeCarouselCard(props) {
+  return (
+    <div className={props.active && styles.active_card}>
+      {/* Image background */}
+      active
+    </div>
+  )
+}
+
 
 export  function AboutHost() {
   return (
@@ -93,9 +136,9 @@ export  function AboutHost() {
         <h1>HOST PHOTO</h1>
       </div>
       <div className={styles.host_details}>
-        <h3>About YARIWO</h3>
+        <h2>About YARIWO</h2>
         <p>
-        YARIWO KITIYO, the founder and host of the GEOHABARI Podcast, is passionate about amplifying African tech stories and building technical brilliance. She co-founded Women in GIS Kenya and has been instrumental in creating a platform that fosters communities defined by their technical prowess. Through Geohabari, Yariwo engages with experts, professionals, and enthusiasts in the geospatial field, sharing insights, experiences, and knowledge.
+          YARIWO KITIYO, the founder and host of the GEOHABARI Podcast, is passionate about amplifying African tech stories and building technical brilliance. She co-founded Women in GIS Kenya and has been instrumental in creating a platform that fosters communities defined by their technical prowess. Through Geohabari, Yariwo engages with experts, professionals, and enthusiasts in the geospatial field, sharing insights, experiences, and knowledge.
         </p>
       </div>
     </div>
@@ -106,15 +149,20 @@ export function NewsLetter() {
   const [fName, setFName] = useState('')
   const [lName, setLName] = useState('')
   const [email, setEmail] = useState('')
+
+  function submitForm(e) {
+    e.preventDefault()
+  }
+
   return (
-    <div className={styles.newsletter_conainer}>
+    <div className={styles.newsletter_container}>
       <h1>Stay Ahead of the Masses</h1>
       <div className={styles.signup_section}>
         <div className={styles.signup_prompt}>
           <h2>Sign Up for the Episode Alerts</h2>
           <p>Get notified of all updates  and  episodes  as soon as they are relaeased</p>
         </div>
-        <form>
+        <form onSubmit={submitForm}>
           <TextInput label="First Name"
           name="firstname"
           placeholder="Joe"
@@ -136,6 +184,10 @@ export function NewsLetter() {
           textValue={email}
           type="email"
           />
+          <Button 
+            clickHandler={submitForm} 
+            text="SEND ME THE NEWSLETTER"
+            type="submit"/>
         </form>
       </div>
     </div>
@@ -143,11 +195,12 @@ export function NewsLetter() {
 }
 
 export function TopicCard(props) {
+  const {isDarkMode} = useTheme()
   return (
-    <div className={styles.topic_card}>
+    <div className={`${styles.topic_card} ${isDarkMode && styles.dark}`}>
       <div className={styles.topic_header}>
         <div className={styles.topic_icon}>
-          <FontAwesomeIcon size="2xl" icon={faDatabase} color="#fff" />
+          <FontAwesomeIcon size="2xl" icon={faDatabase} color={'#000'} />
         </div>
         <h3>{props.topic.toUpperCase()}</h3>
       </div>

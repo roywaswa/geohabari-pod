@@ -53,10 +53,6 @@ function Episodes(){
     });
   };
   
-  
-
-
-
   return(
     <div className={styles.episodes} data-testid="episodes">
       <div className={styles.container_page_title}>
