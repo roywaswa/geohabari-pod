@@ -2,14 +2,12 @@
 import React,  { useEffect, useState } from 'react';
 import Image from 'next/image'
 import Link from 'next/link';
-import PropTypes from 'prop-types';
 import styles from './Header.module.scss';
 import { useTheme } from '@/context/ThemeContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faBars, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import useWindowDimensions from '@/hooks/useWindowDimensions';
-import { useRouter } from 'next/router';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 
 
@@ -29,7 +27,7 @@ const Header = () => {
     setMobileNav(!mobileNav) 
   }
   return(
-    <div className={styles.Header} data-testid="Header">
+    <header className={styles.Header} data-testid="Header">
       <div className={styles.logo}>
         {isDarkMode? <Image href="#" src='/images/logo/logo_white.png' width={42} height={42} alt='Geohabari Logo'/>:
         <Image href="#" src='/images/logo/logo_black.png' width={42} height={42} alt='Geohabari Logo'/>}
@@ -76,7 +74,7 @@ const Header = () => {
         </div>
       }
       
-    </div>
+    </header>
   );
 }
 

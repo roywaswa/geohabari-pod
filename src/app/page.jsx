@@ -2,7 +2,7 @@
 import Image from "next/image";
 import styles from "./page.module.scss";
 import TextInput from "@/components/TextInput/TextInput";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight, faDatabase } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "@/context/ThemeContext";
@@ -10,14 +10,15 @@ import { getEpisodes } from "./utils";
 import Button from "@/components/Button/Button";
 
 export default function Home() {
+  const {isDarkMode} = useTheme()
   return (
-    <div className={styles.page}>
+    <main className={`${styles.page} ${ isDarkMode && styles.dark}`}>
       <div className={`${styles.section} ${styles.section_hero}`}>
         <div className={styles.hero_text}>
           <div className={`${styles.image_container} ${styles.logo_container}`}>
             {/* <h1>LOGO</h1> */}
             <Image src={'/images/logo/logo_colored.png'}
-              fill alt="Logo" />
+              fill alt="Logo" placeholder="empty" />
           </div>
           <div className={styles.headline}>
             <p>Amplifying African tech stories and building tech brilliance. This is a podcast for the geospatial community.</p>
@@ -34,6 +35,7 @@ export default function Home() {
         <div className={`${styles.hero_graphic} ${styles.image_container}`}>
           {/* <h1>GRAPHIC</h1> */}
           <Image fill className={styles.image}
+            placeholder="empty"
             src={'/images/phoneasset.png'}
             alt="Side panel of recent episodes"/>
         </div>
@@ -52,7 +54,7 @@ export default function Home() {
       <div className={`${styles.section} ${styles.section_newsletter}`}>
         <NewsLetter />
       </div>
-    </div>
+    </main>
   );
 }
 
@@ -127,7 +129,6 @@ export  function EisodeCarouselCard(props) {
     </div>
   )
 }
-
 
 export  function AboutHost() {
   return (

@@ -1,7 +1,7 @@
 @import '/src/styles/variables';
 
 
-div.episodes {
+main.episodes {
   @include flex_column;
   justify-content: center;
   width: 100%;

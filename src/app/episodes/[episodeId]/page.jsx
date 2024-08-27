@@ -1,5 +1,4 @@
 import React, { Suspense } from 'react';
-import PropTypes from 'prop-types';
 import styles from './episode.module.scss';
 import { getEpisodeById, getEpisodes } from '@/app/utils';
 import Image from 'next/image';
@@ -20,24 +19,27 @@ export  async function generateStaticParams() {
   })
 }
 
-export default function episode({params}) {
-  const episode = getEpisodeById(params.episodeId)
-  const descriptionHtml = {__html: episode.description}
+export default async function EpisodeDetailsPage({params}) {
+  const episode = await getEpisodeById(params.episodeId).then(res => {
+    console.log(res);
+    return res
+  })
+
+  
   return (
-    <div className={styles.episode}>
+    <main className={`${styles.episode}`}>
       <Suspense fallback = {<div>Loading ... </div>}>
         <h1>{episode.title}</h1>
         <AudioPlayer 
           mp3Url={episode.audio_url} 
-          artworkUrl={episode.artwork_url}
+          artworkUrl={episode.artwork_url}  
           title={episode.title}/>
-        {/* <div className={styles.description} dangerouslySetInnerHTML={descriptionHtml} /> */}
+        <div className={styles.description} dangerouslySetInnerHTML={{ __html:episode.description }} />
+        {/* <pre>{JSON.stringify(episode)}</pre> */}
       </Suspense>
-    </div>
+    </main>
   )
 }
-
-episode.propTypes = {};
 
 const AudioPlayer = ({ mp3Url, artworkUrl, title = "Audio Title" }) => {
   return (

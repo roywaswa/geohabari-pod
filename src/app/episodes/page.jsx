@@ -7,6 +7,7 @@ import { getEpisodes } from '@/app/utils'
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleChevronLeft, faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { useTheme } from '@/context/ThemeContext';
 
 // export const metadata = {
 //   title: "Geohabari Podcast | Episodes"
@@ -14,11 +15,12 @@ import { faCircleChevronLeft, faCircleChevronRight } from '@fortawesome/free-sol
 
 const base_url = process.env.NEXT_PUBLIC_API_BASE_URL
 
-function Episodes(){
+export default function Episodes(){
   const [episodes, setEpisodes] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [selectedTags, setSelectedTags] = useState([])
   const [uniqueTags, setUniqueTags] = useState([])
+  const {isDarkMode} = useTheme()
 
 
   function getUniqueTags(objectsArray) {
@@ -54,7 +56,7 @@ function Episodes(){
   };
   
   return(
-    <div className={styles.episodes} data-testid="episodes">
+    <main className={`${styles.episodes} ${ isDarkMode && styles.dark}`} data-testid="episodes">
       <div className={styles.container_page_title}>
         <div className={styles.page_title}>
           <h1>EPISODES</h1>
@@ -92,13 +94,9 @@ function Episodes(){
           </div>
         </Suspense>
       </div>
-    </div>
+    </main>
   )
 }
-
-Episodes.propTypes = {};
-
-export default Episodes;
 
 export function Tag(props) {
   const [tag, setTag] = useState(false)
