@@ -1,0 +1,14 @@
+@import '/src/styles/variables.scss';
+
+.slider_cards_container {
+  position: relative;
+  @include flex_column;
+  width: 100%;
+  overflow: hidden;
+
+  .slider_card {
+    width: 100%;
+    height: 30vh;
+    background: $light;
+  }
+}

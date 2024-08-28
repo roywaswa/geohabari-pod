@@ -1,6 +1,6 @@
 @import '/src/styles/variables';
 
-div.about {
+main.about {
   @include flex_column(2rem);
   justify-content: center;
   align-items: center;

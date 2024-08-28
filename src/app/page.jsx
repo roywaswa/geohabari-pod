@@ -8,16 +8,23 @@ import { faArrowLeft, faArrowRight, faDatabase } from "@fortawesome/free-solid-s
 import { useTheme } from "@/context/ThemeContext";
 import { getEpisodes } from "./utils";
 import Button from "@/components/Button/Button";
-import Carousel from "@/components/Carousel/Carousel";
+// import Carousel from "@/components/Carousel/Carousel";
+import SliderCards from "@/components/SliderCards/SliderCards";
 
-export default async function Home() {
-  const episodes = await getEpisodes().then(res =>{
-    return res.slice(0,5)
-  })
+
+export default function Home() {
+  const [episodes, setEpisodes] = useState([])
+  const [loading, setLoading] = useState(true)
+  useEffect(() => {
+    getEpisodes().then(res =>{
+      setEpisodes(res.slice(0,5))
+      setLoading(false)
+    })
+  }, [])
 
   return (
     <main className={`${styles.page}`}>
-      <div className={`${styles.section} ${styles.section_hero}`}>
+      <div className={`${styles.section_hero}`}>
         <div className={styles.hero_text}>
           <div className={`${styles.image_container} ${styles.logo_container}`}>
             {/* <h1>LOGO</h1> */}
@@ -44,20 +51,23 @@ export default async function Home() {
             alt="Side panel of recent episodes"/>
         </div>
       </div>
-      <div className={`${styles.section} ${styles.section_topics}`}>
+      <div className={`${styles.section_topics}`}>
         <h3>We are all about</h3>
         <TopicsSection />
       </div>
-      <div className={`${styles.section} ${styles.section_recent_episodes}`}>
+      <div className={`${styles.section_recent_episodes}`}>
         <h3>Some of Our Latest</h3>
-        <Suspense fallback={<div> LOADING ... </div>}>
-          <Carousel  episodes={episodes}/>
-        </Suspense>
+        {
+          loading ? <div>Loading ... </div>:
+          <>
+          <SliderCards episodes={episodes} />
+          {/* <Carousel  episodes={episodes}/> */}</>
+        }
       </div>
-      <div className={`${styles.section} ${styles.section_about_host}`}>
+      <div className={`${styles.section_about_host} about`}>
         <AboutHost />
       </div>
-      <div className={`${styles.section} ${styles.section_newsletter}`}>
+      <div className={`${styles.section_newsletter}`}>
         <NewsLetter />
       </div>
     </main>

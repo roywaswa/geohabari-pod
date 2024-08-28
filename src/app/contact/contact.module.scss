@@ -1,6 +1,6 @@
 @import '/src/styles/variables.scss';
 
-.contact {
+main.contact {
   @include flex_row(2rem);
   justify-content: space-around;
   align-items: center;

@@ -8,7 +8,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faBars, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import useWindowDimensions from '@/hooks/useWindowDimensions';
 import { usePathname } from 'next/navigation';
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+    
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
+
+gsap.registerPlugin(useGSAP,ScrollTrigger,ScrollToPlugin);
 
 
 const Header = () => {
@@ -16,7 +23,23 @@ const Header = () => {
   const {width } = useWindowDimensions()
   const [mobileNav, setMobileNav] = useState(false)
   const pathname = usePathname
-  // const searchParams = useSearchParams()
+
+  useGSAP(()=>{
+    const showAnim = gsap.from('.main-tool-bar', { 
+      yPercent: -100,
+      paused: true,
+      duration: 0.2
+    }).progress(1);
+    
+    ScrollTrigger.create({
+      start: "top top",
+      end: "max",
+      onUpdate: (self) => {
+        self.direction === -1 ? showAnim.play() : showAnim.reverse()
+      }
+    });
+    
+  })
 
   useEffect(() => {
     setMobileNav(false)
@@ -27,7 +50,7 @@ const Header = () => {
     setMobileNav(!mobileNav) 
   }
   return(
-    <header className={styles.Header} data-testid="Header">
+    <header className={`${styles.Header} main-tool-bar`} data-testid="Header">
       <div className={styles.logo}>
         {isDarkMode? <Image href="#" src='/images/logo/logo_white.png' width={42} height={42} alt='Geohabari Logo'/>:
         <Image href="#" src='/images/logo/logo_black.png' width={42} height={42} alt='Geohabari Logo'/>}

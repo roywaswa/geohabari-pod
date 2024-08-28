@@ -8,7 +8,7 @@
   width: 100%;
 
   &>div{
-    min-height: 80vh;
+    min-height: 90vh;
   }
   &>div.section_hero {
     @include flex_row;
