@@ -10,66 +10,122 @@
   &>div{
     min-height: 90vh;
   }
-  &>div.section_hero {
-    @include flex_row;
+}
+@mixin side_bar{
+  z-index: 4;
+  grid-column-gap: 1.25rem;
+  grid-row-gap: 1.25rem;
+  flex-direction: column;
+  flex: 0 auto;
+  width: 15vw;
+  max-width: 18rem;
+  height: 100%;
+  display: flex;
+  position: relative;
+}
+
+.over_cast {
+  position: absolute;
+  width: 100vw;
+  height: 1000px;
+  z-index: 9;
+  top: 0;
+  background: rgba(256,256,256, 0.25);
+  backdrop-filter: blur(16px);
+}
+
+section.hero {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  // height: 80vh;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  .spacer{}
+
+  .right_boxes {
+    @include side_bar();
+    align-items: flex-start;
+    margin-left: 2rem;
+    & > :nth-child(even){
+      margin-left: 2rem;
+    }
+    & > :last-child{
+      margin-left: 1rem;
+    }
+  }
+  .left_boxes {
+    @include side_bar();
+    align-items: flex-end;
+    height: 100%;
+    margin-right: 2rem;
+    & > :nth-child(even){
+      margin-right: 2rem;
+    }
+    & > :last-child{
+      margin-right: 1rem;
+    }
+  }
+  .box {
+    background: gray;
+    height: 200px;
+    width: 300px;
+  }
+  .box {
+    z-index: -1;
+    aspect-ratio: 1 / 1;
+    background-image: none;
+    background-size: auto;
+    border-radius: 8px;
+    width: 100%;
+    // height: auto;
+    position: relative;
+    overflow: hidden;
+    .image {
+      object-fit: cover;
+    }
+  }
+  .main_hero {
+    @include flex_column;
+    z-index: 4;
     justify-content: center;
-    height: min-content;
+    align-items: center;
+    width: 70vw;
+    min-width: 200px;
+    height: 100%;
+    padding-bottom: 4rem;
+    display: flex;
+    position: relative;
 
-    .image_container{
-      position: relative;
-
-      .image {
-        object-fit: cover;
-      }
+    h1 {
+      text-align: center
     }
-
-    &>div {
-      position: relative;
-      width: clamp(310px, 45vw, 100%);
+    h4 {
+      // @include Subtitle;
+      text-align:center;
     }
-    &>div.hero_text {
+    .topics_scroller{
       @include flex_column;
-      justify-content: center;
-      align-items: center;
+      gap:2rem;
+      margin-bottom: 3rem;
+      justify-content: flex-start;
+      position: relative;
+      color: green;
 
-      .logo_container {
-        width: clamp(200px, 30vw, 400px);
-        height: clamp(200px, 30vw, 400px);
-      }
+      .underline{
+        width: 50vw;
 
-      .headline {
-        @include Subtitle;
-        width: clamp(240px, 50%, 400px);
-        align-items: center;
-        p{
-          text-align: center;
-        }
-      }
-      .call_to_action {
-        @include flex_column;
-        align-items: center;
-
-        .hosting {
-          @include flex_row;
-          justify-content: center;
-          align-items: center;
-        }
-      }
-    }
-    &>div.hero_graphic {
-      @include flex_column;
-      align-items: flex-end;
-      width: clamp(400px, 50vw, 800px);
-      height: clamp(400px, 60vh, 800px);
-
-
-
-      .image {
-        object-fit: contain;
+        position: absolute;
+        top: 3em;
+        z-index: -1;
       }
     }
   }
 }
+
 
 .section_topics{
   @include flex_column;

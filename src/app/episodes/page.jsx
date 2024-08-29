@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleChevronLeft, faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from '@/context/ThemeContext';
+import useEpisodes from '@/hooks/useEpisodes';
 
 // export const metadata = {
 //   title: "Geohabari Podcast | Episodes"
@@ -16,8 +17,7 @@ import { useTheme } from '@/context/ThemeContext';
 const base_url = process.env.NEXT_PUBLIC_API_BASE_URL
 
 export default function Episodes(){
-  const [episodes, setEpisodes] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+  const {episodes, loading } = useEpisodes()
   const [selectedTags, setSelectedTags] = useState([])
   const [uniqueTags, setUniqueTags] = useState([])
   const {isDarkMode} = useTheme()
@@ -30,15 +30,11 @@ export default function Episodes(){
     const uniqueTags = [...new Set(allTags)];
     return uniqueTags;
   }
-  
   useEffect(() => {
-    getEpisodes().then(res =>{
-      let untags = getUniqueTags(res)      
-      setEpisodes(res);
-      setIsLoading(false);
-      setUniqueTags(untags)      
-    })
-  },[]);
+    const utags = getUniqueTags(episodes)
+    setUniqueTags(utags)
+  }, [episodes])
+  
 
 
   const checkAndRemoveOrAddValue = (value) => {
@@ -75,7 +71,7 @@ export default function Episodes(){
         }
       </div> 
       <div className={styles.episodes_list}>
-        {isLoading? <div>LOADING ... </div> : null}
+        {loading? <div>LOADING ... </div> : null}
         <Suspense fallback={<div>LOADING ... </div>}>
           {episodes.filter(ep => {
             const epTags = ep.tags.split(',').map(tag => tag.trim())

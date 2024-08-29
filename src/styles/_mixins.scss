@@ -31,3 +31,7 @@
   line-height: 1.2;
   letter-spacing: 0.03em;
 }
+
+@mixin big_title {
+  font-size: 3.8em;
+}

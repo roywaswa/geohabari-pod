@@ -22,7 +22,7 @@ const Header = () => {
   const {isDarkMode, toggleTheme} = useTheme()
   const {width } = useWindowDimensions()
   const [mobileNav, setMobileNav] = useState(false)
-  const pathname = usePathname
+  const pathname = usePathname()
 
   useGSAP(()=>{
     const showAnim = gsap.from('.main-tool-bar', { 
@@ -64,12 +64,12 @@ const Header = () => {
             <Link href="/contact" className={styles.link_item}>CONTACT</Link>
             <Link href="/episodes" className={styles.link_item}>EPISODES</Link>
           </div>
-          <div className={styles.theme_switch} onClick={toggleTheme}>
+          {/* <div className={styles.theme_switch} onClick={toggleTheme}>
             {isDarkMode? 
             <FontAwesomeIcon icon={faSun} size='xl' style={{color: "#ffffff",}} /> :
             <FontAwesomeIcon icon={faMoon} size='xl' style={{color: "#000000",}} />
             }
-          </div>
+          </div> */}
         </div> :
         <div className={styles.ham_icon} onClick={toggleMobileNav}>
           {
@@ -82,12 +82,12 @@ const Header = () => {
       {
         mobileNav && 
         <div className={`${styles.mobile_nav} ${isDarkMode && styles.dark}`}>
-          <div className={styles.theme_switch} onClick={toggleTheme}>
+          {/* <div className={styles.theme_switch} onClick={toggleTheme}>
             {isDarkMode? 
             <FontAwesomeIcon icon={faSun} size='xl' style={{color: "#ffffff",}} /> :
             <FontAwesomeIcon icon={faMoon} size='xl' style={{color: "#000000",}} />
             }
-          </div>
+          </div> */}
           <div className={styles.nav_links}>
             <Link href="/" className={styles.link_item}>HOME</Link>
             <Link href="/about" className={styles.link_item}>ABOUT US</Link>

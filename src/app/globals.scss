@@ -9,15 +9,15 @@ body{
   transition: all 600ms ease-in;
   &>main{
     min-height: 50vh;
+    padding-top: 15vh;
+    max-width: 1440px;
+    @include flex_column;
+    align-items: center;
   }
 }
 
 header {
   width: 100%;
-}
-
-main {
-  padding-top: 18vh;
 }
 
 /* Base Styles */

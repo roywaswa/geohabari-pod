@@ -1,56 +1,23 @@
 "use client"
-import Image from "next/image";
 import styles from "./page.module.scss";
 import TextInput from "@/components/TextInput/TextInput";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight, faDatabase } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "@/context/ThemeContext";
 import { getEpisodes } from "./utils";
 import Button from "@/components/Button/Button";
-// import Carousel from "@/components/Carousel/Carousel";
 import SliderCards from "@/components/SliderCards/SliderCards";
+import { HeroSection } from "./pageComponents";
+import useEpisodes from "@/hooks/useEpisodes";
 
 
 export default function Home() {
-  const [episodes, setEpisodes] = useState([])
-  const [loading, setLoading] = useState(true)
-  useEffect(() => {
-    getEpisodes().then(res =>{
-      setEpisodes(res.slice(0,5))
-      setLoading(false)
-    })
-  }, [])
+  const {episodes, loading} = useEpisodes()
 
   return (
     <main className={`${styles.page}`}>
-      <div className={`${styles.section_hero}`}>
-        <div className={styles.hero_text}>
-          <div className={`${styles.image_container} ${styles.logo_container}`}>
-            {/* <h1>LOGO</h1> */}
-            <Image src={'/images/logo/logo_colored.png'}
-              fill alt="Logo" placeholder="empty" />
-          </div>
-          <div className={styles.headline}>
-            <p>Amplifying African tech stories and building tech brilliance. This is a podcast for the geospatial community.</p>
-          </div>
-          <div className={styles.call_to_action}>
-            <h4>Listen on:</h4>
-            <div className={styles.hosting}>
-              <div>one</div>
-              <div>one</div>
-              <div>one</div>
-            </div>
-          </div>
-        </div>
-        <div className={`${styles.hero_graphic} ${styles.image_container}`}>
-          {/* <h1>GRAPHIC</h1> */}
-          <Image fill className={styles.image}
-            placeholder="empty"
-            src={'/images/phoneasset.png'}
-            alt="Side panel of recent episodes"/>
-        </div>
-      </div>
+      <HeroSection />
       <div className={`${styles.section_topics}`}>
         <h3>We are all about</h3>
         <TopicsSection />
@@ -60,7 +27,7 @@ export default function Home() {
         {
           loading ? <div>Loading ... </div>:
           <>
-          <SliderCards episodes={episodes} />
+          <SliderCards episodes={episodes.slice(0,5)} />
           {/* <Carousel  episodes={episodes}/> */}</>
         }
       </div>

@@ -10,7 +10,6 @@ export  async function generateStaticParams() {
     return res.map(ep => String(ep.id))
   }).catch(err => {
     console.log("Fetching Error",err);
-    
   })
   return episodeIds.map(episodeId => {
     return {
@@ -20,6 +19,7 @@ export  async function generateStaticParams() {
 }
 
 export default async function EpisodeDetailsPage({params}) {
+
   const episode = await getEpisodeById(params.episodeId).then(res => {
     return res
   })
@@ -34,7 +34,6 @@ export default async function EpisodeDetailsPage({params}) {
           artworkUrl={episode.artwork_url}  
           title={episode.title}/>
         <div className={styles.description} dangerouslySetInnerHTML={{ __html:episode.description }} />
-        {/* <pre>{JSON.stringify(episode)}</pre> */}
       </Suspense>
     </main>
   )
