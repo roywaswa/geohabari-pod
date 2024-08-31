@@ -1,20 +1,19 @@
 "use client"
 import React, {useState, useEffect, Suspense} from 'react';
-import PropTypes from 'prop-types';
 import styles from './episodes.module.scss';
 import EpisodeCard from '@/components/EpisodeCard/EpisodeCard';
-import { getEpisodes } from '@/app/utils'
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleChevronLeft, faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from '@/context/ThemeContext';
 import useEpisodes from '@/hooks/useEpisodes';
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+    
+import { Flip } from "gsap/Flip";
 
-// export const metadata = {
-//   title: "Geohabari Podcast | Episodes"
-// }
 
-const base_url = process.env.NEXT_PUBLIC_API_BASE_URL
+gsap.registerPlugin(useGSAP,Flip);
 
 export default function Episodes(){
   const {episodes, loading } = useEpisodes()
@@ -30,12 +29,14 @@ export default function Episodes(){
     const uniqueTags = [...new Set(allTags)];
     return uniqueTags;
   }
+  function checkMatchingTags(selected, epTags){
+    const selectedSet = new Set(selected)
+    return 
+  }
   useEffect(() => {
     const utags = getUniqueTags(episodes)
     setUniqueTags(utags)
   }, [episodes])
-  
-
 
   const checkAndRemoveOrAddValue = (value) => {
     setSelectedTags((prevArr) => {
@@ -50,6 +51,17 @@ export default function Episodes(){
         }
     });
   };
+
+  useGSAP(() => {
+    const list_state = Flip.getState("#episodes_list")
+
+    Flip.from(list_state,{ 
+      absolute:true,
+      duration: 0.5, 
+      stagger: 0.1,
+      ease: "power1.inOut"
+    })
+  })
   
   return(
     <main className={`${styles.episodes} ${ isDarkMode && styles.dark}`} data-testid="episodes">
@@ -70,14 +82,30 @@ export default function Episodes(){
           )
         }
       </div> 
-      <div className={styles.episodes_list}>
+      <div id="episodes_list" className={styles.episodes_list}>
         {loading? <div>LOADING ... </div> : null}
         <Suspense fallback={<div>LOADING ... </div>}>
+        {/* {
+          episodes.map(episode => {
+            let rejected = false
+            let tags = episode.tags.split(',').map(tag => tag.trim())
+            if(tags.filter(item => selectedTags.includes(item)).length > 0){
+              rejected = false
+            } else {
+              rejected = true
+            }
+            return(
+            <div key={episode.id}  className={`${styles.card_container} ${rejected? styles.selected :''} ${!rejected? styles.rejected :''}`}>
+              <Link href={`/episodes/${episode.id}`}>
+                <EpisodeCard episode={episode}/>
+              </Link>
+            </div>
+          )})
+        } */}
           {episodes.filter(ep => {
             const epTags = ep.tags.split(',').map(tag => tag.trim())
             return selectedTags.every(tag => epTags.includes(tag))
           }).map((episode) => 
-            // TODO: Create a filter for the tags here
             <div key={episode.id}  className={styles.card_container}>
               <Link href={`/episodes/${episode.id}`}>
                 <EpisodeCard episode={episode}/>

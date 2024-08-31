@@ -6,35 +6,41 @@
   @include flex_row;
   justify-content: space-between;
   position: fixed;
+  color: $rich-black;
   top: 0;
-  background: rgba(256,256,256, 0.25);
-  backdrop-filter: blur(16px);
   z-index: 10;
+
+  &.dark{
+    color: $white;
+  }
 
   .logo {
     cursor: pointer;
   }
   .navigation {
-    @include flex_column;
-    align-items: flex-end;
+    @include flex_row;
+    align-items: center;
+    justify-content: space-between;
+    width: 60vw;
+    .link_item{
+      color: inherit;
+      text-decoration: none;
+    }
+
 
     .nav_links {
-      @include flex_row;
-
-      .link_item{
-        color: inherit;
-        text-decoration: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 50%;
+      
+    }
+    .episode_link {
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
+        background: $brand-colors-green;
       }
-    }
-    .theme_switch {
-      width: 36px;
-      height: 36px;
-      padding: 4px;
-      border: 2px solid inherit;
-      border-radius: 100px;
-      cursor: pointer;
-      transition: all 300ms ease-in-out;
-    }
   }
   .mobile_nav {
     position: absolute;

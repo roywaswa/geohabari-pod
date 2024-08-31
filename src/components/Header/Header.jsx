@@ -50,7 +50,7 @@ const Header = () => {
     setMobileNav(!mobileNav) 
   }
   return(
-    <header className={`${styles.Header} main-tool-bar`} data-testid="Header">
+    <header className={`${styles.Header} main-tool-bar ${isDarkMode && styles.dark}`} data-testid="Header">
       <div className={styles.logo}>
         {isDarkMode? <Image href="#" src='/images/logo/logo_white.png' width={42} height={42} alt='Geohabari Logo'/>:
         <Image href="#" src='/images/logo/logo_black.png' width={42} height={42} alt='Geohabari Logo'/>}
@@ -62,14 +62,11 @@ const Header = () => {
             <Link href="/" className={styles.link_item}>HOME</Link>
             <Link href="/about" className={styles.link_item}>ABOUT US</Link>
             <Link href="/contact" className={styles.link_item}>CONTACT</Link>
+          </div>
+          <div className={styles.episode_link}>
             <Link href="/episodes" className={styles.link_item}>EPISODES</Link>
           </div>
-          {/* <div className={styles.theme_switch} onClick={toggleTheme}>
-            {isDarkMode? 
-            <FontAwesomeIcon icon={faSun} size='xl' style={{color: "#ffffff",}} /> :
-            <FontAwesomeIcon icon={faMoon} size='xl' style={{color: "#000000",}} />
-            }
-          </div> */}
+            
         </div> :
         <div className={styles.ham_icon} onClick={toggleMobileNav}>
           {
@@ -82,17 +79,11 @@ const Header = () => {
       {
         mobileNav && 
         <div className={`${styles.mobile_nav} ${isDarkMode && styles.dark}`}>
-          {/* <div className={styles.theme_switch} onClick={toggleTheme}>
-            {isDarkMode? 
-            <FontAwesomeIcon icon={faSun} size='xl' style={{color: "#ffffff",}} /> :
-            <FontAwesomeIcon icon={faMoon} size='xl' style={{color: "#000000",}} />
-            }
-          </div> */}
           <div className={styles.nav_links}>
             <Link href="/" className={styles.link_item}>HOME</Link>
             <Link href="/about" className={styles.link_item}>ABOUT US</Link>
             <Link href="/contact" className={styles.link_item}>CONTACT</Link>
-            <Link href="/episodes" className={styles.link_item}>EPISODES</Link>
+            <Link href="/episodes" className={styles.link_item_episode}>EPISODES</Link>
           </div>
         </div>
       }

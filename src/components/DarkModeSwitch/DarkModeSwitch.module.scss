@@ -1,0 +1,12 @@
+.dark_mode_switch {
+  position: fixed;
+  bottom:4rem;
+  right: 4rem;
+  padding: 1rem;
+  cursor: pointer;
+  z-index: 1000;
+  // height: 2vh;
+  // width: 4vh;
+  background: black;
+  color: white;
+}

@@ -1,3 +1,4 @@
+"use client"
 import { getEpisodes } from '@/app/utils';
 import { useState, useEffect } from 'react';
 

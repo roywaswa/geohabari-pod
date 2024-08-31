@@ -4,8 +4,9 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.scss";
 import Header from "@/components/Header/Header"
 import Footer from "@/components/Footer/Footer";
-import { ThemeProvider, useTheme } from "@/context/ThemeContext";
-import ThemedLayout from "@/components/ThemedLayout/ThemedLayout";
+import { ThemeProvider } from "@/context/ThemeContext";
+import BackdropBlur from "@/components/BackdropBlur/BackdropBlur";
+import DarkModeSwitch from "@/components/DarkModeSwitch/DarkModeSwitch";
 
 const alata = Alata({ 
   weight: '400',
@@ -23,14 +24,21 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <ThemeProvider><ThemedLayout>
+      
           <Analytics/>
           <SpeedInsights/>
-          <Header/>
-            {children}
-          <Footer/>
-        </ThemedLayout>
-        </ThemeProvider>
+          
+          <body className={`${alata.className}`}>
+            <ThemeProvider>
+              <Header/>
+              
+              <DarkModeSwitch />
+              {children}
+              <BackdropBlur />
+              <Footer/>
+            </ThemeProvider>
+          </body>
+          
     </html>
   );
 }

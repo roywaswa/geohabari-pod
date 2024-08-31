@@ -45,6 +45,14 @@ main.episodes {
     gap: px_to_rem(48);
     width: 100%;
     .card_container{
+
+      &.rejected{
+        display: flex;
+      }
+      &.selected {
+        display: flex;
+        // scale: 2;
+      }
       align-items: center;
       *{
         text-decoration: none;
