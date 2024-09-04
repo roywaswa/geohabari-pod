@@ -2,29 +2,46 @@
 
 .EpisodeCard {
   @include flex_row;
-  width: 90vw;
-  justify-content: space-between;
-  align-items: center;
-
+  text-decoration: none;
+  position: relative;
+  color: inherit;
+  gap:0.25;
+  width: 100%;
+  justify-content: space-evenly;
+  border-bottom: 2px solid green;
+  
+  .episode_number {
+    @include flex_column;
+    justify-content: space-between;
+    align-items: center;
+    width: 10%;
+  }
+  .episode_title {
+    width: 75%;
+  }
+  .icon {
+    width: 10%;
+  }
   .artwork_container {
-    position: relative;
+    position: absolute;
+    top: -70%;
+    right: 15%;
     overflow: hidden;
-    width: 40vw;
-    height: auto;
     min-width: 300px;
-    min-height: 300px;
+    min-height: 320px;
     max-width: 45vw;
-    border-radius: px_to_rem(16);
-
+    opacity: 0;
+    transition: all 300ms ease-in-out;
+    z-index: 50;
     &>.image{
-      object-fit: cover;
+      object-fit: contain;
+    }
+    
+  }
+  &:hover{
+    .artwork_container{
+      opacity: 1;
     }
   }
-  .description_container {
-    @include flex_column;
-    align-items: flex-start;
-    width: 45vw;
-    min-width: 300px;
-    padding: 1.5rem;
-  }
 }
+

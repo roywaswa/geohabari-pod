@@ -3,11 +3,11 @@
 
 
 body{
+  // @include flex_column;
   min-height: 100vh;
-  // position: relative;
   overflow-y: scroll;
   overflow-x: hidden;
-  transition: all 600ms ease-in;
+  // transition: all 600ms ease-in;
   &>main{
     min-height: 50vh;
     padding-top: 15vh;
@@ -16,9 +16,36 @@ body{
     align-items: center;
   }
 }
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom scrollbar for WebKit browsers */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 
 header {
   width: 100%;
+}
+
+.dark {
+  color:$white
 }
 
 /* Base Styles */

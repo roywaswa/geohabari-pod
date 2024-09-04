@@ -12,8 +12,9 @@ import { faArrowLeft, faArrowRight, faDatabase } from "@fortawesome/free-solid-s
 import { useTheme } from "@/context/ThemeContext";
 import { getEpisodes } from "./utils";
 import Button from "@/components/Button/Button";
-import SliderCards from '@/components/SliderCards/SliderCards';
 import useEpisodes from '@/hooks/useEpisodes';
+import EpisodeCard from '@/components/EpisodeCard/EpisodeCard';
+import Link from 'next/link';
 
 
 gsap.registerPlugin(useGSAP,ScrollTrigger, TextPlugin);
@@ -22,13 +23,14 @@ gsap.registerPlugin(useGSAP,ScrollTrigger, TextPlugin);
 export function HeroSection() {
   const artwork = "https://storage.buzzsprout.com/32ojhq8cef0rvhf4262bjty0szin"
   const [progress, setProgress] = useState()
+  const { isDarkMode } = useTheme()
   const topics = [
-    "DATA", "TECH", "GEOSPATIAL"
+    "DATA", "TECH", "GEOSPATIAL", "EARTH OBSERVATION"
   ]
   
   useGSAP(() => {
-    let photos = gsap.utils.toArray(".image_card")
     let intro_tl = gsap.timeline()
+    
     const text_tl = gsap.timeline({
       delay:2,
       repeat:-1, 
@@ -58,20 +60,15 @@ export function HeroSection() {
       ease:'power1.out'
     })
   })
-  const SideImage = () => (
-      <div className={`${styles.box} image_card`}>
-        <Image className={styles.image} src={artwork} fill alt="graphic" />
-      </div>
-  )
   
   return (
     <>
-    <section id="hero" className={styles.hero}>
+    <section id="hero" className={`${styles.hero} ${isDarkMode && 'dark'}`}>
       <>
       <div className={styles.left_boxes}>
-        <SideImage />
-        <SideImage />
-        <SideImage />
+        <div id="image_01"></div>
+        <div id="image_02"></div>
+        <div id="image_03"></div>
       </div>
       <div id="main_block" className={styles.main_hero}>
         <h1 id="title">Your one stop Podcast for Everything</h1>
@@ -80,12 +77,12 @@ export function HeroSection() {
           <DrawSVG progress={progress} />
         </div>
         <h4>Amplifying African tech stories and building tech brilliance. This is a podcast for the geospatial community.</h4>
-        <Button >LISTEN NOW</Button>
+        <Button clickHandler={()=>{}} text='TAP IN' />
       </div>
       <div className={styles.right_boxes}>
-        <SideImage />
-        <SideImage />
-        <SideImage />
+        <div id="image_04"></div>
+        <div id="image_05"></div>
+        <div id="image_06"></div>
       </div>
       </>
       
@@ -94,7 +91,6 @@ export function HeroSection() {
     </>
   )
 }
-
 
 const DrawSVG = ({ progress }) => {
   const svgRef = useRef(null);
@@ -133,26 +129,59 @@ const DrawSVG = ({ progress }) => {
   );
 };
 
-export function LatestEpisodes() {
-  const {episodes, loading} = useEpisodes()
-  return (
-    <div className={`${styles.section_recent_episodes}`}>
-        <h3>Some of Our Latest</h3>
-        {
-          loading ? <div>Loading ... </div>:
-          <>
-          <SliderCards episodes={episodes.slice(0,5)} />
-          {/* <Carousel  episodes={episodes}/> */}</>
-        }
-      </div>
-  )
-}
+
 
 export  function TopicsSection() {
+  const { isDarkMode } = useTheme()
+  useGSAP(() => {
+    const topics = gsap.utils.toArray(".topic_card")
+    ScrollTrigger.create({
+      trigger: "#side_panel",
+      start:"top 10%",
+      endTrigger:"#topics_cards",
+      end:"bottom 90%",
+      pin: true,
+      pinSpacing: false,
+      // markers:true
+    })
+    for (let i = 0; i < topics.length; i++) {
+      let offset_value = 100
+      let y_off = 20 * i
+      if( i==0){
+        console.log("first", i);
+        offset_value = offset_value*0
+      } else if (i%2 == 0){
+        console.log("even", i);
+        offset_value = offset_value *-1
+      } else {
+        
+      }
+      const topic = topics[i];
+      gsap.to(topic, {
+        scrollTrigger:{
+          trigger: topic,
+          start: "top 10%",
+          endTrigger: "#topics_cards",
+          end:"bottom 90%",
+          pin: true,
+          scrub: true,
+          // markers: true,
+          snap: 1/(topics.length-1)
+        },
+        y: y_off,
+        x: offset_value,
+        // ease: 'power1.in'
+      })
+    }
+  })
   return (
-    <div className={`${styles.section_topics}`}>
-      <h3>We are all about</h3>
-      <div className={styles.topics_contianer}>
+    <div className={`${styles.section_topics} ${isDarkMode && 'dark'}`}>
+      <div id="side_panel" className={styles.topics_description}>
+        <h6>We are all about</h6>
+        <h1>Where African tech tales meet geospatial brilliance!</h1>
+        <p>Geohabari delves into the fascinating intersection of African technology and geospatial innovation, sharing stories and insights that highlight the transformative power of mapping and location-based tech across the continent.</p>
+      </div>
+      <div id="topics_cards" className={styles.topics_contianer}>
         <TopicCard topic={"data"}/>
         <TopicCard topic={"academia"}/>
         <TopicCard topic={"career"}/>
@@ -164,43 +193,60 @@ export  function TopicsSection() {
   )
 }
 
-export function RecentEpisodes() { 
-  const [episodes, setEpisodes] = useState([])
-  const [loading, setLoading] = useState(true)
-  
-  useEffect(() => {
-    const fetchEpisodes = async () => {
-      try {
-        const res = await getEpisodes();  
-        setEpisodes(res.slice(0, 1)); 
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching episodes:", error);
-      }
-    };
-    fetchEpisodes();
-  }, [])
-
-  
+export function TopicCard(props) {
+  const {isDarkMode} = useTheme()
   return (
-    <div className={styles.recent_container}>
-      
-      <div className={styles.navigation}>
-        <FontAwesomeIcon icon={faArrowLeft} size="xl" />
-        <FontAwesomeIcon icon={faArrowRight} size="xl" />
+    <div className={`${styles.topic_card} ${isDarkMode && styles.dark} topic_card`}>
+      <div className={styles.topic_header}>
+        <div className={styles.topic_icon}>
+          <FontAwesomeIcon size="2xl" icon={faDatabase} color={'#000'} />
+        </div>
+        <h3>{props.topic.toUpperCase()}</h3>
+      </div>
+      <div className={styles.topic_details}>
+        <h5>Topic Subtitle that will be brief intro into the topic</h5>
+        <p className={styles.hide}>Topic Explanation that will probaly be longer than this that I am typing right now. It will also have a section with episodes that are of that topic listed in the area beneath it.</p>
       </div>
     </div>
   )
 }
 
-export  function EisodeCarouselCard(props) {
+export function LatestEpisodes() {
+  const {episodes, loading} = useEpisodes()
+  const { isDarkMode } = useTheme()
+  const slider_container = useRef()
+  useGSAP(() => {
+    const cards = gsap.utils.toArray(".card")
+    cards.forEach(card => {
+      gsap.from(card, {
+        scrollTrigger:{
+          trigger: card,
+          start: "top bottom",
+          end: "top 80%",
+          scrub: true
+        },
+        x:100,
+      })
+    })
+  },{scope:slider_container})
   return (
-    <div className={styles.carousel_card}>
-      {/* Image background */}
-      active
-    </div>
+    <div className={`${styles.section_recent_episodes} ${isDarkMode && 'dark'}`}>
+        <h1>Some of Our Latest</h1>
+        <div ref={slider_container} className={styles.episodes_container}>
+        {
+          loading ? <div>Loading ... </div>:
+          episodes.slice(0,5).map(episode => 
+          <EpisodeCard episode={episode} key={episode.id} />
+          )
+        }
+        </div>
+        <div className={styles.see_more_link}>
+          <Link href={"/episodes"} >SEE MORE</Link>
+        </div>
+      </div>
   )
 }
+
 
 export  function AboutHost() {
   return (
@@ -271,20 +317,4 @@ export function NewsLetter() {
   )
 }
 
-export function TopicCard(props) {
-  const {isDarkMode} = useTheme()
-  return (
-    <div className={`${styles.topic_card} ${isDarkMode && styles.dark}`}>
-      <div className={styles.topic_header}>
-        <div className={styles.topic_icon}>
-          <FontAwesomeIcon size="2xl" icon={faDatabase} color={'#000'} />
-        </div>
-        <h3>{props.topic.toUpperCase()}</h3>
-      </div>
-      <div className={styles.topic_details}>
-        <h5>Topic Subtitle that will be brief intro into the topic</h5>
-        <p className={styles.hide}>Topic Explanation that will probaly be longer than this that I am typing right now. It will also have a section with episodes that are of that topic listed in the area beneath it.</p>
-      </div>
-    </div>
-  )
-}
+

@@ -128,30 +128,42 @@ section.hero {
 
 
 .section_topics{
-  @include flex_column;
-  background-color: $rich-black;
-  color: $light;
+  @include flex_row;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  margin-bottom: 5rem;
+  .topics_description {
+    @include flex_column;
+    gap: 2rem;
+    width: clamp(350px, 45%, 720px);
+    p {
+      @include Subtitle;
+    }
+  }
 }
 
 div.topics_contianer {
-  min-height: 100vh;
   padding:1rem 0 ;
   width: 100%;
+  margin-bottom: 2rem;
   
   @include flex_row;
   align-items: center;
-  justify-content: center;  
+  justify-content: center;
+  width: clamp(350px, 45%, 720px);
+
 
   .topic_card {
     width: clamp(300px, 28vw, 720px);
-    height: clamp(300px, 28vh, 720px);
+    height: 75vh;
     padding: 0.75rem;
+    margin-bottom: 5rem;
     background: $white;
     color: $rich-black;
     @include flex_column;
     justify-content: center;
     align-items: flex-start;
-    border-radius: 16px;
+    border-radius: 0 16px 0  0;
     box-shadow: 8px 8px 16px -3px rgba(255, 221, 148, 0.28);
 
     &.dark {
@@ -181,9 +193,18 @@ div.section_recent_episodes {
   align-items: center;
   justify-content: center;
   width: 90%;
-  // height: 80vh;
-
+  h1 {
+    margin: 4rem 0;
+  }
+  .episodes_container{
+    @include flex_column;
+    gap: 2rem;
+  }
+  .see_more_link{
+    margin: 4rem 0;
+  }
 }
+
 
 div.section_about_host {
   @include flex_column;
