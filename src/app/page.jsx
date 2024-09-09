@@ -7,11 +7,9 @@ export default function Home() {
   return (
     <main className={`${styles.page}`}>
       <HeroSection />
-      {/* <DataBase /> */}
       <TopicsSection />
       <LatestEpisodes />
-      <AboutHost />
-      {/* <NewsLetter /> */}
+      <NewsLetter />
     </main>
   );
 }

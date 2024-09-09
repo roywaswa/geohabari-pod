@@ -15,6 +15,7 @@ import Button from "@/components/Button/Button";
 import useEpisodes from '@/hooks/useEpisodes';
 import EpisodeCard from '@/components/EpisodeCard/EpisodeCard';
 import Link from 'next/link';
+// import random from 'm'
 
 
 gsap.registerPlugin(useGSAP,ScrollTrigger, TextPlugin);
@@ -77,7 +78,7 @@ export function HeroSection() {
           <DrawSVG progress={progress} />
         </div>
         <h4>Amplifying African tech stories and building tech brilliance. This is a podcast for the geospatial community.</h4>
-        <Button clickHandler={()=>{}} text='TAP IN' />
+        <Button clickHandler={()=>{}} text='LISTEN NOW' />
       </div>
       <div className={styles.right_boxes}>
         <div id="image_04"></div>
@@ -146,15 +147,16 @@ export  function TopicsSection() {
     })
     for (let i = 0; i < topics.length; i++) {
       let offset_value = 100
-      let y_off = 20 * i
+      let y_off = 20
       if( i==0){
         console.log("first", i);
         offset_value = offset_value*0
       } else if (i%2 == 0){
-        console.log("even", i);
-        offset_value = offset_value *-1
+        y_off = y_off *i
+        offset_value = offset_value *-1 * Math.log10(i)
       } else {
-        
+        y_off = y_off *i
+        offset_value = offset_value *1 * Math.log10(i)
       }
       const topic = topics[i];
       gsap.to(topic, {
@@ -182,30 +184,95 @@ export  function TopicsSection() {
         <p>Geohabari delves into the fascinating intersection of African technology and geospatial innovation, sharing stories and insights that highlight the transformative power of mapping and location-based tech across the continent.</p>
       </div>
       <div id="topics_cards" className={styles.topics_contianer}>
-        <TopicCard topic={"data"}/>
-        <TopicCard topic={"academia"}/>
-        <TopicCard topic={"career"}/>
-        <TopicCard topic={"bunter"}/>
-        <TopicCard topic={"bunter"}/>
-        <TopicCard topic={"bunter"}/>
+        <TopicCard 
+        topic={"data"} 
+        subtitle={"A GOOD SUBTITLE TO FIT"}
+        description={"The in depth explanation of the said topic that is being described and how it relates to the podcast."}
+        />
+        <TopicCard 
+        topic={"data"} 
+        subtitle={"A GOOD SUBTITLE TO FIT"}
+        description={"The in depth explanation of the said topic that is being described and how it relates to the podcast."}
+        />
+        <TopicCard 
+        topic={"academia"} 
+        subtitle={"A GOOD SUBTITLE TO FIT"}
+        description={"The in depth explanation of the said topic that is being described and how it relates to the podcast."}
+        />
+        <TopicCard 
+        topic={"career"} 
+        subtitle={"A GOOD SUBTITLE TO FIT"}
+        description={"The in depth explanation of the said topic that is being described and how it relates to the podcast."}
+        />
+        <TopicCard 
+        topic={"bunter"} 
+        subtitle={"A GOOD SUBTITLE TO FIT"}
+        description={"The in depth explanation of the said topic that is being described and how it relates to the podcast."}
+        />
       </div>
     </div>
   )
 }
 
+function generateContrastingColor(theme) {
+  // Utility function to generate a random color
+  function randomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  // Calculate the luminance of a color
+  function luminance(color) {
+    const rgb = parseInt(color.slice(1), 16); // Remove "#" and parse hex
+    const r = (rgb >> 16) & 0xff;
+    const g = (rgb >> 8) & 0xff;
+    const b = rgb & 0xff;
+
+    // Convert to sRGB
+    const srgb = [r, g, b].map((v) => {
+      v /= 255;
+      return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+
+    // Return luminance
+    return 0.2126 * srgb[0] + 0.7152 * srgb[1] + 0.0722 * srgb[2];
+  }
+
+  // Generate random color and ensure it contrasts well with theme
+  let color;
+  do {
+    color = randomColor();
+  } while (
+    (theme === 'dark' && luminance(color) < 0.5) ||
+    (theme === 'light' && luminance(color) > 0.5)
+  );
+
+  return color;
+}
+
 export function TopicCard(props) {
   const {isDarkMode} = useTheme()
+  const letters = props.topic.toUpperCase().split('')
+  const color = generateContrastingColor(isDarkMode?'light':'dark')
   return (
-    <div className={`${styles.topic_card} ${isDarkMode && styles.dark} topic_card`}>
-      <div className={styles.topic_header}>
+    <div className={`${styles.topic_card} ${isDarkMode && styles.dark} topic_card`}
+      style={{background:color}}
+      >
+      <div className={styles.topic_desc}>
         <div className={styles.topic_icon}>
           <FontAwesomeIcon size="2xl" icon={faDatabase} color={'#000'} />
         </div>
-        <h3>{props.topic.toUpperCase()}</h3>
+        <h4>{props.subtitle}</h4>
+        <p>{props.description}</p>
       </div>
-      <div className={styles.topic_details}>
-        <h5>Topic Subtitle that will be brief intro into the topic</h5>
-        <p className={styles.hide}>Topic Explanation that will probaly be longer than this that I am typing right now. It will also have a section with episodes that are of that topic listed in the area beneath it.</p>
+      <div className={styles.topic_title}>
+        {
+          letters.map(letter => <h3 key={Math.random()}>{letter}</h3>)
+        }
       </div>
     </div>
   )
