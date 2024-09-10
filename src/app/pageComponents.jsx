@@ -93,6 +93,7 @@ export function HeroSection() {
   )
 }
 
+
 const DrawSVG = ({ progress }) => {
   const svgRef = useRef(null);
   const [vivusInstance, setVivusInstance] = useState(null);
@@ -153,10 +154,10 @@ export  function TopicsSection() {
         offset_value = offset_value*0
       } else if (i%2 == 0){
         y_off = y_off *i
-        offset_value = offset_value *-1 * Math.log10(i)
+        offset_value = offset_value *-1 * Math.sqrt(i)
       } else {
         y_off = y_off *i
-        offset_value = offset_value *1 * Math.log10(i)
+        offset_value = offset_value *1 * Math.sqrt(i)
       }
       const topic = topics[i];
       gsap.to(topic, {

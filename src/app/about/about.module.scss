@@ -24,8 +24,11 @@ main.about {
   &>div.details{
     @include flex_row;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 
+    .pod_description{
+      margin-bottom: 2rem;
+    }
     &>div.text{
       @include flex_column;
       min-width: 300px;
@@ -50,13 +53,15 @@ main.about {
       }
     }
   }
-  // &>div.about_podcast{
-  //   &>div.pod_description{}
-  //   &>div.pod_image{}
-  // }
-  // &>div.about_host{
+}
 
-  //   &>div.host_image{}
-  //   &>div.host_description{}
-  // }
+.pod_desc{
+  min-height: 50vh;
+  @include flex_column;
+  align-items: flex-start;
+  width: 80%;
+  p{
+    @include Subtitle;
+    font-size: 1em;
+  }
 }

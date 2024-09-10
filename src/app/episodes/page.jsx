@@ -64,7 +64,7 @@ export default function Episodes(){
   })
   
   return(
-    <main className={`${styles.episodes} ${ isDarkMode && styles.dark}`} data-testid="episodes">
+    <main className={`${styles.episodes} ${ isDarkMode && 'dark'}`} data-testid="episodes">
       <div className={styles.container_page_title}>
         <div className={styles.page_title}>
           <h1>EPISODES</h1>
@@ -85,23 +85,6 @@ export default function Episodes(){
       <div id="episodes_list" className={styles.episodes_list}>
         {loading? <div>LOADING ... </div> : null}
         <Suspense fallback={<div>LOADING ... </div>}>
-        {/* {
-          episodes.map(episode => {
-            let rejected = false
-            let tags = episode.tags.split(',').map(tag => tag.trim())
-            if(tags.filter(item => selectedTags.includes(item)).length > 0){
-              rejected = false
-            } else {
-              rejected = true
-            }
-            return(
-            <div key={episode.id}  className={`${styles.card_container} ${rejected? styles.selected :''} ${!rejected? styles.rejected :''}`}>
-              <Link href={`/episodes/${episode.id}`}>
-                <EpisodeCard episode={episode}/>
-              </Link>
-            </div>
-          )})
-        } */}
           {episodes.filter(ep => {
             const epTags = ep.tags.split(',').map(tag => tag.trim())
             return selectedTags.every(tag => epTags.includes(tag))

@@ -1,12 +1,13 @@
 @import '/src/styles/variables.scss';
 
 main.contact {
-  @include flex_row(2rem);
+  @include flex_row;
+  flex-direction: row;
   justify-content: space-around;
   align-items: center;
   height: fit-content;
   // margin: 3rem 1rem;
-  width: 100vw;
+  width: 100%;
 
   .banner {
     @include flex_column;
@@ -16,11 +17,9 @@ main.contact {
     justify-content: flex-end;
     align-items: flex-end;
     padding: 2rem;
-    min-width: 40%;
-    max-width: 80%;
-    min-height: 320px;
-    height: 440px;
-    max-height: 480px;
+    width: clamp(300px, 45%, 720px);
+    height: clamp(320px, 440px,480px);
+
     border-radius: px_to_rem(32);
 
     .banner_bg {
