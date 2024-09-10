@@ -53,7 +53,7 @@ const AboutPage = () => {
           </div>
           <div className={`${styles.pod_desc} ${styles.pod_what_people_say} desc_section`}>
             <h3>What People Say About Us</h3>
-            <p>"GeoHabari is a must-listen for anyone in the geospatial field. The insights and knowledge shared are invaluable."<br/> <i>~ Happy Listener</i> <br/>
+            <p>&quot;GeoHabari is a must-listen for anyone in the geospatial field. The insights and knowledge shared are invaluable.&quot;<br/> <i>~ Happy Listener</i> <br/>
             <br/>
             “Every episode is a treasure trove of information. I always learn something new!”<br/> <i>~ Avid Fan</i></p>
           </div>

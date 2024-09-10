@@ -42,7 +42,7 @@ export default function BackdropBlur() {
   return (
     <div className={`${styles.backdrop} ${isDarkMode && styles.dark} `}>
       <div className={styles.overcast}></div>
-      <Image id="tracker"  src='/svg/filter_follow.svg'  width={300} height={300}/>
+      <Image id="tracker"  src='/svg/filter_follow.svg' alt='' width={300} height={300}/>
     </div>
   )
 }
