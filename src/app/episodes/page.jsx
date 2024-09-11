@@ -24,8 +24,6 @@ export default function Episodes(){
 
   function getUniqueTags(objectsArray) {
     const allTags = objectsArray.flatMap(obj => obj.tags.split(',').map(tag => tag.trim())).filter(element => element !== '');
-    console.log(allTags);
-    
     const uniqueTags = [...new Set(allTags)];
     return uniqueTags;
   }

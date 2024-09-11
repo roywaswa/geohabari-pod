@@ -18,7 +18,8 @@ export const metadata = {
   description: "Geohabari is a tech podcast on a mission to amplify African Tech Stories and elevate technical Brilliance.We do this through our audio podcast and video series which are available across all our streaming platforms.",
   icons: {
     icon: "/favicon.png"
-  }
+  },
+  lang:"en"
 };
 
 export default function RootLayout({ children }) {

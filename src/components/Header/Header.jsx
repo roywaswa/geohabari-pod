@@ -71,7 +71,7 @@ const Header = () => {
         <div className={styles.ham_icon} onClick={toggleMobileNav}>
           {
             mobileNav ?
-            <FontAwesomeIcon icon={faCircleXmark} size='2xl' style={{color: "#d11515",}} /> :
+            <FontAwesomeIcon icon={faCircleXmark} size='2xl'/> :
             <FontAwesomeIcon icon={faBars}  size='xl'/>
           }
         </div>

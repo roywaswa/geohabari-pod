@@ -68,25 +68,25 @@ const Footer = () => {
             <ul className={styles.host_sites}>
               <li className={styles.host_sites_item}>
                 <Link className={styles.link} href={podcast_links.applepods} target='_blank'>
-                  <FontAwesomeIcon icon={faApple} size='xl'  style={{color: "#F0F0F0",}} />
+                  <FontAwesomeIcon icon={faApple} size='xl'/>
                   <p>Apple Podcast</p>
                 </Link>
               </li>
               <li className={styles.host_sites_item}>
                 <Link className={styles.link} href={podcast_links.spotify} target='_blank'>
-                  <FontAwesomeIcon icon={faSpotify} size='xl'  style={{color: "#F0F0F0",}} />
+                  <FontAwesomeIcon icon={faSpotify} size='xl'/>
                   <p>Spotify</p>
                 </Link>
               </li>
               <li className={styles.host_sites_item}>
                 <Link className={styles.link} href={"#"} target='_blank'>
-                  <FontAwesomeIcon icon={faYoutube} size='xl'  style={{color: "#F0F0F0",}} />
+                  <FontAwesomeIcon icon={faYoutube} size='xl'/>
                   <p>YouTube</p>
                 </Link>
               </li>
               <li className={styles.host_sites_item}>
                 <Link className={styles.link} href={"#"} target='_blank'>
-                <FontAwesomeIcon icon={faYoutube}  size='xl'  style={{color: "#F0F0F0",}} />
+                <FontAwesomeIcon icon={faYoutube}  size='xl' />
                 <p>YouTube</p>
                 </Link>
               </li>
@@ -97,17 +97,17 @@ const Footer = () => {
             <ul className={styles.social_sites}>
               <li className={styles.social_sites_item}>
               <Link className={styles.link} href={socials_links.twitter} target='_blank'>
-                <FontAwesomeIcon icon={faXTwitter} size='xl'  style={{color: "#F0F0F0",}} />
+                <FontAwesomeIcon icon={faXTwitter} size='xl'/>
                 <p>X(Twitter)</p></Link>
               </li>
               <li className={styles.social_sites_item}>
               <Link className={styles.link} href={socials_links.linkedin} target='_blank'>
-                <FontAwesomeIcon icon={faLinkedin} size='xl' style={{color: "#F0F0F0",}} />
+                <FontAwesomeIcon icon={faLinkedin} size='xl'/>
                 <p>LinkedIn</p></Link>
               </li>
               <li className={styles.social_sites_item}>
                 <Link className={styles.link} href={socials_links.instagram} target='_blank'>
-                  <FontAwesomeIcon icon={faInstagram} size='xl' style={{color: "#F0F0F0",}} />
+                  <FontAwesomeIcon icon={faInstagram} size='xl'/>
                   <p>Instagram</p>
                 </Link>
               </li>

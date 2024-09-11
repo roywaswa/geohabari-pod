@@ -41,7 +41,6 @@ const ComingSoon = () => {
       data.name = subscriberName
     } catch (error) {
       setError(error.errors[0].message)
-      console.log(error.errors[0].message);
       setLoading(false)
       return 0
     }    
@@ -60,7 +59,6 @@ const ComingSoon = () => {
       }
       setLoading(false)
     }).catch(err => {
-      console.log(err);
       setLoading(false)
     })
   };
