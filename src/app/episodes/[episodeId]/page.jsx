@@ -6,10 +6,8 @@ import Image from 'next/image';
 export const revalitdate = 60*60*24/5
 
 export  async function generateStaticParams() {
-  const episodeIds = await getEpisodes().then(res => {
-    return res.map(ep => String(ep.id))
-  }).catch(err => {
-    console.log("Fetching Error",err);
+  const episodeIds = await getEpisodes().then(res => (res.map(ep => String(ep.id)))).catch(err => {
+    console.error(err)
   })
   return episodeIds.map(episodeId => {
     return {
@@ -20,20 +18,19 @@ export  async function generateStaticParams() {
 
 export default async function EpisodeDetailsPage({params}) {
 
-  const episode = await getEpisodeById(params.episodeId).then(res => {
-    return res
-  })
+  const episode = await getEpisodeById(params.episodeId)
 
-  
   return (
     <main className={`${styles.episode}`}>
       <Suspense fallback = {<div>Loading ... </div>}>
+        <>
         <h1>{episode.title}</h1>
         <AudioPlayer 
           mp3Url={episode.audio_url} 
           artworkUrl={episode.artwork_url}  
           title={episode.title}/>
         <div className={styles.description} dangerouslySetInnerHTML={{ __html:episode.description }} />
+        </>
       </Suspense>
     </main>
   )

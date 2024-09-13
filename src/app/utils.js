@@ -14,7 +14,8 @@ export async function getEpisodes() {
 export async function getEpisodeById(id) {  
   const episodes = await getEpisodes().then(res => {
     const selectedEpisode = res.filter((episode) => String(episode.id) === id);
-    return(ep = selectedEpisode.length > 0 ? selectedEpisode[0] : null)
+    let ep = selectedEpisode.length > 0 ? selectedEpisode[0] : null
+    return(ep)
   })
   return episodes
 }
