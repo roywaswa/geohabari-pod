@@ -3,48 +3,39 @@ import React, { useEffect, useRef, useState } from 'react'
 import styles from "./page.module.scss";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-import Vivus from 'vivus';
-import Image from 'next/image';
 import { TextPlugin, ScrollTrigger } from 'gsap/all';
 import TextInput from "@/components/TextInput/TextInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight, faDatabase } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "@/context/ThemeContext";
-import { getEpisodes } from "./utils";
 import Button from "@/components/Button/Button";
 import useEpisodes from '@/hooks/useEpisodes';
 import EpisodeCard from '@/components/EpisodeCard/EpisodeCard';
 import Link from 'next/link';
-
+import { z } from 'zod';
+import { useRouter } from 'next/navigation';
 
 gsap.registerPlugin(useGSAP,ScrollTrigger, TextPlugin);
 
 
 export function HeroSection() {
   const artwork = "https://storage.buzzsprout.com/32ojhq8cef0rvhf4262bjty0szin"
-  const [progress, setProgress] = useState()
   const { isDarkMode } = useTheme()
+  const router = useRouter()
   const topics = [
     "DATA", "TECH", "GEOSPATIAL", "EARTH OBSERVATION"
   ]
+
+  function navigateToEpisodes() {
+    router.push('/episodes')
+  }
   
   useGSAP(() => {
     let intro_tl = gsap.timeline()
-    
     const text_tl = gsap.timeline({
       delay:2,
       repeat:-1, 
       repeatDelay:2
-    })
-    gsap.to("#hero",{
-      scrollTrigger: {
-        trigger: "#hero",
-        start: "clamp(center center)",
-        end: "+=200",
-        markers:false,
-        scrub:true,
-        onUpdate: (self) => setProgress(self.progress),
-      }
     })
     topics.forEach(topic => {
       text_tl.to("#topic", {
@@ -74,10 +65,20 @@ export function HeroSection() {
         <h1 id="title">Your one stop Podcast for Everything</h1>
         <div className={styles.topics_scroller}>
           <h1 id="topic">GEOSPATIAL</h1>
-          <DrawSVG progress={progress} />
         </div>
         <h4>Amplifying African tech stories and building tech brilliance. This is a podcast for the geospatial community.</h4>
-        <Button clickHandler={()=>{}} text='LISTEN NOW' />
+        <Button clickHandler={navigateToEpisodes} text='LISTEN NOW' />
+        <div className={styles.podcast_streaming}>
+          <Link href={''}><div className={styles.streaming_site}>
+            SPOTIFY
+          </div></Link>
+          <Link href={''}><div className={styles.streaming_site}>
+            APPLE PODCAST
+          </div></Link>
+          <Link href={''}><div className={styles.streaming_site}>
+            PODCAST ADDICT
+          </div></Link>
+        </div>
       </div>
       <div className={styles.right_boxes}>
         <div id="image_04"></div>
@@ -91,45 +92,6 @@ export function HeroSection() {
     </>
   )
 }
-
-
-const DrawSVG = ({ progress }) => {
-  const svgRef = useRef(null);
-  const [vivusInstance, setVivusInstance] = useState(null);
-
-  useEffect(() => {
-    const instance = new Vivus(svgRef.current, {
-      type: 'delayed',
-      duration: 200,
-      animTimingFunction: Vivus.EASE,
-      start: 'manual',
-    });
-
-    setVivusInstance(instance);
-
-    return () => {
-      instance.destroy()
-    };
-  }, []);
-
-  useEffect(() => {
-    if (vivusInstance) {
-      vivusInstance.setFrameProgress(progress);
-    }
-  }, [progress, vivusInstance]);
-
-  return (
-    <div className={styles.underline}>
-      <svg 
-        ref={svgRef}
-        id="underline" 
-        viewBox="0 0 567 95" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 44.4624C215.978 11.1358 663.28 -14.5966 544.157 18.1317C379.584 63.3474 -57.5732 92.5 108.5 92.5C274.526 92.5 441.5 92.5 441.5 92.5" stroke="#F30909" strokeWidth={5} strokeLinecap="round"/>
-      </svg>
-    </div>
-  );
-};
-
 
 
 export  function TopicsSection() {
@@ -270,36 +232,65 @@ export function LatestEpisodes() {
   )
 }
 
-
-export  function AboutHost() {
-  return (
-    <div className={`${styles.section_about_host} about`}>
-    <div className={styles.host_container}>
-      <div className={styles.host_photo}>
-        <h1>HOST PHOTO</h1>
-      </div>
-      <div className={styles.host_details}>
-        <h2>About YARIWO</h2>
-        <p>
-          YARIWO KITIYO, the founder and host of the GEOHABARI Podcast, is passionate about amplifying African tech stories and building technical brilliance. She co-founded Women in GIS Kenya and has been instrumental in creating a platform that fosters communities defined by their technical prowess. Through Geohabari, Yariwo engages with experts, professionals, and enthusiasts in the geospatial field, sharing insights, experiences, and knowledge.
-        </p>
-      </div>
-    </div>
-    </div>
-  )
-}
-
 export function NewsLetter() {
   const [fName, setFName] = useState('')
   const [lName, setLName] = useState('')
   const [email, setEmail] = useState('')
+  const [error, setError] = useState('') 
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const { isDarkMode } = useTheme()
 
-  function submitForm(e) {
-    e.preventDefault()
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => {   
+      setSuccess(false)
+    }, 7000);
+    return () => clearTimeout()
+  }, [success,setSuccess])
+
+  const submitForm = async (e) => {
+    setLoading(true)
+    e.preventDefault();
+    const emailSchema = z.string().email({ message: "Please enter a valid email address." });
+    const nameSchema = z.string().min(3, { message: "Name must be 3 or more characters long" });
+    let data = {
+      email:'',
+      fname:'',
+      lname:''
+    }
+    try {
+      emailSchema.parse(email)
+      data.email = email
+      nameSchema.parse(fName)
+      nameSchema.parse(lName)
+      data.fname = fName
+      data.lname = lName
+    } catch (error) {
+      setError(error.errors[0].message)
+      setLoading(false)
+      return 0
+    }    
+    const response = await fetch("api/subscribe",{
+      method: "POST",
+      header:{
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    })
+    response.json().then(res => {
+      if (res.message == "Success"){
+        setSuccess(true)
+        setSubscriberEmail('')
+        setSubscriberName('')
+      }
+      setLoading(false)
+    }).catch(err => {
+      setLoading(false)
+    })
+  };
 
   return (
-    <div className={`${styles.section_newsletter}`}>
+    <div className={`${styles.section_newsletter} ${isDarkMode && 'dark'}`}>
     <div className={styles.newsletter_container}>
       <h1>Stay Ahead of the Masses</h1>
       <div className={styles.signup_section}>

@@ -17,6 +17,7 @@ const EpisodeCard = (props) => {
   title.shift()
   title = title.join(":")
   let pub_date = moment(episode.published_at)
+  let details = episode.description
   const tags = props.episode.tags.split(',').map(tag => tag.trim())
 
   
@@ -28,6 +29,8 @@ const EpisodeCard = (props) => {
       </div>
       <div className={styles.episode_title}>
         <h3>{title}</h3>
+        
+        <p dangerouslySetInnerHTML={{ __html:episode.description }} />
       </div>
       <div className={styles.icon}>
       <FontAwesomeIcon icon={faArrowRight} rotation={45} size='2xl'/>

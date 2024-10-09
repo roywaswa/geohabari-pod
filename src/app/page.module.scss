@@ -155,9 +155,10 @@ div.topics_contianer {
 
   .topic_card {
     width: clamp(300px, 28vw, 720px);
-    clip-path: polygon(79.6% 0, 100% 15%, 100% 100%, 0 100%, 0 0);
+    // clip-path: polygon(79.6% 0, 100% 15%, 100% 100%, 0 100%, 0 0);
     height: 75vh;
     border: black 4px solid;
+    border-radius: 1rem;
     margin-bottom: 5rem;
     // background: $white;
     color: $rich-black;
