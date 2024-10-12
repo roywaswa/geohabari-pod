@@ -17,8 +17,36 @@ const EpisodeCard = (props) => {
   title.shift()
   title = title.join(":")
   let pub_date = moment(episode.published_at)
-  let details = episode.description
+  
   const tags = props.episode.tags.split(',').map(tag => tag.trim())
+
+  function combineTextUntil150Chars(htmlString) {
+    
+    const pTags = htmlString.match(/<p>(.*?)<\/p>/g).map(tag => tag.replace(/<\/?p>/g, ''));
+    
+    let combinedText = '';
+    let index = 0;
+    
+    while (combinedText.length < 200 && index < pTags.length) {
+        if (combinedText.length + pTags[index].length <= 200) {
+            combinedText += pTags[index] + ' ';
+            index++;
+        } else {
+            const remainingChars = 200 - combinedText.length;
+            const words = pTags[index].split(' ');
+            for (let word of words) {
+                if (combinedText.length + word.length + 1 > 200) break;
+                combinedText += word + ' ';
+            }
+            break;
+        }
+      }
+    
+    combinedText = combinedText.trim() + '... Read More';
+    return combinedText;
+  }
+
+  const details = combineTextUntil150Chars(episode.description)
 
   
   return(
@@ -29,8 +57,7 @@ const EpisodeCard = (props) => {
       </div>
       <div className={styles.episode_title}>
         <h3>{title}</h3>
-        
-        <p dangerouslySetInnerHTML={{ __html:episode.description }} />
+        <h6 dangerouslySetInnerHTML={{ __html:details }} />
       </div>
       <div className={styles.icon}>
       <FontAwesomeIcon icon={faArrowRight} rotation={45} size='2xl'/>
