@@ -117,7 +117,23 @@ div.Footer {
 
     }
   }
-  
+  .podcast_streaming {
+    @include flex-row;
+    justify-content: center;
+    align-self: center;
+    width: max-content;
+
+    div.streaming_site{
+      position: relative;
+      width: 48px;
+      height: 48px;
+
+      &>img{
+        position: relative;
+        object-fit: contain;
+      }
+    }
+  }
   &>div.copyright{
     @include flex_column;
     align-items: center;

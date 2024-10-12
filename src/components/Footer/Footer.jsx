@@ -9,10 +9,12 @@ import { faInstagram, faLinkedin, faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 
 import Link from 'next/link';
+import { faPodcast } from '@fortawesome/free-solid-svg-icons';
+import Image from 'next/image';
 
 const Footer = () => {
 
-  const socials_links = {
+  const socials_links = { 
     "instagram": "https://www.instagram.com/geohabari",
     "twitter": "https://x.com/geohabari",
     "linkedin":"https://www.linkedin.com/in/geohabari-pod-81330629b/"
@@ -20,7 +22,8 @@ const Footer = () => {
 
   const podcast_links = {
     "spotify": "https://open.spotify.com/show/5n3pUUtfdAdGS4d2hMz2yc?si=f3e6a5803205469f",
-    "applepods":"https://podcasts.apple.com/ke/podcast/geohabari/id1747885525", 
+    "applepods":"https://podcasts.apple.com/ke/podcast/geohabari/id1747885525",
+    "podcast_addict": "https://podcastaddict.com/podcast/geohabari/5021923" 
   }
 
   return (
@@ -65,7 +68,7 @@ const Footer = () => {
         <div className={styles.engagement}>
           <div className={styles.subscriptions}>
             <h3 className={styles.subscriptions_title}>SUBSCRIBE</h3>
-            <ul className={styles.host_sites}>
+            {/* <ul className={styles.host_sites}>
               <li className={styles.host_sites_item}>
                 <Link className={styles.link} href={podcast_links.applepods} target='_blank'>
                   <FontAwesomeIcon icon={faApple} size='xl'/>
@@ -80,17 +83,26 @@ const Footer = () => {
               </li>
               <li className={styles.host_sites_item}>
                 <Link className={styles.link} href={"#"} target='_blank'>
-                  <FontAwesomeIcon icon={faYoutube} size='xl'/>
+                  <FontAwesomeIcon icon={faPodcast} size='xl'/>
                   <p>YouTube</p>
                 </Link>
               </li>
-              <li className={styles.host_sites_item}>
-                <Link className={styles.link} href={"#"} target='_blank'>
-                <FontAwesomeIcon icon={faYoutube}  size='xl' />
-                <p>YouTube</p>
-                </Link>
-              </li>
-            </ul>
+            </ul> */}
+            <div className={styles.podcast_streaming}>
+              <Link href={podcast_links.spotify} target='_blank'>
+              <div className={styles.streaming_site}>
+                <Image src={'/icons/spotify.png'} fill/>
+              </div></Link>
+              <Link href={podcast_links.applepods} target='_blank'>
+              <div className={styles.streaming_site}>
+                <Image src={'/icons/apple_podcast.png'} fill/>
+              </div></Link>
+              <Link href={podcast_links.podcast_addict} target='_blank'>
+              <div className={styles.streaming_site}>
+                <Image src={'/icons/podcast_addict.png'} fill/>
+              </div>
+              </Link>
+            </div>
           </div>
           <div className={styles.socials}>
             <h3 className={styles.socials_title}>FOLLOW US</h3>

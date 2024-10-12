@@ -14,11 +14,12 @@ import EpisodeCard from '@/components/EpisodeCard/EpisodeCard';
 import Link from 'next/link';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 gsap.registerPlugin(useGSAP,ScrollTrigger, TextPlugin);
 
 
-export function HeroSection() {
+export function HeroSection() { 
   const artwork = "https://storage.buzzsprout.com/32ojhq8cef0rvhf4262bjty0szin"
   const { isDarkMode } = useTheme()
   const router = useRouter()
@@ -29,7 +30,11 @@ export function HeroSection() {
   function navigateToEpisodes() {
     router.push('/episodes')
   }
-  
+  const podcast_links = {
+    "spotify": "https://open.spotify.com/show/5n3pUUtfdAdGS4d2hMz2yc?si=f3e6a5803205469f",
+    "applepods":"https://podcasts.apple.com/ke/podcast/geohabari/id1747885525",
+    "podcast_addict": "https://podcastaddict.com/podcast/geohabari/5021923" 
+  }
   useGSAP(() => {
     let intro_tl = gsap.timeline()
     const text_tl = gsap.timeline({
@@ -68,16 +73,21 @@ export function HeroSection() {
         </div>
         <h4>Amplifying African tech stories and building tech brilliance. This is a podcast for the geospatial community.</h4>
         <Button clickHandler={navigateToEpisodes} text='LISTEN NOW' />
+        <h5>Or on your fav platform</h5>
         <div className={styles.podcast_streaming}>
-          <Link href={''}><div className={styles.streaming_site}>
-            SPOTIFY
+          <Link href={podcast_links.spotify} target='_blank'>
+          <div className={styles.streaming_site}>
+            <Image src={'/icons/spotify.png'} fill/>
           </div></Link>
-          <Link href={''}><div className={styles.streaming_site}>
-            APPLE PODCAST
+          <Link href={podcast_links.applepods} target='_blank'>
+          <div className={styles.streaming_site}>
+            <Image src={'/icons/apple_podcast.png'} fill/>
           </div></Link>
-          <Link href={''}><div className={styles.streaming_site}>
-            PODCAST ADDICT
-          </div></Link>
+          <Link href={podcast_links.podcast_addict} target='_blank'>
+          <div className={styles.streaming_site}>
+            <Image src={'/icons/podcast_addict.png'} fill/>
+          </div>
+          </Link>
         </div>
       </div>
       <div className={styles.right_boxes}>

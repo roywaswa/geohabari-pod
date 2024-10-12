@@ -123,6 +123,23 @@ section.hero {
         z-index: -1;
       }
     }
+    .podcast_streaming {
+      @include flex-row;
+      justify-content: center;
+      align-self: center;
+      width: 50%;
+
+      div.streaming_site{
+        position: relative;
+        width: 72px;
+        height: 72px;
+
+        &>img{
+          position: relative;
+          object-fit: contain;
+        }
+      }
+    }
   }
 }
 
