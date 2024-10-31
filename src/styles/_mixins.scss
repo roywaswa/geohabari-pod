@@ -35,3 +35,17 @@
 @mixin big_title {
   font-size: 3.8em;
 }
+
+$breakpoint-small: 600px;
+$breakpoint-medium: 768px;
+$breakpoint-large: 1024px;
+
+@mixin respond-to($media) {
+  @if $media == small {
+    @media (max-width: $breakpoint-small) { @content; }
+  } @else if $media == medium {
+    @media (max-width: $breakpoint-medium) { @content; }
+  } @else if $media == large {
+    @media (max-width: $breakpoint-large) { @content; }
+  }
+}

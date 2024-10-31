@@ -7,7 +7,7 @@ import { faInstagram, faLinkedin, faTwitter,
   faXTwitter,
   faApple
 } from "@fortawesome/free-brands-svg-icons";
-
+import {platform_links} from '@/app/utils'
 import Link from 'next/link';
 import { faPodcast } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
@@ -18,12 +18,6 @@ const Footer = () => {
     "instagram": "https://www.instagram.com/geohabari",
     "twitter": "https://x.com/geohabari",
     "linkedin":"https://www.linkedin.com/in/geohabari-pod-81330629b/"
-  }
-
-  const podcast_links = {
-    "spotify": "https://open.spotify.com/show/5n3pUUtfdAdGS4d2hMz2yc?si=f3e6a5803205469f",
-    "applepods":"https://podcasts.apple.com/ke/podcast/geohabari/id1747885525",
-    "podcast_addict": "https://podcastaddict.com/podcast/geohabari/5021923" 
   }
 
   return (
@@ -89,15 +83,15 @@ const Footer = () => {
               </li>
             </ul> */}
             <div className={styles.podcast_streaming}>
-              <Link href={podcast_links.spotify} target='_blank'>
+              <Link href={platform_links.spotify} target='_blank'>
               <div className={styles.streaming_site}>
                 <Image src={'/icons/spotify.png'} fill/>
               </div></Link>
-              <Link href={podcast_links.applepods} target='_blank'>
+              <Link href={platform_links.applepods} target='_blank'>
               <div className={styles.streaming_site}>
                 <Image src={'/icons/apple_podcast.png'} fill/>
               </div></Link>
-              <Link href={podcast_links.podcast_addict} target='_blank'>
+              <Link href={platform_links.podcast_addict} target='_blank'>
               <div className={styles.streaming_site}>
                 <Image src={'/icons/podcast_addict.png'} fill/>
               </div>

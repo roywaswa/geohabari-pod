@@ -55,17 +55,24 @@ export function HeroSection() {
       duration: 1,
       ease:'power1.out'
     })
+    gsap.from("#image_1", { 
+      x: "60%",
+      delay: 0.8
+    })
+    gsap.from("#image_2", { 
+      x: "40%",
+      delay: 0.8
+    })
+    gsap.from("#image_3", { 
+      x: "-40%",
+      delay: 0.8
+    })
   })
   
   return (
     <>
     <section id="hero" className={`${styles.hero} ${isDarkMode && 'dark'}`}>
       <>
-      <div className={styles.left_boxes}>
-        <div id="image_01"></div>
-        <div id="image_02"></div>
-        <div id="image_03"></div>
-      </div>
       <div id="main_block" className={styles.main_hero}>
         <h1 id="title">Your one stop Podcast for Everything</h1>
         <div className={styles.topics_scroller}>
@@ -90,13 +97,19 @@ export function HeroSection() {
           </Link>
         </div>
       </div>
-      <div className={styles.right_boxes}>
-        <div id="image_04"></div>
-        <div id="image_05"></div>
-        <div id="image_06"></div>
+      {/* <div id="image_1" className={`${styles.hero_images} ${styles.image_1}`}>
+        <Image className={styles.hero_image_item} src="https://picsum.photos/200" fill />
       </div>
+      <div id="image_2" className={`${styles.hero_images} ${styles.image_2}`}>
+        <Image className={styles.hero_image_item} src="https://picsum.photos/300" fill />
+      </div>
+      <div id="image_3" className={`${styles.hero_images} ${styles.image_3}`}>
+        <Image className={styles.hero_image_item} src="https://picsum.photos/250" fill />
+      </div>
+      <div id="image_4" className={`${styles.hero_images} ${styles.image_4}`}>
+        <Image className={styles.hero_image_item} src="https://picsum.photos/250" fill />
+      </div> */}
       </>
-      
     </section>
     <div id="blur_fore" className={styles.over_cast}></div>
     </>
@@ -117,17 +130,6 @@ export  function TopicsSection() {
       pinSpacing: false,
     })
     for (let i = 0; i < topics.length; i++) {
-      let offset_value = 100
-      let y_off = 20
-      if( i==0){
-        offset_value = offset_value*0
-      } else if (i%2 == 0){
-        y_off = y_off *i
-        offset_value = offset_value *-1 * Math.sqrt(i)
-      } else {
-        y_off = y_off *i
-        offset_value = offset_value *1 * Math.sqrt(i)
-      }
       const topic = topics[i];
       gsap.to(topic, {
         scrollTrigger:{
@@ -137,12 +139,9 @@ export  function TopicsSection() {
           end:"bottom 90%",
           pin: true,
           scrub: true,
-          // markers: true,
           snap: 1/(topics.length-1)
         },
-        y: y_off,
-        x: offset_value,
-        // ease: 'power1.in'
+        y: 0,
       })
     }
   })

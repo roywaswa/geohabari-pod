@@ -4,58 +4,115 @@
 
 main.episode {
   @include flex_column;
-  width: 100%;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
 
   &>* {
-    width: 70%
+    width: 70vw;
+    @include respond-to(small){
+      width: 95vw;
+    }
+    @include respond-to(medium){
+      width: 80%;
+    }
   }
 
   .playerContainer {
-    @include flex_row;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 70%;
-    min-width: 300px;
-    margin: 20px auto;
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+    gap: 1.5rem;
 
-    .image_container {
+    @include respond-to(small){
+      flex-direction: column;
+      align-items: center;
+    }
+    @include respond-to(medium){
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .ep_artwork {
       position: relative;
       overflow: hidden;
-      // width: 100%;
-      height: auto;
-      min-width: 100px;
-      min-height: 100px;
-      max-width: 45vw;
+      width: 350px;
+      height: 350px;
+      @include respond-to(medium){
+        height: 270px;
+        width: 270px;
+      }
+      @include respond-to(small){
+        height: 270px;
+        width: 270px;
+      }
       border-radius: px_to_rem(16);
 
       &>.image{
         object-fit: cover;
       }
     }
-    .controls {
-      text-align: center;
-      width: 70%;
+    .ep_details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      width: 45%;
+      @include respond-to(small){
+        width: 100%;
+      }
+      @include respond-to(medium){
+        width: 90%;
+      }
+
+      .ep_player{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.2rem;
+        width: 100%;
+        
+        .audio {
+          width: 100%;
+          @include respond-to(small) {
+            width: 120%;
+          }
+          @include respond-to(medium) {
+            width: 100%;
+          }
+          &::-webkit-media-controls-panel { 
+            background-color: #e3a3a3;
+            border-radius: 12px; 
+          }
+        }
+        
+      }
+
+      .ep_platforms{
+        @include flex-row;
+        justify-content: center;
+
+        .link {
+          text-decoration: none;
+          color: inherit
+        }
+      }
     }
+    
   }
 
-  .title {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #333;
-  }
-
-  .audio {
-    width: 100%;
-  }
 
   .description{
     @include flex_column;
     gap: 1rem;
     padding: 1rem;
     align-items: center;
+    
+    p {
+      @include Subtitle;
+    }
   }
 }

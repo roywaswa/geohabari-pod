@@ -7,6 +7,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'storage.buzzsprout.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+      }
     ],
   },
 };

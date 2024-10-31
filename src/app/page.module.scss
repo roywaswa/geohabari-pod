@@ -45,28 +45,53 @@ section.hero {
   overflow: hidden;
 
   .spacer{}
-
-  .right_boxes {
-    @include side_bar();
-    align-items: flex-start;
-    margin-left: 2rem;
-    & > :nth-child(even){
-      margin-left: 2rem;
+  .hero_images {
+    position: absolute;
+    border-radius: 1rem;
+    overflow: hidden;
+    .hero_image_item {
+      object-fit: contain;
     }
-    & > :last-child{
-      margin-left: 1rem;
+    &.image_1{
+      height: 35vh;
+      width: 35vw;
+      top:0%;
+      left:0%;
     }
+    &.image_2{
+      height: 40vh;
+      width: 40vw;
+      top:10%;
+      right:5%;
+    }
+    &.image_3{
+      height: 35vw;
+      width: 35vw;
+      top:50%;
+      left:10%;
+    }
+    &.image_4{
+      height: 20vw;
+      width: 20vw;
+      top:50%;
+      right:5%;
+    }
+    
   }
-  .left_boxes {
-    @include side_bar();
-    align-items: flex-end;
-    height: 100%;
-    margin-right: 2rem;
-    & > :nth-child(even){
-      margin-right: 2rem;
-    }
-    & > :last-child{
-      margin-right: 1rem;
+
+  
+  .container__hero_images {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top:0;
+    left:0;
+    background-color: gray;
+    .relative_wrapper{
+      position: relative;
+      width: 90%;
+      height:90%;
+      background: green;
     }
   }
   .box {

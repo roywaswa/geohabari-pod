@@ -20,3 +20,8 @@ export async function getEpisodeById(id) {
   return episodes
 }
 
+export const platform_links = {
+    "spotify": "https://open.spotify.com/show/5n3pUUtfdAdGS4d2hMz2yc?si=f3e6a5803205469f",
+    "applepods":"https://podcasts.apple.com/ke/podcast/geohabari/id1747885525",
+    "podcast_addict": "https://podcastaddict.com/podcast/geohabari/5021923" 
+}
