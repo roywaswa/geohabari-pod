@@ -154,6 +154,11 @@ section.hero {
       align-self: center;
       width: 50%;
 
+      .link{
+        text-decoration: none;
+        color: inherit;
+      }
+
       div.streaming_site{
         position: relative;
         width: 72px;
@@ -202,18 +207,15 @@ div.topics_contianer {
     border: black 4px solid;
     border-radius: 1rem;
     margin-bottom: 5rem;
-    // background: $white;
+    background: $white;
     color: $rich-black;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background: rgba(128, 128, 128, 0);
-    backdrop-filter: blur(8px);
 
     &.dark {
       color: $white;
-      background: rgba(0, 0, 0, 0.1);
     }
     .topic_desc {
       width:80%;

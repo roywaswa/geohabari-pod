@@ -62,14 +62,14 @@ const EpisodeCard = (props) => {
       <div className={styles.icon}>
       <FontAwesomeIcon icon={faArrowRight} rotation={45} size='2xl'/>
       </div>
-      <div id={`image-${episode.id}`}  className={`${styles.artwork_container}`}>
+      {/* <div id={`image-${episode.id}`}  className={`${styles.artwork_container}`}>
         <Image fill
         placeholder='empty'
         className={styles.image} 
         src={episode.artwork_url} 
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
         alt={`Artwork for ${title}`} />
-      </div> 
+      </div>  */}
     </Link>
   )
 }

@@ -3,7 +3,6 @@ import styles from './episode.module.scss';
 import { getEpisodeById, getEpisodes, platform_links } from '@/app/utils';
 import Image from 'next/image';
 import PodcastChip from '@/components/PodcastChip/PodcastChip.lazy';
-import {podcast_links} from '@/app/utils'
 import Link from 'next/link';
 
 export const revalitdate = 60*60*24/5

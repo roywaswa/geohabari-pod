@@ -15,6 +15,8 @@ import Link from 'next/link';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import PodcastChip from '@/components/PodcastChip/PodcastChip';
+import { platform_links } from './utils';
 
 gsap.registerPlugin(useGSAP,ScrollTrigger, TextPlugin);
 
@@ -24,7 +26,7 @@ export function HeroSection() {
   const { isDarkMode } = useTheme()
   const router = useRouter()
   const topics = [
-    "DATA", "TECH", "GEOSPATIAL", "EARTH OBSERVATION"
+    "Tech", "Geo-Banter", "Application", "Earth Observation", "Career", "Scolarships"
   ]
 
   function navigateToEpisodes() {
@@ -76,24 +78,20 @@ export function HeroSection() {
       <div id="main_block" className={styles.main_hero}>
         <h1 id="title">Your one stop Podcast for Everything</h1>
         <div className={styles.topics_scroller}>
-          <h1 id="topic">GEOSPATIAL</h1>
+          <h1 id="topic">GeoHabari</h1>
         </div>
         <h4>Amplifying African tech stories and building tech brilliance. This is a podcast for the geospatial community.</h4>
         <Button clickHandler={navigateToEpisodes} text='LISTEN NOW' />
         <h5>Or on your fav platform</h5>
         <div className={styles.podcast_streaming}>
-          <Link href={podcast_links.spotify} target='_blank'>
-          <div className={styles.streaming_site}>
-            <Image src={'/icons/spotify.png'} fill/>
-          </div></Link>
-          <Link href={podcast_links.applepods} target='_blank'>
-          <div className={styles.streaming_site}>
-            <Image src={'/icons/apple_podcast.png'} fill/>
-          </div></Link>
-          <Link href={podcast_links.podcast_addict} target='_blank'>
-          <div className={styles.streaming_site}>
-            <Image src={'/icons/podcast_addict.png'} fill/>
-          </div>
+        <Link className={styles.link} href={platform_links.applepods} target='_blank'>
+            <PodcastChip icon="/icons/apple_podcast.png" platform="Apple Podcasts"/>
+          </Link>
+          <Link className={styles.link} href={platform_links.spotify} target='_blank'>
+            <PodcastChip icon="/icons/spotify.png" platform="Spotify"/>
+          </Link>
+          <Link className={styles.link} href={platform_links.podcast_addict} target='_blank'>
+            <PodcastChip icon="/icons/podcast_addict.png" platform="Podcast Addict"/>
           </Link>
         </div>
       </div>
