@@ -41,6 +41,7 @@ section.hero {
   align-items: center;
   // height: 80vh;
   position: relative;
+  padding:1rem 2rem;
   width: 100%;
   overflow: hidden;
 
@@ -117,7 +118,7 @@ section.hero {
     @include flex_column;
     z-index: 4;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     width: 70vw;
     min-width: 200px;
     height: 100%;
@@ -126,23 +127,22 @@ section.hero {
     position: relative;
 
     h1 {
-      text-align: center
+      text-align: left
     }
     h4 {
       // @include Subtitle;
-      text-align:center;
+      text-align:left;
     }
     .topics_scroller{
       @include flex_column;
       gap:2rem;
-      margin-bottom: 3rem;
+      margin-bottom: 1rem;
       justify-content: flex-start;
       position: relative;
       color: green;
 
       .underline{
         width: 50vw;
-
         position: absolute;
         top: 3em;
         z-index: -1;
@@ -152,7 +152,7 @@ section.hero {
       @include flex-row;
       justify-content: center;
       align-self: center;
-      width: 50%;
+      // width: 50%;
 
       .link{
         text-decoration: none;
@@ -169,6 +169,20 @@ section.hero {
           object-fit: contain;
         }
       }
+    }
+  }
+
+  .side_artwork {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 600px;
+    height: 600px;
+
+    .image {
+      object-fit: contain;
     }
   }
 }
@@ -202,6 +216,7 @@ div.topics_contianer {
 
   .topic_card {
     width: clamp(300px, 28vw, 720px);
+    overflow: hidden;
     // clip-path: polygon(79.6% 0, 100% 15%, 100% 100%, 0 100%, 0 0);
     height: 75vh;
     border: black 4px solid;
@@ -225,6 +240,16 @@ div.topics_contianer {
 
       p{
         @include Subtitle;
+      }
+
+      .topic_icon{
+        position: relative;
+        width: 200px;
+        height: 200px;
+
+        &>img{
+          object-fit: contain;
+        }
       }
     }
     .topic_title {
