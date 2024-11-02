@@ -16,7 +16,7 @@ import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import PodcastChip from '@/components/PodcastChip/PodcastChip';
-import { platform_links } from './utils';
+import { platform_links, topics } from './utils';
 
 gsap.registerPlugin(useGSAP,ScrollTrigger, TextPlugin);
 
@@ -95,18 +95,9 @@ export function HeroSection() {
           </Link>
         </div>
       </div>
-      {/* <div id="image_1" className={`${styles.hero_images} ${styles.image_1}`}>
-        <Image className={styles.hero_image_item} src="https://picsum.photos/200" fill />
+      <div className={styles.side_artwork}>
+        <Image className={styles.image} fill src={'/images/dar_es_salaam.png'} />
       </div>
-      <div id="image_2" className={`${styles.hero_images} ${styles.image_2}`}>
-        <Image className={styles.hero_image_item} src="https://picsum.photos/300" fill />
-      </div>
-      <div id="image_3" className={`${styles.hero_images} ${styles.image_3}`}>
-        <Image className={styles.hero_image_item} src="https://picsum.photos/250" fill />
-      </div>
-      <div id="image_4" className={`${styles.hero_images} ${styles.image_4}`}>
-        <Image className={styles.hero_image_item} src="https://picsum.photos/250" fill />
-      </div> */}
       </>
     </section>
     <div id="blur_fore" className={styles.over_cast}></div>
@@ -151,31 +142,15 @@ export  function TopicsSection() {
         <p>Geohabari delves into the fascinating intersection of African technology and geospatial innovation, sharing stories and insights that highlight the transformative power of mapping and location-based tech across the continent.</p>
       </div>
       <div id="topics_cards" className={styles.topics_contianer}>
-        <TopicCard 
-        topic={"data"} 
-        subtitle={"A GOOD SUBTITLE TO FIT"}
-        description={"The in depth explanation of the said topic that is being described and how it relates to the podcast."}
-        />
-        <TopicCard 
-        topic={"data"} 
-        subtitle={"A GOOD SUBTITLE TO FIT"}
-        description={"The in depth explanation of the said topic that is being described and how it relates to the podcast."}
-        />
-        <TopicCard 
-        topic={"academia"} 
-        subtitle={"A GOOD SUBTITLE TO FIT"}
-        description={"The in depth explanation of the said topic that is being described and how it relates to the podcast."}
-        />
-        <TopicCard 
-        topic={"career"} 
-        subtitle={"A GOOD SUBTITLE TO FIT"}
-        description={"The in depth explanation of the said topic that is being described and how it relates to the podcast."}
-        />
-        <TopicCard 
-        topic={"bunter"} 
-        subtitle={"A GOOD SUBTITLE TO FIT"}
-        description={"The in depth explanation of the said topic that is being described and how it relates to the podcast."}
-        />
+        {
+          topics.map(topic => (
+            <TopicCard 
+              topic={topic.title}
+              subtitle={topic.subtitle}
+              description={topic.description}
+            />
+          ))
+        }
       </div>
     </div>
   )
@@ -189,7 +164,7 @@ export function TopicCard(props) {
     <div className={`${styles.topic_card} ${isDarkMode && styles.dark} topic_card`}>
       <div className={styles.topic_desc}>
         <div className={styles.topic_icon}>
-          <FontAwesomeIcon size="2xl" icon={faDatabase} color={'#000'} />
+          <Image src={'/favicon.png'} fill />
         </div>
         <h4>{props.subtitle}</h4>
         <p>{props.description}</p>
