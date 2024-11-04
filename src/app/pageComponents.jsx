@@ -145,6 +145,7 @@ export  function TopicsSection() {
         {
           topics.map(topic => (
             <TopicCard 
+              key={topics.indexOf(topic)}
               topic={topic.title}
               subtitle={topic.subtitle}
               description={topic.description}
