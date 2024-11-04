@@ -6,7 +6,7 @@
   @include flex_row;
   justify-content: space-between;
   position: fixed;
-  color: $rich-black;
+  color: $black;
   top: 0;
   z-index: 10;
 
@@ -37,10 +37,10 @@
       
     }
     .episode_link {
-        padding: 0.5rem 1rem;
-        border-radius: 1rem;
-        background: $brand-colors-green;
-      }
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border: 3px solid $brand-colors-purple;
+    }
   }
   .mobile_nav {
     position: absolute;
@@ -51,10 +51,10 @@
     height: 95vh;
     width: 100%;
     background: $white;
-    color: $rich-black;
+    color: $black;
 
     &.dark{
-      background: $rich-black;
+      background: $black;
       color: $white;
     }
 

@@ -7,11 +7,9 @@ const Button = (props) => {
   
   return(
     <div className={styles.Button} data-testid="Button">
-      <button onClick={props.clickHandler} type="submit">{props.text}</button>
-      <div className={styles.icon_container}>
-        {/* <props.icon/> */}
-      </div>
-      
+      <button onClick={props.clickHandler} type="submit">
+        {props.text}
+      </button>
     </div>
   );
 }
