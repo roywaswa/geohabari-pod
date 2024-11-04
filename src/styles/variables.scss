@@ -2,19 +2,11 @@
 @import '/src/styles/mixins';
 
 $backgrounds-screen-background-dark: rgba(0, 0, 0, 0.8);
-$brand-colors-green: #d0e6a5;
-$brand-colors-orange: #ffdd94;
-$basic-black-100: #101010;
-$basic-black-50: #404040;
-$basic-white-100: #fff;
-$basic-white-50: #d7d7d7;
-$rich-black: #0a121e;
-$light: #fafcfe;
-$accent: #ecf1f4;
-$white: #fff;
-$tea-green: #d0e6a5;
-$backgrounds-screen-background-light: rgba(255, 255, 255, 0.73);
-$text-subtle: #8c8ca1;
+$brand-colors-green: #8DC63F;
+$brand-colors-orange: #F6D85E;
+$brand-colors-purple: #783FC6;
+$black: black;
+$white: white;
 
 @function px_to_rem($px-value) {
   @return ($px-value / 16) + rem;

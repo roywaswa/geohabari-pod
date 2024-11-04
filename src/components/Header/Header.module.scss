@@ -6,7 +6,7 @@
   @include flex_row;
   justify-content: space-between;
   position: fixed;
-  color: $rich-black;
+  color: $black;
   top: 0;
   z-index: 10;
 
@@ -51,10 +51,10 @@
     height: 95vh;
     width: 100%;
     background: $white;
-    color: $rich-black;
+    color: $black;
 
     &.dark{
-      background: $rich-black;
+      background: $black;
       color: $white;
     }
 
