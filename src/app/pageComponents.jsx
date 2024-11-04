@@ -26,7 +26,7 @@ export function HeroSection() {
   const { isDarkMode } = useTheme()
   const router = useRouter()
   const topics = [
-    "Tech", "Geo-Banter", "Application", "Earth Observation", "Career", "Scolarships"
+    "Tech", "Geo-Banter", "Application", "Earth Observation", "Career", "Scholarships"
   ]
 
   function navigateToEpisodes() {
