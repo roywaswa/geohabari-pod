@@ -81,7 +81,9 @@ export function HeroSection() {
           <h1 id="topic">GeoHabari</h1>
         </div>
         <h4>Amplifying African tech stories and building tech brilliance. This is a podcast for the geospatial community.</h4>
-        <Button clickHandler={navigateToEpisodes} text='LISTEN NOW' />
+        <div onClick={navigateToEpisodes} className={styles.btn_cta}>
+          LISTEN NOW
+        </div>
         <h5>Or on your fav platform</h5>
         <div className={styles.podcast_streaming}>
         <Link className={styles.link} href={platform_links.applepods} target='_blank'>
