@@ -37,10 +37,10 @@
       
     }
     .episode_link {
-        padding: 0.5rem 1rem;
-        border-radius: 1rem;
-        background: $brand-colors-green;
-      }
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border: 3px solid $brand-colors-purple;
+    }
   }
   .mobile_nav {
     position: absolute;

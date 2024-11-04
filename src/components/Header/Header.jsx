@@ -10,7 +10,7 @@ import useWindowDimensions from '@/hooks/useWindowDimensions';
 import { usePathname } from 'next/navigation';
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-    
+import { useRouter } from 'next/navigation';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
@@ -23,7 +23,11 @@ const Header = () => {
   const {width } = useWindowDimensions()
   const [mobileNav, setMobileNav] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
 
+  function navigateToEpisodes() {
+    router.push('/episodes')
+  }
   useGSAP(()=>{
     const showAnim = gsap.from('.main-tool-bar', { 
       yPercent: -100,
@@ -63,8 +67,8 @@ const Header = () => {
             <Link href="/about" className={styles.link_item}>ABOUT US</Link>
             <Link href="/contact" className={styles.link_item}>CONTACT</Link>
           </div>
-          <div className={styles.episode_link}>
-            <Link href="/episodes" className={styles.link_item}>EPISODES</Link>
+          <div onClick={navigateToEpisodes} className={styles.episode_link}>
+            EPISODES
           </div>
             
         </div> :
