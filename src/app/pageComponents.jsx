@@ -98,7 +98,7 @@ export function HeroSection() {
         </div>
       </div>
       <div className={styles.side_artwork}>
-        <Image className={styles.image} fill src={'/images/dar_es_salaam.png'} />
+        <Image className={styles.image} fill src={'/images/cities_grid.png'} />
       </div>
       </>
     </section>
