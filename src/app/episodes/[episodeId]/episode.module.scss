@@ -107,9 +107,13 @@ main.episode {
 
   .description{
     @include flex_column;
+    background-color: $brand-colors-orange;
+    border-radius: 12px;
+    margin-bottom: 1rem;
     gap: 1rem;
     padding: 1rem;
     align-items: center;
+    box-shadow: 5px 5px $brand-colors-green;
     
     p {
       @include Subtitle;

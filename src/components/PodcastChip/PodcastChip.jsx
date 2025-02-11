@@ -4,8 +4,9 @@ import Image from 'next/image';
 import { useTheme } from '@/context/ThemeContext';
 
 function PodcastChip({icon, platform}) {
+  // const {isDarkMode} = useTheme()
   return (
-    <div className={styles.PodcastChip}>
+    <div className={`${styles.PodcastChip}`}>
       <div className={styles.pod_icon}>
         <Image src={icon} fill alt={platform} />
       </div>

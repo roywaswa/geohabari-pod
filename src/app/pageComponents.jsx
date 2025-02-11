@@ -142,6 +142,11 @@ export  function TopicsSection() {
         <h6>We are all about</h6>
         <h1>Where African tech tales meet geospatial brilliance!</h1>
         <p>Geohabari delves into the fascinating intersection of African technology and geospatial innovation, sharing stories and insights that highlight the transformative power of mapping and location-based tech across the continent.</p>
+        {/* <div className={`${styles.abs_image_container} ${styles.section_backdrop}`}>
+          <div className={styles.image_container}>
+            <Image alt="Dar-es Salaam aerial view" src='/images/dar_es_salaam.png' fill/>
+          </div>
+        </div> */}
       </div>
       <div id="topics_cards" className={styles.topics_contianer}>
         {
@@ -155,6 +160,7 @@ export  function TopicsSection() {
           ))
         }
       </div>
+      
     </div>
   )
 }
@@ -164,7 +170,7 @@ export function TopicCard(props) {
   const {isDarkMode} = useTheme()
   const letters = props.topic.toUpperCase().split('')
   return (
-    <div className={`${styles.topic_card} ${isDarkMode && styles.dark} topic_card`}>
+    <div className={`${styles.topic_card} ${isDarkMode && 'dark'} topic_card`}>
       <div className={styles.topic_desc}>
         <div className={styles.topic_icon}>
           <Image src={'/favicon.png'} fill />
