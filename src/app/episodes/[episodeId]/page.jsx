@@ -21,6 +21,7 @@ export  async function generateStaticParams() {
 export default async function EpisodeDetailsPage({params}) {
 
   const episode = await getEpisodeById(params.episodeId)
+  
 
   return (
     <main className={`${styles.episode}`}>
@@ -40,7 +41,6 @@ export default async function EpisodeDetailsPage({params}) {
 const AudioPlayer = ({ mp3Url, artworkUrl, title = "Audio Title" }) => {
   return (
     <div className={styles.playerContainer}>
-      {/* <div className="ep_artwork"></div> */}
       <div className={styles.ep_artwork}>
         <Image fill
           src={artworkUrl}
