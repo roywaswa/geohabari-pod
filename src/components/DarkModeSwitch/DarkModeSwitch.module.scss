@@ -1,25 +1,79 @@
 @import '/src/styles/variables.scss';
 
-.dark_mode_switch {
+.switch_container {
   position: fixed;
-  bottom:4rem;
+  bottom: 4rem;
   right: 4rem;
-  padding: 1rem;
-  cursor: pointer;
   z-index: 1000;
-  background: black;
-  color: white;
 
-  @include respond-to(small){
+  @include respond-to(small) {
     bottom: 1rem;
     right: 1rem;
-    padding: 0.5rem;
-    @include sm;
   }
-  @include respond-to(medium){
+  @include respond-to(medium) {
     bottom: 2rem;
     right: 2rem;
-    padding: 1rem;
-    @include regular;
+  }
+}
+
+.dark_mode_switch {
+  width: 60px;
+  height: 30px;
+  background: gray;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.3s ease;
+  
+  .icon {
+    width: 25px;
+    height: 25px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // position: absolute;
+    top: 2.5px;
+    transition: transform 0.3s ease;
+  }
+
+  &.light {
+    background: gray;
+    align-items: flex-start;
+  }
+
+  &.dark {
+    background: white;
+    align-items: flex-end;
+    .icon{
+      background: black;
+    }
+  }
+
+  .icon {
+    width: 25px;
+    height: 25px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 2.5px;
+    transition: transform 0.3s ease;
+
+    &.light {
+      transform: translateX(0);
+    }
+
+    &.dark {
+      transform: translateX(30px);
+    }
   }
 }
