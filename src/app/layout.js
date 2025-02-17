@@ -33,7 +33,6 @@ export default function RootLayout({ children }) {
           <body className={`${fontFamily.className}`}>
             <ThemeProvider>
               <Header/>
-              
               <DarkModeSwitch />
               {children}
               <BackdropBlur />

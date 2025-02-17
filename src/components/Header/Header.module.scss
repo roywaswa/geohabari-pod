@@ -6,13 +6,11 @@
   @include flex_row;
   justify-content: space-between;
   position: fixed;
-  color: $black;
   top: 0;
   z-index: 10;
-
-  &.dark{
-    color: $white;
-  }
+  background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+  backdrop-filter: blur(10px); /* Blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
 
   .logo {
     cursor: pointer;
@@ -27,14 +25,12 @@
       text-decoration: none;
     }
 
-
     .nav_links {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
       width: 50%;
-      
     }
     .episode_link {
       cursor: pointer;
@@ -46,18 +42,13 @@
     position: absolute;
     @include flex_column;
     justify-content: flex-start;
-    top:60px;
+    top: 60px;
     left: 0;
     height: 95vh;
     width: 100%;
-    background: $white;
-    color: $black;
-
-    &.dark{
-      background: $black;
-      color: $white;
-    }
-
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Blur effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
 
     .nav_links {
       @include flex_column;

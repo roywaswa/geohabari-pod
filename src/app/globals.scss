@@ -21,6 +21,15 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+.light-mode {
+  // background-color: white;
+  color: black;
+}
+
+.dark-mode {
+  // background-color: black;
+  color: white;
+}
 
 header {
   width: 100%;

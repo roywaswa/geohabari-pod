@@ -19,7 +19,7 @@ gsap.registerPlugin(useGSAP,ScrollTrigger,ScrollToPlugin);
 
 
 const Header = () => {
-  const {isDarkMode, toggleTheme} = useTheme()
+  const {isDarkMode} = useTheme()
   const {width } = useWindowDimensions()
   const [mobileNav, setMobileNav] = useState(false)
   const pathname = usePathname()
@@ -54,14 +54,14 @@ const Header = () => {
     setMobileNav(!mobileNav) 
   }
   return(
-    <header className={`${styles.Header} main-tool-bar ${isDarkMode && styles.dark}`} data-testid="Header">
+    <header className={`${styles.Header} main-tool-bar`} data-testid="Header">
       <div className={styles.logo}>
         {isDarkMode? <Image href="#" src='/images/logo/logo_white.png' width={42} height={42} alt='Geohabari Logo'/>:
         <Image href="#" src='/images/logo/logo_black.png' width={42} height={42} alt='Geohabari Logo'/>}
       </div>
       {
         width > 500 ?
-        <div className={`${styles.navigation} ${isDarkMode? styles.dark: styles.light}`}>
+        <div className={`${styles.navigation}`}>
           <div className={styles.nav_links}>
             <Link href="/" className={styles.link_item}>HOME</Link>
             <Link href="/about" className={styles.link_item}>ABOUT US</Link>
