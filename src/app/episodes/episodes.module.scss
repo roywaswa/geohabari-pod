@@ -6,6 +6,7 @@ main.episodes {
   justify-content: center;
   width: 100%;
   gap: px_to_rem(24);
+  margin-top: 6rem;
   .container_page_title {
     @include flex_column;
     gap: px_to_rem(24);

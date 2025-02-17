@@ -6,6 +6,7 @@ main.about {
   align-items: center;
   margin-bottom: 2rem;
   width: 100%;
+  margin-top: 6rem;
   
   &>div.page_title{
     @include flex_column;
