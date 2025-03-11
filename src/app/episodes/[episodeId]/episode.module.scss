@@ -3,6 +3,7 @@
 
 
 main.episode {
+  margin-top: 6rem;
   @include flex_column;
   width: 100vw;
   justify-content: center;
