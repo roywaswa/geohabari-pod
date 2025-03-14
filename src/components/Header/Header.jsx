@@ -13,6 +13,7 @@ import { useGSAP } from "@gsap/react";
 import { useRouter } from 'next/navigation';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import DarkModeSwitch from '../DarkModeSwitch/DarkModeSwitch';
 
 
 gsap.registerPlugin(useGSAP,ScrollTrigger,ScrollToPlugin);
@@ -70,7 +71,7 @@ const Header = () => {
           <div onClick={navigateToEpisodes} className={styles.episode_link}>
             EPISODES
           </div>
-            
+          
         </div> :
         <div className={styles.ham_icon} onClick={toggleMobileNav}>
           {
