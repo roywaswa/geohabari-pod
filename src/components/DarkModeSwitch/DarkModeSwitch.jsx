@@ -13,8 +13,8 @@ export default function DarkModeSwitch() {
         <div className={styles.icon}>
           {
             isDarkMode ? 
-            <FontAwesomeIcon icon={faSun} size="lg" /> : 
-            <FontAwesomeIcon icon={faMoon} size="lg" />
+            <FontAwesomeIcon icon={faSun} size="sm" /> : 
+            <FontAwesomeIcon icon={faMoon} size="sm" />
           }
         </div>
       </div>
