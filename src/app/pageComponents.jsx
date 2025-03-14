@@ -80,7 +80,7 @@ export function HeroSection() {
         <div className={styles.topics_scroller}>
           <h1 id="topic">GeoHabari</h1>
         </div>
-        <h4>Amplifying African tech stories and building tech brilliance. This is a podcast for the geospatial community.</h4>
+        <h4>Amplifying African tech stories and building tech brilliance.</h4>
         <div onClick={navigateToEpisodes} className={styles.btn_cta}>
           LISTEN NOW
         </div>

@@ -57,8 +57,7 @@ const Header = () => {
   return(
     <header className={`${styles.Header} main-tool-bar`} data-testid="Header">
       <div className={styles.logo}>
-        {isDarkMode? <Image href="#" src='/images/logo/logo_white.png' width={42} height={42} alt='Geohabari Logo'/>:
-        <Image href="#" src='/images/logo/logo_black.png' width={42} height={42} alt='Geohabari Logo'/>}
+        <Image href="#" src='/images/logo/logo-green.png' width={120} height={40} alt='Geohabari Logo'/>
       </div>
       {
         width > 500 ?
