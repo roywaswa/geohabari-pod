@@ -1,0 +1,35 @@
+.backdrop {
+  background: rgb(221, 221, 221);
+  display: grid;
+  z-index: -1;
+  place-content: center;
+  position: fixed;
+  bottom: 0;
+  height: 100%;
+  top:0;
+  right:0;
+  left:0;
+  height: 100%;
+  overflow: hidden;
+  &.dark {
+    background: rgb(17, 17, 17);
+  }
+
+  img {
+    position: absolute;
+    top:-20%;
+    left:-20%;    
+  }
+  .overcast{
+    position: absolute;
+    bottom: 0;
+    top:0;
+    right:0;
+    left:0;
+    height: 100%;
+    overflow: hidden;
+    background: rgba(256,256,256, 0.10);
+    backdrop-filter: blur(40px);
+    z-index: 10;
+  }
+}

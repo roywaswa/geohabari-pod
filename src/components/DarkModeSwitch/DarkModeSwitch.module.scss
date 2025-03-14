@@ -1,0 +1,57 @@
+@import '/src/styles/variables.scss';
+
+.switch_container {
+  position: fixed;
+  top: 5rem;
+  right: 1rem;
+  z-index: 1000;
+
+  @include respond-to(small) {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+  @include respond-to(medium) {
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+}
+
+.dark_mode_switch {
+  width: 50px;
+  height: 25px;
+  background: $brand-colors-purple;
+  border-radius: 12.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.3s ease;
+
+  .icon {
+    width: 20px;
+    height: 20px;
+    background: $white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+
+  &.light {
+    background: $brand-colors-purple;
+    .icon {
+      transform: translateX(0);
+    }
+  }
+
+  &.dark {
+    background: $black;
+    .icon {
+      transform: translateX(25px);
+      background: $white;
+    }
+  }
+}

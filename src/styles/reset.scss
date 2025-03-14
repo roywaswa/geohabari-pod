@@ -62,7 +62,9 @@ textarea, select {
   font-family: inherit;
   font-size: inherit;
 }
-
+textarea {
+  resize: none;
+}
 /* Make sure textareas without a rows attribute are not tiny */
 textarea:not([rows]) {
   min-height: 10em;
