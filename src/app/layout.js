@@ -1,4 +1,4 @@
-import { Alata, Red_Hat_Display,Share_Tech_Mono, Montserrat } from "next/font/google";
+import { Alata, Red_Hat_Display,Share_Tech_Mono, Montserrat, DM_Serif_Text, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.scss";
@@ -8,8 +8,12 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import BackdropBlur from "@/components/BackdropBlur/BackdropBlur";
 import DarkModeSwitch from "@/components/DarkModeSwitch/DarkModeSwitch";
 
-const fontFamily = Montserrat({ 
-  weight: '600',
+// const fontFamily = Montserrat({ 
+//   weight: '600',
+//   subsets: ["latin"]    
+// });
+const fontFamily = DM_Serif_Text({ 
+  weight: '400',
   subsets: ["latin"]    
 });
 

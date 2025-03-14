@@ -32,10 +32,7 @@ const AboutPage = () => {
   })
   return(
     <>
-      <div className={styles.background_assets}>
-        
-      </div>
-      <main className={`${styles.about} ${ isDarkMode?'dark':null}`} data-testid="about">
+      <main className={`${styles.about} ${ isDarkMode ? 'dark' : ''}`} data-testid="about">
         <div className={styles.page_title}>
           <div className={styles.heading_main}>
             <h1>ABOUT GEOHABARI</h1>
@@ -64,11 +61,6 @@ const AboutPage = () => {
             <div className={`${styles.pod_desc} ${styles.pod_what_we_say} desc_section`}>
               <h3>What We Say About Us</h3>
               <p>Our mission is to demystify geospatial technology and make it accessible to everyone. We believe in the power of geospatial tech to transform industries and improve lives. Join us on this exciting journey!</p>
-            </div>
-          </div>
-          <div className={`${styles.abs_image_container} ${styles.footer_backdrop}`}>
-            <div className={styles.image_container}>
-              <Image className={styles.image} alt="Kampala aerial view" src='/images/kampala.png' fill/>
             </div>
           </div>
           <div id='description_graphic' className={`${styles.pod_image} ${styles.graphic}`}>
