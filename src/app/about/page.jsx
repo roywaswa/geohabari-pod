@@ -69,7 +69,7 @@ const AboutPage = () => {
         </div>
         <div className={`${styles.about_host} ${styles.details}`}>
           <div id='host_graphic' className={`${styles.host_image} ${styles.graphic}`}>
-            <Image className={styles.image} src='/images/host_photo.JPG' alt="Portait of Yariwo" fill={true}/>
+            {/* <Image className={styles.image} src='/images/host_photo.JPG' alt="Portait of Yariwo" fill={true}/> */}
           </div>
           <div id="host_desc" className={`${styles.host_description} ${styles.text}`}>
             <div className={`${styles.host_desc} ${styles.pod_desc}`}>
