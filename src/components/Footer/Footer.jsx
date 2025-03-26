@@ -53,10 +53,10 @@ const Footer = () => {
         <div className={styles.email_contacts}>
           <h3 className={styles.reach_out}>REACH OUT</h3>
           <ul className={styles.contact_emails}>
-            <li><Link href={"mailto:yariwo@geohabari.io"} className={styles.contact_emails_item}>yariwo@geohabari.io</Link></li>
-            <li><Link href={"mailto:yariwo@geohabari.io"} className={styles.contact_emails_item}>producer@geohabari.io</Link></li>
-            <li><Link href={"mailto:yariwo@geohabari.io"} className={styles.contact_emails_item}>partnership@geohabari.io</Link></li>
-            <li><Link href={"mailto:yariwo@geohabari.io"} className={styles.contact_emails_item}>media@geohabari.io</Link></li>
+            <li><Link href={"mailto:yariwo@geohabari.io"} className={styles.contact_emails_item}>yariwo@geohabari.com</Link></li>
+            <li><Link href={"mailto:yariwo@geohabari.io"} className={styles.contact_emails_item}>producer@geohabari.com</Link></li>
+            <li><Link href={"mailto:yariwo@geohabari.io"} className={styles.contact_emails_item}>partnership@geohabari.com</Link></li>
+            <li><Link href={"mailto:yariwo@geohabari.io"} className={styles.contact_emails_item}>media@geohabari.com</Link></li>
           </ul>
         </div>
         <div className={styles.engagement}>
