@@ -1,5 +1,6 @@
 import { Alata, Red_Hat_Display, Share_Tech_Mono, Montserrat, DM_Serif_Text, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { GoogleAnalytics } from '@next/third-parties/google'
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.scss";
 import Header from "@/components/Header/Header";
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Analytics />
+      <GoogleAnalytics gaId="G-YTCNDXEVER" />
       <SpeedInsights />
       <body className={`${fontFamily.className}`}>
         <ThemeProvider>
