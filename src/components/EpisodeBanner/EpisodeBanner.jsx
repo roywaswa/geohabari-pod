@@ -13,7 +13,7 @@ const EpisodeBanner = ({ imageUrl = "/images/GEOPOD-S2E1.jpg", altText = "Episod
           Join us for the debut of Season 2, where we explore the latest trends and innovations in the space economy.
           In this episode, we discuss the implications of the recent SpaceX Starship launch and its impact on the future of space exploration.
           We also delve into the role of private companies in shaping the space economy and the potential for new markets and opportunities.
-          Don't miss this exciting start to our new season!
+          Don&apos;t miss this exciting start to our new season!
         </p>
         {/* <button className={styles.btn_cta}>Listen Now</button> */}
       </div>
