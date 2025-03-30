@@ -1,0 +1,120 @@
+@import '/src/styles/variables.scss';
+
+.EpisodeBanner {
+  position: relative;
+  width: 100%;
+  height: 90vh; /* Cover 90% of the viewport height */
+  display: flex;
+  justify-content: center; /* Center the gradient container */
+  align-items: center; /* Center vertically */
+  padding: 2rem;
+  // background: $background-light; /* Set a neutral background for the section */
+  overflow: hidden;
+
+  @include respond-to(small) {
+    height: auto; /* Allow height to adjust for stacking */
+    padding: 1rem;
+  }
+
+  .gradient_container {
+    position: relative;
+    width: 90%; /* Make the container responsive */
+    max-width: 1200px; /* Limit the maximum width */
+    height: 100%; /* Fill the height of the section */
+    border-radius: 16px; /* Add rounded corners */
+    background: linear-gradient(135deg, $brand-colors-purple, $brand-colors-green); /* Gradient background */
+    opacity: 0.95; /* Slightly transparent for a soft effect */
+    display: flex;
+    justify-content: space-between; /* Space between text and image */
+    align-items: center; /* Center vertically */
+    padding: 2rem;
+    overflow: hidden;
+
+    @include respond-to(small) {
+      flex-direction: column; /* Stack text and image for mobile */
+      height: auto; /* Allow height to adjust for stacking */
+      padding: 1rem;
+    }
+
+    .text_container {
+      width: 40%; /* Limit text container to 40% of the width */
+      max-width: 600px; /* Limit the maximum width */
+      display: flex;
+      opacity: 1;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.5rem; /* Add spacing between elements */
+      color: $white; /* Ensure text is readable on the gradient */
+
+      @include respond-to(small) {
+        width: 100%; /* Full width for mobile */
+        text-align: center; /* Center-align text for mobile */
+      }
+
+      .title {
+        font-size: 3rem; /* Increase font size for the main heading */
+        font-weight: bold;
+        color: $white; /* Ensure text is readable on the gradient */
+      }
+
+      .subtitle {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $white;
+      }
+
+      .date {
+        font-size: 1rem;
+        font-weight: 400;
+        color: $text-light; /* Use a lighter muted color for contrast */
+      }
+
+      .description {
+        font-size: 1rem;
+        font-weight: 400;
+        color: $white;
+        line-height: 1.6; /* Improve readability */
+      }
+
+      .btn_cta {
+        cursor: pointer;
+        background: $brand-colors-orange;
+        color: $black;
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: all 300ms ease-in-out;
+
+        &:hover {
+          background: $white;
+          color: $brand-colors-purple;
+        }
+      }
+    }
+
+    .image_container {
+      position: relative;
+      opacity: 1;
+      width: 50%; /* Make the image container occupy 50% of the width */
+      max-width: 520px; /* Limit the maximum width */
+      aspect-ratio: 1 / 1; /* Ensure the container is a square */
+      background-color: #ffffff; /* Background color for the container */
+      border-radius: 16px; /* Add rounded corners */
+      overflow: hidden; /* Ensure the image doesn't overflow the container */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @include respond-to(small) {
+        width: 100%; /* Full width for mobile */
+        aspect-ratio: auto; /* Remove square aspect ratio for mobile */
+      }
+
+      .image {
+        object-fit: contain; /* Ensure the entire image is visible */
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}

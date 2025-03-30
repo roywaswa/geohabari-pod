@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "./page.module.scss";
 import { HeroSection,TopicsSection,AboutHost,NewsLetter,LatestEpisodes } from "./pageComponents";
+import EpisodeBanner from "@/components/EpisodeBanner/EpisodeBanner";
 
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
         </div>
       </div>
       <HeroSection />
+      <EpisodeBanner/>
       <TopicsSection />
       <LatestEpisodes />
       <NewsLetter />

@@ -32,3 +32,13 @@ $white: white;
   flex-wrap: wrap;
   gap: $gap;
 }
+
+@mixin respond-to($media) {
+  @if $media == small {
+    @media (max-width: $breakpoint-small) { @content; }
+  } @else if $media == medium {
+    @media (max-width: $breakpoint-medium) { @content; }
+  } @else if $media == large {
+    @media (max-width: $breakpoint-large) { @content; }
+  }
+}
