@@ -53,7 +53,7 @@ const Footer = () => {
         <div className={styles.email_contacts}>
           <h3 className={styles.reach_out}>REACH OUT</h3>
           <ul className={styles.contact_emails}>
-            <li><Link href={"mailto:yariwo@geohabari.com"} className={styles.contact_emails_item}>yariwo@geohabari.com</Link></li>
+            <li><Link href={"mailto:yariwokitiyo@geohabari.com"} className={styles.contact_emails_item}>yariwokitiyo@geohabari.com</Link></li>
             <li><Link href={"mailto:info@geohabari.com"} className={styles.contact_emails_item}>info@geohabari.com</Link></li>
           </ul>
         </div>

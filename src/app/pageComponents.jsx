@@ -283,7 +283,7 @@ export function NewsLetter() {
   return (
     <div className={`${styles.section_newsletter} ${isDarkMode && 'dark'}`}>
     <div className={styles.newsletter_container}>
-      <h1>Stay Ahead of the Masses</h1>
+      <h1>Join our community</h1>
       <div className={styles.signup_section}>
         <div className={styles.signup_prompt}>
           <h2>Sign Up for the Episode Alerts</h2>
