@@ -62,14 +62,14 @@ const Header = () => {
       {
         width > 500 ?
         <div className={`${styles.navigation}`}>
-          <div className={styles.nav_links}>
+          {/* <div className={styles.nav_links}> */}
             <Link href="/" className={styles.link_item}>HOME</Link>
             <Link href="/about" className={styles.link_item}>ABOUT US</Link>
             <Link href="/contact" className={styles.link_item}>CONTACT</Link>
-          </div>
-          <div onClick={navigateToEpisodes} className={styles.episode_link}>
-            EPISODES
-          </div>
+            <div onClick={navigateToEpisodes} className={styles.episode_link}>
+              EPISODES
+            </div>
+          {/* </div> */}
           
         </div> :
         <div className={styles.ham_icon} onClick={toggleMobileNav}>
