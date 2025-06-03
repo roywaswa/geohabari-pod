@@ -77,65 +77,138 @@
   }
 }
 
-.image_container{
-  display: grid;
-  height: 35.96875rem;
-  min-width: 30rem;
-  min-height: 30rem;
-  row-gap: 0.625rem;
-  column-gap: 10px;
-  flex: 1 0 0;
-  aspect-ratio: 575.50/575.50;
-  grid-template-rows: repeat(3, minmax(0, 1fr));
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+// .image_container{
+//   display: grid;
+//   height: 35.96875rem;
+//   min-width: 30rem;
+//   min-height: 30rem;
+//   row-gap: 0.625rem;
+//   column-gap: 10px;
+//   flex: 1 0 0;
+//   aspect-ratio: 575.50/575.50;
+//   grid-template-rows: repeat(3, minmax(0, 1fr));
+//   grid-template-columns: repeat(3, minmax(0, 1fr));
 
-  .nairobi_map{
-    flex: 1 0 0;
-    align-self: stretch;
-    aspect-ratio: 202.33/202.33;
-    grid-row: 1 / span 1;
-    grid-column: 1 / span 1;
+//   .nairobi_map{
+//     flex: 1 0 0;
+//     align-self: stretch;
+//     aspect-ratio: 202.33/202.33;
+//     grid-row: 1 / span 1;
+//     grid-column: 1 / span 1;
+//   }
+//   .kampala_map{
+//     flex: 1 0 0;
+//     align-self: stretch;
+//     aspect-ratio: 202.33/202.33;
+//     grid-row: 2 / span 1;
+//     grid-column: 2 / span 1;
+//   }
+//   .dar_map{
+//     flex: 1 0 0;
+//     align-self: stretch;
+//     aspect-ratio: 202.33/202.33;
+//     grid-row: 3 / span 1;
+//     grid-column: 3 / span 1;
+//   }
+//   .host_image {
+//     flex: 1 0 0;
+//     align-self: stretch;
+//     aspect-ratio: 202.33/202.33;
+//     border-radius: 1000px;
+//     overflow: hidden;
+//     background: linear-gradient(0deg, rgba(141, 198, 63, 0.40) 0%, rgba(141, 198, 63, 0.40) 100%) lightgray 50% / cover no-repeat;
+//     background-blend-mode: color-burn, normal;
+
+//     &.main_host{
+//       grid-row: 1 / span 1;
+//       grid-column: 2 / span 1;
+//     }
+//     &.second_host{
+//       grid-row: 2 / span 1;
+//       grid-column: 3 / span 1;
+//     }
+//     &.third_host{
+//       grid-row: 2 / span 1;
+//       grid-column: 1 / span 1;
+//     }
+//     &.fourth_host{
+//       grid-row: 3 / span 1;
+//       grid-column: 2 / span 1;
+//     }
+//   }
+// }
+.image_container {
+  display: grid;
+  width: 100%;
+  max-width: 35.96875rem; // Maximum size
+  aspect-ratio: 1 / 1; // Force square container
+  gap: 0.625rem;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  
+  // Responsive sizing
+  @media (max-width: 768px) {
+    max-width: 90vw; // Use viewport width on mobile
   }
-  .kampala_map{
-    flex: 1 0 0;
-    align-self: stretch;
-    aspect-ratio: 202.33/202.33;
-    grid-row: 2 / span 1;
-    grid-column: 2 / span 1;
+  
+  @media (max-width: 480px) {
+    max-width: 95vw;
+    gap: 0.3125rem; // Smaller gap on very small screens
   }
-  .dar_map{
-    flex: 1 0 0;
-    align-self: stretch;
-    aspect-ratio: 202.33/202.33;
-    grid-row: 3 / span 1;
-    grid-column: 3 / span 1;
+
+  // Map images
+  .nairobi_map {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    grid-row: 1;
+    grid-column: 1;
   }
+  
+  .kampala_map {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    grid-row: 2;
+    grid-column: 2;
+  }
+  
+  .dar_map {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    grid-row: 3;
+    grid-column: 3;
+  }
+
+  // Host images
   .host_image {
-    flex: 1 0 0;
-    align-self: stretch;
-    aspect-ratio: 202.33/202.33;
-    border-radius: 1000px;
-    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%; // Perfect circle
     background: linear-gradient(0deg, rgba(141, 198, 63, 0.40) 0%, rgba(141, 198, 63, 0.40) 100%) lightgray 50% / cover no-repeat;
     background-blend-mode: color-burn, normal;
 
-    &.main_host{
-      grid-row: 1 / span 1;
-      grid-column: 2 / span 1;
+    &.main_host {
+      grid-row: 1;
+      grid-column: 2;
     }
-    &.second_host{
-      grid-row: 2 / span 1;
-      grid-column: 3 / span 1;
+    
+    &.second_host {
+      grid-row: 2;
+      grid-column: 3;
     }
-    &.third_host{
-      grid-row: 2 / span 1;
-      grid-column: 1 / span 1;
+    
+    &.third_host {
+      grid-row: 2;
+      grid-column: 1;
     }
-    &.fourth_host{
-      grid-row: 3 / span 1;
-      grid-column: 2 / span 1;
+    
+    &.fourth_host {
+      grid-row: 3;
+      grid-column: 2;
     }
   }
 }
-
 
