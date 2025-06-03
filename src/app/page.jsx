@@ -1,17 +1,18 @@
 import Image from "next/image";
 import styles from "./page.module.scss";
-import { HeroSection,TopicsSection,AboutHost,NewsLetter,LatestEpisodes } from "./pageComponents";
+import { TopicsSection,AboutHost,NewsLetter,LatestEpisodes } from "./pageComponents";
+import HeroSection from "@/sections/HeroSection/HeroSection.lazy";
 import EpisodeBanner from "@/components/EpisodeBanner/EpisodeBanner";
 
 
 export default function Home() {
   return (
     <main className={`${styles.page}`}>
-      <div className={`${styles.abs_image_container} ${styles.hero_backdrop}`}>
+      {/* <div className={`${styles.abs_image_container} ${styles.hero_backdrop}`}>
         <div className={styles.image_container}>
           <Image alt="Nairobi aerial view" src='/images/nairobi_gray.png' fill/>
         </div>
-      </div>
+      </div> */}
       <HeroSection />
       <EpisodeBanner/>
       <TopicsSection />

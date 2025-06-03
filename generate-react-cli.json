@@ -12,6 +12,13 @@
       "withStory": false,
       "withLazy": true
     },
+    "section": {
+      "path": "src/sections",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": true
+    },
     "page": {
       "path": "src/app",
       "withLazy": true,
