@@ -420,6 +420,7 @@ div.section_newsletter {
     .signup_section {
       @include flex_row;
       justify-content: center;
+      gap: 4rem;
       align-items: center;
 
       &>div,form {

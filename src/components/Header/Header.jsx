@@ -13,14 +13,12 @@ import { useGSAP } from "@gsap/react";
 import { useRouter } from 'next/navigation';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import DarkModeSwitch from '../DarkModeSwitch/DarkModeSwitch';
 
 
 gsap.registerPlugin(useGSAP,ScrollTrigger,ScrollToPlugin);
 
 
 const Header = () => {
-  const {isDarkMode} = useTheme()
   const {width } = useWindowDimensions()
   const [mobileNav, setMobileNav] = useState(false)
   const pathname = usePathname()
@@ -56,42 +54,34 @@ const Header = () => {
   }
   return(
     <header className={`${styles.Header} main-tool-bar`} data-testid="Header">
-      <div className={styles.logo}>
-        <Image href="#" src='/images/logo/logo-green.png' width={120} height={40} alt='Geohabari Logo'/>
+      <div className={`${styles.logo_container} header_item`}>
+        <Link href="/" className={styles.logo}>
+          <Image src="/logo/geopod-dark.svg" alt="Logo" width={180} height={56} />
+        </Link>
       </div>
-      {
-        width > 500 ?
-        <div className={`${styles.navigation}`}>
-          {/* <div className={styles.nav_links}> */}
-            <Link href="/" className={styles.link_item}>HOME</Link>
-            <Link href="/about" className={styles.link_item}>ABOUT US</Link>
-            <Link href="/contact" className={styles.link_item}>CONTACT</Link>
-            <div onClick={navigateToEpisodes} className={styles.episode_link}>
-              EPISODES
-            </div>
-          {/* </div> */}
+      <nav className={`${styles.navigation} header_item`}>
+        {/* <ul className={`${styles.nav_links} ${mobileNav ? styles.active : ''}`}> */}
+          <li className={`${pathname === "/" && styles.active} ${styles.nav_item}`}>
+            <Link href="/" className={styles.nav_link}>home</Link>
+          </li>
           
-        </div> :
-        <div className={styles.ham_icon} onClick={toggleMobileNav}>
-          {
-            mobileNav ?
-            <FontAwesomeIcon icon={faCircleXmark} size='2xl'/> :
-            <FontAwesomeIcon icon={faBars}  size='xl'/>
-          }
-        </div>
-      }
-      {
-        mobileNav && 
-        <div className={`${styles.mobile_nav} ${isDarkMode && styles.dark}`}>
-          <div className={styles.nav_links}>
-            <Link href="/" className={styles.link_item}>HOME</Link>
-            <Link href="/about" className={styles.link_item}>ABOUT US</Link>
-            <Link href="/contact" className={styles.link_item}>CONTACT</Link>
-            <Link href="/episodes" className={styles.link_item_episode}>EPISODES</Link>
-          </div>
-        </div>
-      }
-      
+          <li className={`${pathname === '/about' && styles.active} ${styles.nav_item}`}>
+            <Link href="/about" className={styles.nav_link}>about us</Link>
+          </li>
+          <li className={`${pathname === '/contact' && styles.active} ${styles.nav_item}`}>
+            <Link href="/contact" className={styles.nav_link}>contact</Link>
+          </li>
+
+          <li className={styles.nav_cta}>
+            <Link href="/episodes" className={styles.nav_link}>LISTEN NOW</Link>
+          </li>
+        {/* </ul> */}
+        {width <= 768 && (
+          <button className={styles.mobile_nav_toggle} onClick={toggleMobileNav}>
+            <FontAwesomeIcon icon={faBars} />
+          </button>
+        )}
+      </nav>
     </header>
   );
 }
