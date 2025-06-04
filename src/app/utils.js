@@ -1,6 +1,6 @@
 
 export async function getEpisodes() {
-  const base_url = process.env.NEXT_PUBLIC_API_BASE_URL
+  const base_url = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.NEXT_PUBLIC_API_NET_URL || "https://geohabari.com" || "preview.geohabari.com";
   const data  = await  fetch(`${base_url}/api/buzzsprout`, {
     method:"GET",
     header:{

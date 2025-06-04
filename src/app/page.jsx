@@ -5,6 +5,7 @@ import HeroSection from "@/sections/HeroSection/HeroSection.lazy";
 import EpisodeBanner from "@/components/EpisodeBanner/EpisodeBanner";
 import LatestEp from "@/sections/LatestEp/LatestEp";
 import ShowThemes from "@/sections/ShowThemes/ShowThemes";
+import RecentEps from "@/sections/RecentEps/RecentEps";
 
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
       <HeroSection />
       <LatestEp/>
       <ShowThemes />
+      <RecentEps/>
     </main>
   );
 }

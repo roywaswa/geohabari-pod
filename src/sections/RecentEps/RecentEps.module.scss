@@ -1,1 +1,39 @@
-.RecentEps {}
+.RecentEps {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  
+
+  .section_header {
+    
+    h3{
+      color: #000;
+      font-size: 4rem;
+      font-weight: 900;
+      line-height: normal;
+    }
+  }
+  .episode_slider {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    // width: 100%;
+    overflow-x: hidden;
+    
+    .episode_card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 32vw;
+    }
+  }
+  .slider_crumbs {
+
+  }
+}
