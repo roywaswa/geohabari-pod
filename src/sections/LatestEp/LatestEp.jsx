@@ -13,7 +13,7 @@ import Link from 'next/link';
 export default function LatestEp() {
   const {episodes, loading} = useEpisodes()
   return(
-    <section className={styles.LatestEp}>
+    <div className={styles.LatestEp}>
       {
         loading ? (
           <p>Loading...</p>
@@ -23,7 +23,7 @@ export default function LatestEp() {
           />
         )
       }
-    </section>
+    </div>
   )
 }
 

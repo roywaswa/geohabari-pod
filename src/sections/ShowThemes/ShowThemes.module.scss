@@ -1,1 +1,67 @@
-.ShowThemes {}
+.ShowThemes {
+  display: flex;
+  padding: 4.5rem 2.5rem;
+  align-items: flex-start;
+  gap: 3rem 2.5rem;
+  align-self: stretch;
+  flex-wrap: wrap;
+
+  .theme_intro{
+    display: flex;
+    width: 55.83331rem;
+    padding: 0.625rem;
+    align-items: flex-start;
+    gap: 0.625rem;
+    align-self: stretch;
+
+    h3 {
+      color: #000;
+       
+      font-size: 6rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+  }
+}
+
+.ThemeCard{
+  display: flex;
+  padding: 2rem 1rem;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1 0 0;
+  align-self: stretch;
+  grid-row: 1 / span 1;
+  grid-column: 3 / span 1;
+
+  background: linear-gradient(0deg, rgba(120, 63, 198, 0.81) 0%, rgba(120, 63, 198, 0.81) 100%), lightgray 50% / cover no-repeat;
+
+  h3{
+    color: #FFF;
+    text-align: center;
+    
+    font-size: 4rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 3.5rem; /* 87.5% */
+  }
+  p{
+    color: #FFF;
+    text-align: center;
+
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.785rem; /* 119% */
+  }
+
+  img {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
+}
