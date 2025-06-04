@@ -3,6 +3,7 @@ import styles from "./page.module.scss";
 import { TopicsSection,AboutHost,NewsLetter,LatestEpisodes } from "./pageComponents";
 import HeroSection from "@/sections/HeroSection/HeroSection.lazy";
 import EpisodeBanner from "@/components/EpisodeBanner/EpisodeBanner";
+import LatestEp from "@/sections/LatestEp/LatestEp";
 
 
 export default function Home() {
@@ -14,15 +15,16 @@ export default function Home() {
         </div>
       </div> */}
       <HeroSection />
-      <EpisodeBanner/>
-      <TopicsSection />
-      <LatestEpisodes />
-      <NewsLetter />
-      <div className={`${styles.abs_image_container} ${styles.footer_backdrop}`}>
+      <LatestEp/>
+      {/* <EpisodeBanner/> */}
+      {/* <TopicsSection /> */}
+      {/* <LatestEpisodes /> */}
+      {/* <NewsLetter /> */}
+      {/* <div className={`${styles.abs_image_container} ${styles.footer_backdrop}`}>
         <div className={styles.image_container}>
           <Image alt="Dar-es Salaam aerial view" src='/images/dar_es_salaam.png' fill/>
         </div>
-      </div>
+      </div> */}
     </main>
   );
 }
