@@ -1,10 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import styles from './HeroSection.module.scss';
+import { useRouter } from 'next/navigation';
+import { platform_links } from '@/app/utils';
 
 const CITY_IMAGES = [
   { src: '/images/nairobi.png', alt: 'Nairobi city map', className: styles.nairobi_map },
@@ -18,6 +20,19 @@ const HOST_IMAGES = [
   { src: '/stock/woman_1.jpg', alt: 'Podcast guest - tech professional', className: `${styles.host_image} ${styles.third_host}` },
   { src: '/stock/man_2.jpg', alt: 'Podcast contributor - tech expert', className: `${styles.host_image} ${styles.fourth_host}` }
 ];
+
+export default function HeroSection() {
+  return (
+    <section 
+      className={styles.HeroSection}
+      aria-labelledby="hero-heading"
+      role="banner"
+    >
+      <HeroContent />
+      <ImageGrid />
+    </section>
+  );
+}
 
 const HeroContent = () => (
   <div className={styles.hook_container}>
@@ -33,26 +48,7 @@ const HeroContent = () => (
       </div>
     </header>
 
-    <button 
-      className={styles.main_cta}
-      type="button"
-      aria-label="Listen to podcast now"
-      onClick={() => {
-        // Add your navigation logic here
-        console.log('Navigate to podcast episodes');
-      }}
-    >
-      <span className={styles.main_cta_text}>
-        LISTEN NOW
-      </span>
-      <span className={styles.main_cta_icon} aria-hidden="true">
-        <FontAwesomeIcon 
-          icon={faCaretDown} 
-          size="2x" 
-          style={{ color: "#ffffff" }} 
-        />
-      </span>
-    </button>
+    <PodcastDropdown />
   </div>
 );
 
@@ -87,15 +83,85 @@ const ImageGrid = () => (
   </div>
 );
 
-export default function HeroSection() {
+
+const PodcastDropdown = () => {
+  const [isOpen, setIsOpen] = useState(false); 
+  const router = useRouter();
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleOptionClick = (platform) => {
+    setIsOpen(false);
+    if (platform == "Spotify") {
+      // push to spotify
+      router.push(platform_links.spotify)
+    }else if (platform == "Apple Podcasts") {
+      router.push(platform_links.applepods)
+    }else if (platform == "Podcast Addict") {
+      router.push(platform_links.podcast_addict)
+    }else {
+      console.log("No Platform");
+    }
+  };
+
   return (
-    <section 
-      className={styles.HeroSection}
-      aria-labelledby="hero-heading"
-      role="banner"
-    >
-      <HeroContent />
-      <ImageGrid />
-    </section>
+    <div className={styles.podcast_dropdown}>
+      {/* Main Button */}
+      <button
+        onClick={toggleDropdown}
+        className={styles.podcast_dropdown__main_btn}
+      >
+        <span className={styles.podcast_dropdown__main_text}>LISTEN NOW</span>
+        <FontAwesomeIcon
+          icon={faCaretDown}
+          className={`${styles.podcast_dropdown__chevron} ${
+            isOpen && styles.podcast_dropdown__chevron_active
+          }`}
+          size="1x"
+          style={{ color: "#ffffff" }}
+        />
+      </button>
+
+      {/* Dropdown Menu */}
+      {isOpen && (
+        <div className={styles.podcast_dropdown__menu}>
+          <button
+            onClick={() => handleOptionClick('Spotify')}
+            className={styles.podcast_dropdown__option}
+          >
+            <span className={styles.podcast_dropdown__option_text}>SPOTIFY</span>
+            <div className={`${styles.podcast_dropdown__icon} ${styles.podcast_dropdown__icon_spotify}`}>
+              <div className={styles.podcast_dropdown__icon_inner}>
+                <div className={styles.podcast_dropdown__icon_dot}></div>
+              </div>
+            </div>
+          </button>
+          <button
+            onClick={() => handleOptionClick('Apple Podcasts')}
+            className={styles.podcast_dropdown__option}
+          >
+            <span className={styles.podcast_dropdown__option_text}>APPLE PODCASTS</span>
+            <div className={`${styles.podcast_dropdown__icon} ${styles.podcast_dropdown__icon_apple}`}>
+              <div className={`${styles.podcast_dropdown__icon_inner} ${styles.podcast_dropdown__icon_inner_apple}`}>
+                <div className={`${styles.podcast_dropdown__icon_dot} ${styles.podcast_dropdown__icon_dot_apple}`}></div>
+              </div>
+            </div>
+          </button>
+          <button
+            onClick={() => handleOptionClick('Podcast Addict')}
+            className={styles.podcast_dropdown__option}
+          >
+            <span className={styles.podcast_dropdown__option_text}>PODCAST ADDICT</span>
+            <div className={`${styles.podcast_dropdown__icon} ${styles.podcast_dropdown__icon_orange}`}>
+              <div className={`${styles.podcast_dropdown__icon_inner} ${styles.podcast_dropdown__icon_inner_orange}`}>
+                <div className={`${styles.podcast_dropdown__icon_dot} ${styles.podcast_dropdown__icon_dot_orange}`}></div>
+              </div>
+            </div>
+          </button>
+        </div>
+      )}
+    </div>
   );
-}
+};
