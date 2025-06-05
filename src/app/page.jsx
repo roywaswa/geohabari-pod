@@ -6,6 +6,7 @@ import EpisodeBanner from "@/components/EpisodeBanner/EpisodeBanner";
 import LatestEp from "@/sections/LatestEp/LatestEp";
 import ShowThemes from "@/sections/ShowThemes/ShowThemes";
 import RecentEps from "@/sections/RecentEps/RecentEps";
+import QuoteCards from "@/sections/QuoteCards/QuoteCards";
 
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
       <LatestEp/>
       <ShowThemes />
       <RecentEps/>
+      <QuoteCards />
     </main>
   );
 }
