@@ -1,22 +1,24 @@
-"use client"
-import { getEpisodes } from '@/app/utils';
-import { useState, useEffect } from 'react';
+"use client";
+import useSWR from 'swr';
 
-const useEpisodes = () => {
-  const [episodes, setEpisodes] = useState([]);
-  const [loading, setLoading] = useState(true);
+const fetcher = url => fetch(url).then(res => res.json());
 
-  useEffect(() => {
-    const fetchEpisodes = async () => {
-      const res = await getEpisodes();
-      setEpisodes(res);
-      setLoading(false);
-    };
+export default function useEpisodes() {
+  const { data, error, isLoading } = useSWR('/api/buzzsprout', fetcher, {
+    dedupingInterval: 10 * 60 * 1000 // 10 minutes
+  });
 
-    fetchEpisodes();
-  }, []);
+  return {
+    episodes: data?.episodes || [],
+    loading: isLoading,
+    error,
+  };
+}
 
-  return { episodes, loading };
-};
-
-export default useEpisodes;
+export function useFirstEpisode() {
+  const { episodes, loading } = useEpisodes();
+  return {
+    firstEpisode: episodes.length > 0 ? episodes[0] : null,
+    loading,
+  };
+}
