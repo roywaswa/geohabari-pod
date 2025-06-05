@@ -1,1 +1,73 @@
-.NewsLetter {}
+.NewsLetter {
+  display: flex;
+  width: 80rem;
+  padding: 0rem 2.5rem;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 0.625rem 1rem;
+  flex-wrap: wrap;
+
+  .form_copy {
+    display: flex;
+    width: 40%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.625rem;
+    flex-shrink: 0;
+    h2 {
+      color: #8DC63F;
+      font-size: 4rem;
+      font-style: normal;
+      font-weight: 900;
+      line-height: normal;
+    }
+    p {
+      color: #000000;
+      font-family: Bender;
+      font-size: 2.5rem;
+      font-style: normal;
+      font-weight: 900;
+      line-height: normal;
+    }
+  }
+  form.newsletter_form {
+    display: flex;
+    width: 32.9375rem;
+    padding: 3.75rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2.25rem;
+    flex-shrink: 0;
+
+    input[type="email"], input[type="text"] {
+      outline: none;
+      width: 100%;
+      max-width: 400px;
+      padding: 1rem;
+      font-size: 1.5rem;
+      border: none;
+      border-bottom: 0.2rem solid #676767;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #76B634;
+      }
+    }
+
+    button {
+      background-color: #8DC63F;
+      color: #FFF;
+      font-size: 1.5rem;
+      padding: 0.5rem 2rem;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #76B634;
+      }
+    }
+  }
+}
