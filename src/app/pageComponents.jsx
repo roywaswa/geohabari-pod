@@ -21,91 +21,91 @@ import { platform_links, topics } from './utils';
 gsap.registerPlugin(useGSAP,ScrollTrigger, TextPlugin);
 
 
-// export function HeroSection() { 
-//   const artwork = "https://storage.buzzsprout.com/32ojhq8cef0rvhf4262bjty0szin"
-//   const { isDarkMode } = useTheme()
-//   const router = useRouter()
-//   const topics = [
-//     "Tech", "Geo-Banter", "Application", "Earth Observation", "Career", "Scholarships"
-//   ]
+export function HeroSection() { 
+  const artwork = "https://storage.buzzsprout.com/32ojhq8cef0rvhf4262bjty0szin"
+  const { isDarkMode } = useTheme()
+  const router = useRouter()
+  const topics = [
+    "Tech", "Geo-Banter", "Application", "Earth Observation", "Career", "Scholarships"
+  ]
 
-//   function navigateToEpisodes() {
-//     router.push('/episodes')
-//   }
-//   const podcast_links = {
-//     "spotify": "https://open.spotify.com/show/5n3pUUtfdAdGS4d2hMz2yc?si=f3e6a5803205469f",
-//     "applepods":"https://podcasts.apple.com/ke/podcast/geohabari/id1747885525",
-//     "podcast_addict": "https://podcastaddict.com/podcast/geohabari/5021923" 
-//   }
-//   useGSAP(() => {
-//     let intro_tl = gsap.timeline()
-//     const text_tl = gsap.timeline({
-//       delay:2,
-//       repeat:-1, 
-//       repeatDelay:2
-//     })
-//     topics.forEach(topic => {
-//       text_tl.to("#topic", {
-//         text: topic,
-//         duration: 1
-//       }).to("#topic", {
-//         duration: 1
-//       });
-//     })
-//     intro_tl.to("#blur_fore", {
-//       y:-1200,
-//       duration: 1,
-//       ease:'power1.out'
-//     })
-//     gsap.from("#image_1", { 
-//       x: "60%",
-//       delay: 0.8
-//     })
-//     gsap.from("#image_2", { 
-//       x: "40%",
-//       delay: 0.8
-//     })
-//     gsap.from("#image_3", { 
-//       x: "-40%",
-//       delay: 0.8
-//     })
-//   })
+  function navigateToEpisodes() {
+    router.push('/episodes')
+  }
+  const podcast_links = {
+    "spotify": "https://open.spotify.com/show/5n3pUUtfdAdGS4d2hMz2yc?si=f3e6a5803205469f",
+    "applepods":"https://podcasts.apple.com/ke/podcast/geohabari/id1747885525",
+    "podcast_addict": "https://podcastaddict.com/podcast/geohabari/5021923" 
+  }
+  useGSAP(() => {
+    let intro_tl = gsap.timeline()
+    const text_tl = gsap.timeline({
+      delay:2,
+      repeat:-1, 
+      repeatDelay:2
+    })
+    topics.forEach(topic => {
+      text_tl.to("#topic", {
+        text: topic,
+        duration: 1
+      }).to("#topic", {
+        duration: 1
+      });
+    })
+    intro_tl.to("#blur_fore", {
+      y:-1200,
+      duration: 1,
+      ease:'power1.out'
+    })
+    gsap.from("#image_1", { 
+      x: "60%",
+      delay: 0.8
+    })
+    gsap.from("#image_2", { 
+      x: "40%",
+      delay: 0.8
+    })
+    gsap.from("#image_3", { 
+      x: "-40%",
+      delay: 0.8
+    })
+  })
   
-//   return (
-//     <>
-//     <section id="hero" className={`${styles.hero} ${isDarkMode && 'dark'}`}>
-//       <>
-//       <div id="main_block" className={styles.main_hero}>
-//         <h1 id="title">Your one stop Podcast for Everything</h1>
-//         <div className={styles.topics_scroller}>
-//           <h1 id="topic">GeoHabari</h1>
-//         </div>
-//         <h4>Amplifying African tech stories and building tech brilliance.</h4>
-//         <div onClick={navigateToEpisodes} className={styles.btn_cta}>
-//           LISTEN NOW
-//         </div>
-//         <h5>Or on your fav platform</h5>
-//         <div className={styles.podcast_streaming}>
-//         <Link className={styles.link} href={platform_links.applepods} target='_blank'>
-//             <PodcastChip icon="/icons/apple_podcast.png" platform="Apple Podcasts"/>
-//           </Link>
-//           <Link className={styles.link} href={platform_links.spotify} target='_blank'>
-//             <PodcastChip icon="/icons/spotify.png" platform="Spotify"/>
-//           </Link>
-//           <Link className={styles.link} href={platform_links.podcast_addict} target='_blank'>
-//             <PodcastChip icon="/icons/podcast_addict.png" platform="Podcast Addict"/>
-//           </Link>
-//         </div>
-//       </div>
-//       <div className={styles.side_artwork}>
-//         <Image className={styles.image} alt='#' fill src={'/images/cities_grid.png'} />
-//       </div>
-//       </>
-//     </section>
-//     <div id="blur_fore" className={styles.over_cast}></div>
-//     </>
-//   )
-// }
+  return (
+    <>
+    <section id="hero" className={`${styles.hero} ${isDarkMode && 'dark'}`}>
+      <>
+      <div id="main_block" className={styles.main_hero}>
+        <h1 id="title">Your one stop Podcast for Everything</h1>
+        <div className={styles.topics_scroller}>
+          <h1 id="topic">GeoHabari</h1>
+        </div>
+        <h4>Amplifying African tech stories and building tech brilliance.</h4>
+        <div onClick={navigateToEpisodes} className={styles.btn_cta}>
+          LISTEN NOW
+        </div>
+        <h5>Or on your fav platform</h5>
+        <div className={styles.podcast_streaming}>
+        <Link className={styles.link} href={platform_links.applepods} target='_blank'>
+            <PodcastChip icon="/icons/apple_podcast.png" platform="Apple Podcasts"/>
+          </Link>
+          <Link className={styles.link} href={platform_links.spotify} target='_blank'>
+            <PodcastChip icon="/icons/spotify.png" platform="Spotify"/>
+          </Link>
+          <Link className={styles.link} href={platform_links.podcast_addict} target='_blank'>
+            <PodcastChip icon="/icons/podcast_addict.png" platform="Podcast Addict"/>
+          </Link>
+        </div>
+      </div>
+      <div className={styles.side_artwork}>
+        <Image className={styles.image} alt='#' fill src={'/images/cities_grid.png'} />
+      </div>
+      </>
+    </section>
+    <div id="blur_fore" className={styles.over_cast}></div>
+    </>
+  )
+}
 
 
 export  function TopicsSection() {

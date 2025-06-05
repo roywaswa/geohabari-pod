@@ -7,7 +7,11 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import styles from './HeroSection.module.scss';
 import { useRouter } from 'next/navigation';
 import { platform_links } from '@/app/utils';
+import { useGSAP } from '@gsap/react';
+import { TextPlugin } from 'gsap/all';
+import { gsap } from "gsap";
 
+gsap.registerPlugin(useGSAP, TextPlugin);
 const CITY_IMAGES = [
   { src: '/images/nairobi.png', alt: 'Nairobi city map', className: styles.nairobi_map },
   { src: '/images/kampala.png', alt: 'Kampala city map', className: styles.kampala_map },
@@ -34,7 +38,26 @@ export default function HeroSection() {
   );
 }
 
-const HeroContent = () => (
+const HeroContent = () => {
+  const topics = [
+    "Tech", "Geo-Banter", "Application", "Earth Observation", "Career", "Scholarships", "GEOHABARI"
+  ]
+  useGSAP(() => {
+    const text_tl = gsap.timeline({
+      delay:2,
+      repeat:-1, 
+      repeatDelay:2
+    })
+    topics.forEach(topic => { 
+      text_tl.to("#topic", {
+        text: topic.toUpperCase(),
+        duration: 1
+      }).to("#topic", {
+        duration: 1
+      });
+    })
+  })
+  return(
   <div className={styles.hook_container}>
     <header>
       <h1 className={styles.hook_text}>
@@ -44,13 +67,13 @@ const HeroContent = () => (
       </h1>
       
       <div className={styles.themes} role="banner" aria-label="Current theme">
-        SCHOLARSHIPS
+        <h2 id="topic">GEOHABARI</h2>
       </div>
     </header>
 
     <PodcastDropdown />
   </div>
-);
+);}
 
 const ImageGrid = () => (
   <div className={styles.image_container} role="img" aria-label="African tech community showcase">
