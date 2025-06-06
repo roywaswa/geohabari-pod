@@ -1,6 +1,8 @@
 @import '/src/styles/variables';
 
-.LatestEp {}
+.LatestEp {
+  // z-index: 1;
+}
 
 .LatestEpCard {
   display: flex;

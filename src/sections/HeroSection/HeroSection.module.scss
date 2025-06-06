@@ -5,12 +5,29 @@
   align-items: flex-end;
   justify-content:center;
   min-height: 80vh;
+  overflow: visible;
   
   @media (max-width: 768px) {
     flex-direction: column;
     padding: 1rem;
     gap: 1.5rem;
     min-height: auto;
+  }
+  .background_image{
+    position: absolute;
+    top: -20vh;
+    left: -20vw;
+    width: 100%;
+    height: fit-content;
+    z-index: -10;
+    object-fit: cover;
+    opacity: 0.8;
+    filter: blur(2px);
+    overflow: visible;
+    
+    @media (max-width: 768px) {
+      filter: blur(1px);
+    }
   }
 }
 

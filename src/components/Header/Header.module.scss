@@ -4,11 +4,18 @@
 
 .Header {
   display: flex;
-  padding: 1rem 2.5rem;
+  padding: 0.5rem 2.5rem;
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
-  background: transparent;
+  height: 10vh;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+  backdrop-filter: blur(10px); /* Blur effect */
+  -webkit-backdrop-filter: blur(10px); 
+  // background: transparent;
   a {
       text-decoration: none;
       color: inherit;

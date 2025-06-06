@@ -6,10 +6,12 @@ import Image from 'next/image';
 export default function QuoteCards(){
 
   const quote_cards = [
-    'https://placehold.co/400x400.png',
-    'https://placehold.co/400x400.png',
-    'https://placehold.co/400x400.png',
-    'https://placehold.co/400x400.png',
+    '/quotes/IMG-20250606-WA0008.jpg',
+    '/quotes/IMG-20250606-WA0009.jpg',
+    '/quotes/IMG-20250606-WA0010.jpg',
+    '/quotes/IMG-20250606-WA0011.jpg',
+    '/quotes/IMG-20250606-WA0012.jpg',
+    '/quotes/IMG-20250606-WA0013.jpg',
   ]
 
   return (
