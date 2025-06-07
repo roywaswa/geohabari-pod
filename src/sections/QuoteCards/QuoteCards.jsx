@@ -12,6 +12,7 @@ export default function QuoteCards(){
     '/quotes/IMG-20250606-WA0011.jpg',
     '/quotes/IMG-20250606-WA0012.jpg',
     '/quotes/IMG-20250606-WA0013.jpg',
+    '/quotes/IMG-20250606-WA0013.jpg',
   ]
 
   return (
@@ -24,6 +25,15 @@ export default function QuoteCards(){
           <Image src={card} alt='' width={400} height={400} />
         </div>
       ))}
+      <div className={styles.contourImageContainer}>
+        <Image
+          src="/images/contour.png"
+          alt='Contour decoration'
+          width={1000}
+          height={100}
+          className={styles.contourImage}
+        />
+      </div>
     </section>
   )
 }

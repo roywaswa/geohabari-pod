@@ -1,6 +1,8 @@
 .NewsLetter {
   display: flex;
-  width: 80rem;
+  // width: 80rem;
+  width: 100%;
+  height: 60vh;
   padding: 0rem 2.5rem;
   justify-content: center;
   align-items: center;
@@ -8,7 +10,7 @@
   gap: 0.625rem 1rem;
   flex-wrap: wrap;
   position: relative;
-  z-index: 1;
+  z-index: 10;
 
   .form_copy {
     display: flex;
@@ -70,6 +72,40 @@
       &:hover {
         background-color: #76B634;
       }
+    }
+  }
+  .newsImageContainer {
+    position: absolute;
+    top:0;
+    bottom: -5vh;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: -5vh;
+      background: linear-gradient(
+        to bottom, 
+        rgba(#783FC6, 0.3) 0%, 
+        rgba(#783FC6, 0.9) 100%
+      );
+      z-index: 1;
+      pointer-events: none;
+      backdrop-filter: blur(2px);
+    }
+
+    > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 1;
     }
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './NewsLetter.module.scss';
+import Image from 'next/image';
 
 export default function NewsLetter() {
 
@@ -27,6 +28,14 @@ export default function NewsLetter() {
           Subscribe
         </button>
       </form>
+      <div className={styles.newsImageContainer}>
+        <Image
+          src="/stock/group.jpg"
+          alt='Group of people'
+          fill
+          className={styles.newsImage}
+        />
+      </div>
     </div>
   )
 }
