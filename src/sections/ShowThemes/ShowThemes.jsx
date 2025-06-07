@@ -70,11 +70,9 @@ export default function ShowThemes() {
         that cut across<br />
         the board in ...
       </h2>
-      <div className={styles.grid}>
-        {themes.map((theme, index) => (
-          <ThemeCard key={index} theme={theme} />
-        ))}
-      </div>
+      {themes.map((theme, index) => (
+        <ThemeCard key={index} theme={theme} />
+      ))}
       <div className={styles.studioImageContainer}>
         <Image
           src="/stock/studio.jpg"

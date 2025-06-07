@@ -41,12 +41,14 @@ import React, { useState, useEffect } from 'react';
 import styles from './RecentEps.module.scss';
 import useEpisodes from '@/hooks/useEpisodes';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function RecentEps() {
   const { episodes, loading } = useEpisodes();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
+  const router = useRouter();
 
   const eps = episodes.slice(0, 5); // Limit to first 5 episodes
   const nextSlide = () => {
@@ -67,7 +69,9 @@ export default function RecentEps() {
 
   const handleEpisodeClick = (episodeId) => {
     // Replace with your navigation logic
-    console.log(`Navigate to episode ${episodeId}`);
+    // console.log(`Navigate to episode ${episodeId}`);
+    router.push(`/episodes/${episodeId}`);
+
   };
 
   // Touch handlers for mobile swipe

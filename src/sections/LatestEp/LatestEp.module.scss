@@ -3,6 +3,7 @@
 .LatestEp {
   position: relative;
   overflow: visible;
+  z-index: 10;
 
   .backgroundImageContainer{
     position: absolute;
