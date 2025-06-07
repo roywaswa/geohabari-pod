@@ -16,7 +16,7 @@
   .background_image{
     position: absolute;
     top: -20vh;
-    left: -20vw;
+    left: -15vw;
     width: 100%;
     height: fit-content;
     z-index: -10;
@@ -24,6 +24,10 @@
     opacity: 0.8;
     filter: blur(2px);
     overflow: visible;
+    img{
+      transform: rotate(-60deg);
+    }
+    // transform: rotate(-60deg);
     
     @media (max-width: 768px) {
       filter: blur(1px);

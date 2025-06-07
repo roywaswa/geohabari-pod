@@ -34,7 +34,7 @@ export default function HeroSection() {
     >
       <div className={styles.background_image}>
         <Image
-          src="/images/nairobi.png"
+          src="/images/nairobi_gray.png"
           alt="Nairobi city map background"
           width={1080}
           height={1080}
