@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './ShowThemes.module.scss';
+import Image from 'next/image';
 
 const themes = [
   {
@@ -73,6 +74,15 @@ export default function ShowThemes() {
         {themes.map((theme, index) => (
           <ThemeCard key={index} theme={theme} />
         ))}
+      </div>
+      <div className={styles.studioImageContainer}>
+        <Image
+          src="/stock/studio.jpg"
+          alt="Studio"
+          width={800}
+          height={600}
+          className={styles.studioImage}
+        />
       </div>
     </div>
   );
