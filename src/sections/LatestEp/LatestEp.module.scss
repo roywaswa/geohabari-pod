@@ -1,7 +1,23 @@
 @import '/src/styles/variables';
 
 .LatestEp {
-  // z-index: 1;
+  position: relative;
+  overflow: visible;
+
+  .backgroundImageContainer{
+    position: absolute;
+    top: 0;
+    right: -20vw;
+    z-index: -1;
+    width: 720px;
+    height: 720px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-position: center;
+    }
+  }
 }
 
 .LatestEpCard {

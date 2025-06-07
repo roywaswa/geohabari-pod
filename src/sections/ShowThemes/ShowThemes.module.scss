@@ -1,67 +1,91 @@
-.ShowThemes {
-  display: flex;
-  padding: 4.5rem 2.5rem;
-  align-items: flex-start;
-  gap: 3rem 2.5rem;
-  align-self: stretch;
-  flex-wrap: wrap;
-
-  .theme_intro{
-    display: flex;
-    width: 55.83331rem;
-    padding: 0.625rem;
-    align-items: flex-start;
-    gap: 0.625rem;
-    align-self: stretch;
-
-    h3 {
-      color: #000;
-       
-      font-size: 6rem;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-    }
-  }
+.showThemes {
+  padding: 2rem;
+  // background-color: #f8f9fa;
+  min-height: 100vh;
 }
 
-.ThemeCard{
+.mainTitle {
+  color: #000;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  margin: 0 0 3rem 0;
+  line-height: 1.1;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.themeCard {
+  width: 100%;
+  aspect-ratio: 1;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+  height: 100%;
   display: flex;
-  padding: 2rem 1rem;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  flex: 1 0 0;
-  align-self: stretch;
-  grid-row: 1 / span 1;
-  grid-column: 3 / span 1;
+  text-align: center;
+}
 
-  background: linear-gradient(0deg, rgba(120, 63, 198, 0.81) 0%, rgba(120, 63, 198, 0.81) 100%), lightgray 50% / cover no-repeat;
+.title {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+}
 
-  h3{
-    color: #FFF;
-    text-align: center;
-    
-    font-size: 4rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 3.5rem; /* 87.5% */
-  }
-  p{
-    color: #FFF;
-    text-align: center;
+.description {
+  color: white;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+}
 
-    font-size: 1.5rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 1.785rem; /* 119% */
-  }
+// Color variants
+.tech .overlay {
+  background: rgba(139, 92, 246, 0.8);
+}
 
-  img {
-    position: absolute;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 0.5rem;
-  }
+.study .overlay {
+  background: rgba(107, 114, 128, 0.8);
+}
+
+.banter .overlay {
+  background: rgba(132, 204, 22, 0.8);
+}
+
+.career .overlay {
+  background: rgba(139, 92, 246, 0.8);
+}
+
+.earth .overlay {
+  background: rgba(139, 92, 246, 0.8);
+}
+
+.academia .overlay {
+  background: rgba(139, 92, 246, 0.8);
+}
+
+.action .overlay {
+  background: rgba(139, 92, 246, 0.8);
 }

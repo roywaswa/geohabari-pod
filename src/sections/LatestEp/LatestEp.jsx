@@ -14,6 +14,16 @@ export default function LatestEp() {
   const {episodes, loading} = useEpisodes()
   return(
     <div className={styles.LatestEp}>
+      <div className={styles.backgroundImageContainer}>
+        <Image
+          src='/images/kampala.png'
+          alt="Background Image"
+          width={720}
+          height={720}
+          // fill
+          className={styles.backgroundImage}
+        />
+      </div>
       {
         loading ? (
           <p>Loading...</p>
@@ -28,11 +38,11 @@ export default function LatestEp() {
 }
 
 function LatestEpCard({episode}) {
-  console.log(episode);
   const short_title = episode.title.length > 30 ? episode.title.slice(0, 30) + '...' : episode.title;
   
   return (
     <div className={styles.LatestEpCard}>
+      
       <div className={styles.ep_player}>
         <div className={styles.ep_description}>
           <p>LATEST EPISODE #S0{episode.season_number}E{episode.episode_number} </p>
