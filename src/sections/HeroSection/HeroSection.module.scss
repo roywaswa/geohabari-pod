@@ -182,12 +182,17 @@
 }
 
 .podcast_dropdown {
-  width: 16rem;
+  width: max-content;
   position: relative;
   transition: all 0.3s ease-in;
+  display: flex;
+  flex-direction: row;
+  background-color: #9333ea;
+  justify-content: center;
+  align-items: center;
   
   &__main_btn {
-    width: 100%;
+    width: max-content;
     background-color: #9333ea;
     color: white;
     font-weight: bold;
@@ -213,6 +218,7 @@
     width: 1.5rem;
     height: 1.5rem;
     transition: all 0.3s linear;
+    padding: 1rem;
 
     &_active{
       rotate: 180deg;
