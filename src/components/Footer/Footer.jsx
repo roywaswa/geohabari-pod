@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { faPodcast } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
 
-const Footer = () => {
+export default function Footer (){
 
   const socials_links = { 
     "instagram": "https://www.instagram.com/geohabari",
@@ -53,45 +53,25 @@ const Footer = () => {
         <div className={styles.email_contacts}>
           <h3 className={styles.reach_out}>REACH OUT</h3>
           <ul className={styles.contact_emails}>
-            <li><Link href={"mailto:yariwo@geohabari.com"} className={styles.contact_emails_item}>yariwo@geohabari.com</Link></li>
+            <li><Link href={"mailto:yariwokitiyo@geohabari.com"} className={styles.contact_emails_item}>yariwokitiyo@geohabari.com</Link></li>
             <li><Link href={"mailto:info@geohabari.com"} className={styles.contact_emails_item}>info@geohabari.com</Link></li>
           </ul>
         </div>
         <div className={styles.engagement}>
           <div className={styles.subscriptions}>
             <h3 className={styles.subscriptions_title}>SUBSCRIBE</h3>
-            {/* <ul className={styles.host_sites}>
-              <li className={styles.host_sites_item}>
-                <Link className={styles.link} href={podcast_links.applepods} target='_blank'>
-                  <FontAwesomeIcon icon={faApple} size='xl'/>
-                  <p>Apple Podcast</p>
-                </Link>
-              </li>
-              <li className={styles.host_sites_item}>
-                <Link className={styles.link} href={podcast_links.spotify} target='_blank'>
-                  <FontAwesomeIcon icon={faSpotify} size='xl'/>
-                  <p>Spotify</p>
-                </Link>
-              </li>
-              <li className={styles.host_sites_item}>
-                <Link className={styles.link} href={"#"} target='_blank'>
-                  <FontAwesomeIcon icon={faPodcast} size='xl'/>
-                  <p>YouTube</p>
-                </Link>
-              </li>
-            </ul> */}
             <div className={styles.podcast_streaming}>
               <Link href={platform_links.spotify} target='_blank'>
               <div className={styles.streaming_site}>
-                <Image src={'/icons/spotify.png'} fill/>
+                <Image src={'/icons/spotify.png'} alt='' fill/>
               </div></Link>
               <Link href={platform_links.applepods} target='_blank'>
               <div className={styles.streaming_site}>
-                <Image src={'/icons/apple_podcast.png'} fill/>
+                <Image src={'/icons/apple_podcast.png'} alt='' fill/>
               </div></Link>
               <Link href={platform_links.podcast_addict} target='_blank'>
               <div className={styles.streaming_site}>
-                <Image src={'/icons/podcast_addict.png'} fill/>
+                <Image src={'/icons/podcast_addict.png'} alt='' fill/>
               </div>
               </Link>
             </div>
@@ -122,12 +102,7 @@ const Footer = () => {
       <div className={styles.copyright}>
         <span>Copyright &copy; 2024 Geohabari Podcast - All Rights Reserved</span>
       </div>
+      
     </div>
   )
 }
-
-Footer.propTypes = {};
-
-Footer.defaultProps = {};
-
-export default Footer;

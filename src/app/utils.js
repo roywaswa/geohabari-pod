@@ -1,24 +1,31 @@
 
 export async function getEpisodes() {
-  const base_url = process.env.NEXT_PUBLIC_API_BASE_URL
-  const data  = await  fetch(`${base_url}/api/buzzsprout`, {
-    method:"GET",
-    header:{
-      "Content-Type": "application/json",
-    },
-  }).then((res) => res.json())
-    .then((data) => (data.data));
-  return(data)
+  const base_url = process.env.NEXT_PUBLIC_API_BASE_URL 
+    || process.env.NEXT_PUBLIC_API_NET_URL 
+    || "https://geohabari.com";
+
+  try {
+    const res = await fetch(`${base_url}/api/buzzsprout`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await res.json();
+    return data?.episodes || []; // match the trimmed format from API
+  } catch (error) {
+    console.error("Error fetching episodes:", error);
+    return [];
+  }
 }
 
-export async function getEpisodeById(id) {  
-  const episodes = await getEpisodes().then(res => {
-    const selectedEpisode = res.filter((episode) => String(episode.id) === id);
-    let ep = selectedEpisode.length > 0 ? selectedEpisode[0] : null
-    return(ep)
-  })
-  return episodes
+
+export async function getEpisodeById(id) {
+  const episodes = await getEpisodes();
+  return episodes.find(ep => String(ep.id) === id) || null;
 }
+
 
 export const platform_links = {
     "spotify": "https://open.spotify.com/show/5n3pUUtfdAdGS4d2hMz2yc?si=f3e6a5803205469f",

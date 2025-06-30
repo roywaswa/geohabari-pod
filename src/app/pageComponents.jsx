@@ -283,13 +283,13 @@ export function NewsLetter() {
   return (
     <div className={`${styles.section_newsletter} ${isDarkMode && 'dark'}`}>
     <div className={styles.newsletter_container}>
-      <h1>Stay Ahead of the Masses</h1>
+      <h1>Join the community</h1>
       <div className={styles.signup_section}>
         <div className={styles.signup_prompt}>
-          <h2>Sign Up for the Episode Alerts</h2>
-          <p>Get notified of all updates  and  episodes  as soon as they are relaeased</p>
+          <h2>Sign Up for Updates on Episodes, Newsletters and Perks</h2>
+          {/* <p>Get notified of all updates  and  episodes  as soon as they are relaeased</p> */}
         </div>
-        <form onSubmit={submitForm}>
+        <form onSubmit={submitForm} action="https://formsubmit.co/royshadrack@gmail.com" method="POST">
           <TextInput label="First Name"
           name="firstname"
           placeholder="Joe"

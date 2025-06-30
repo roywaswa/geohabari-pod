@@ -6,7 +6,7 @@ div.Footer {
   align-items: center;
   padding: px_to_rem(24) px_to_rem(48);
   width: 100vw;
-  background: $black;
+  background: #783FC6;
   
   &>div.main_footer {
     @include flex_row(1rem);

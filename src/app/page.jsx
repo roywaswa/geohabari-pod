@@ -1,27 +1,21 @@
-import Image from "next/image";
 import styles from "./page.module.scss";
-import { HeroSection,TopicsSection,AboutHost,NewsLetter,LatestEpisodes } from "./pageComponents";
-import EpisodeBanner from "@/components/EpisodeBanner/EpisodeBanner";
+import HeroSection from "@/sections/HeroSection/HeroSection.lazy";
+import LatestEp from "@/sections/LatestEp/LatestEp";
+import ShowThemes from "@/sections/ShowThemes/ShowThemes";
+import RecentEps from "@/sections/RecentEps/RecentEps";
+import QuoteCards from "@/sections/QuoteCards/QuoteCards";
+import NewsLetter from "@/sections/NewsLetter/NewsLetter";
 
 
 export default function Home() {
   return (
     <main className={`${styles.page}`}>
-      <div className={`${styles.abs_image_container} ${styles.hero_backdrop}`}>
-        <div className={styles.image_container}>
-          <Image alt="Nairobi aerial view" src='/images/nairobi_gray.png' fill/>
-        </div>
-      </div>
       <HeroSection />
-      <EpisodeBanner/>
-      <TopicsSection />
-      <LatestEpisodes />
+      <LatestEp/>
+      <ShowThemes />
+      <RecentEps/>
+      <QuoteCards />
       <NewsLetter />
-      <div className={`${styles.abs_image_container} ${styles.footer_backdrop}`}>
-        <div className={styles.image_container}>
-          <Image alt="Dar-es Salaam aerial view" src='/images/dar_es_salaam.png' fill/>
-        </div>
-      </div>
     </main>
   );
 }
