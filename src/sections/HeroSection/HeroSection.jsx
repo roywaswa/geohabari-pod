@@ -32,15 +32,6 @@ export default function HeroSection() {
       aria-labelledby="hero-heading"
       role="banner"
     >
-      <div className={styles.background_image}>
-        <Image
-          src="/images/nairobi_gray.png"
-          alt="Nairobi city map background"
-          width={1080}
-          height={1080}
-          // fill
-          />
-      </div>
       <HeroContent />
       <ImageGrid />
     </section>

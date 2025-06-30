@@ -13,27 +13,11 @@
     gap: 1.5rem;
     min-height: auto;
   }
-  .background_image{
-    position: absolute;
-    top: -20vh;
-    left: -15vw;
-    width: 100%;
-    height: fit-content;
-    z-index: -10;
-    object-fit: cover;
-    opacity: 0.8;
-    filter: blur(2px);
-    overflow: visible;
-    img{
-      transform: rotate(-60deg);
-    }
-    // transform: rotate(-60deg);
-    
-    @media (max-width: 768px) {
-      filter: blur(1px);
-    }
+  @media (max-width: 768px) {
+    filter: blur(1px);
   }
 }
+
 
 .hook_container {
   flex: 1;
