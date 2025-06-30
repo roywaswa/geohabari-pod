@@ -27,22 +27,22 @@ const Header = () => {
   function navigateToEpisodes() {
     router.push('/episodes')
   }
-  useGSAP(()=>{
-    const showAnim = gsap.from('.main-tool-bar', { 
-      yPercent: -100,
-      paused: true,
-      duration: 0.2
-    }).progress(1);
+  // useGSAP(()=>{
+  //   const showAnim = gsap.from('.main-tool-bar', { 
+  //     yPercent: -100,
+  //     paused: true,
+  //     duration: 0.2
+  //   }).progress(1);
     
-    ScrollTrigger.create({
-      start: "top top",
-      end: "max",
-      onUpdate: (self) => {
-        self.direction === -1 ? showAnim.play() : showAnim.reverse()
-      }
-    });
+  //   ScrollTrigger.create({
+  //     start: "top top",
+  //     end: "max",
+  //     onUpdate: (self) => {
+  //       self.direction === -1 ? showAnim.play() : showAnim.reverse()
+  //     }
+  //   });
     
-  })
+  // })
 
   useEffect(() => {
     setMobileNav(false)
@@ -53,14 +53,13 @@ const Header = () => {
     setMobileNav(!mobileNav) 
   }
   return(
-    <header className={`${styles.Header} main-tool-bar`} data-testid="Header">
+    <header className={`${styles.Header}`} data-testid="Header">
       <div className={`${styles.logo_container} header_item`}>
         <Link href="/" className={styles.logo}>
           <Image src="/logo/geopod-dark.svg" alt="Logo" width={180} height={56} />
         </Link>
       </div>
       <nav className={`${styles.navigation} header_item`}>
-        {/* <ul className={`${styles.nav_links} ${mobileNav ? styles.active : ''}`}> */}
           <li className={`${pathname === "/" && styles.active} ${styles.nav_item}`}>
             <Link href="/" className={styles.nav_link}>home</Link>
           </li>
@@ -73,9 +72,8 @@ const Header = () => {
           </li>
 
           <li className={styles.nav_cta}>
-            <Link href="/episodes" className={styles.nav_link}>LISTEN NOW</Link>
+            <Link href="/episodes" className={styles.nav_link}>EPISODES</Link>
           </li>
-        {/* </ul> */}
         {width <= 768 && (
           <button className={styles.mobile_nav_toggle} onClick={toggleMobileNav}>
             <FontAwesomeIcon icon={faBars} />

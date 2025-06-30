@@ -24,7 +24,7 @@ export default function QuoteCards(){
           <Image src={card} alt='' width={400} height={400} />
         </div>
       ))}
-      <div className={styles.contourImageContainer}>
+      {/* <div className={styles.contourImageContainer}>
         <Image
           src="/images/contour.png"
           alt='Contour decoration'
@@ -32,7 +32,7 @@ export default function QuoteCards(){
           height={100}
           className={styles.contourImage}
         />
-      </div>
+      </div> */}
     </section>
   )
 }

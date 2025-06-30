@@ -14,7 +14,7 @@ export default function LatestEp() {
   const {episodes, loading} = useEpisodes()
   return(
     <div className={styles.LatestEp}>
-      <div className={styles.backgroundImageContainer}>
+      {/* <div className={styles.backgroundImageContainer}>
         <Image
           src='/images/kampala.png'
           alt="Background Image"
@@ -23,7 +23,7 @@ export default function LatestEp() {
           // fill
           className={styles.backgroundImage}
         />
-      </div>
+      </div> */}
       {
         loading ? (
           <p>Loading...</p>
