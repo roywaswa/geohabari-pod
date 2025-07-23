@@ -24,7 +24,7 @@ const themes = [
   {
     name: "CAREER",
     description: "Navigate diverse career paths in the geospatial industry. Discussing pivotal moments, key learnings, and challenges, these episodes inspire you to explore new career horizons.",
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop',
+    image: 'https://i.pinimg.com/474x/82/39/ef/8239ef9e56f398c316c42bd6fc16ddbd.jpg',
     color: 'career'
   },
   {
@@ -73,15 +73,6 @@ export default function ShowThemes() {
       {themes.map((theme, index) => (
         <ThemeCard key={index} theme={theme} />
       ))}
-      <div className={styles.studioImageContainer}>
-        <Image
-          src="/stock/studio.jpg"
-          alt="Studio"
-          width={800}
-          height={600}
-          className={styles.studioImage}
-        />
-      </div>
     </div>
   );
 }
