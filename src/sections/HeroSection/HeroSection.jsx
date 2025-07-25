@@ -2,14 +2,13 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import styles from './HeroSection.module.scss';
 import { useRouter } from 'next/navigation';
 import { platform_links } from '@/app/utils';
 import { useGSAP } from '@gsap/react';
 import { TextPlugin } from 'gsap/all';
 import { gsap } from "gsap";
+import Link from 'next/link';
 
 gsap.registerPlugin(useGSAP, TextPlugin);
 const CITY_IMAGES = [
@@ -66,8 +65,8 @@ const HeroContent = () => {
         <span> building tech brilliance.</span>
       </h1>
       
-      <div className={styles.themes} role="banner" aria-label="Current theme">
-        <h2 id="topic">GEOHABARI</h2>
+      <div className={styles.subtitle}>
+        We exist for the purpose of Catalysing spiritual social and economic renewal in our immediate communities and as a result the world
       </div>
     </header>
 
@@ -108,38 +107,57 @@ const ImageGrid = () => (
 
 
 const PodcastDropdown = () => {
-  const [isOpen, setIsOpen] = useState(false); 
   const router = useRouter();
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleOptionClick = (platform) => {
-    setIsOpen(false);
-    if (platform == "Spotify") {
-      router.push(platform_links.spotify)
-    }else if (platform == "Apple Podcasts") {
-      router.push(platform_links.applepods)
-    }else if (platform == "Podcast Addict") {
-      router.push(platform_links.podcast_addict)
-    }else {
-      console.log("No Platform");
-    }
-  };
-
-
   return (
-    <div className={styles.podcast_dropdown}>
+    <div className={styles.main_cta_container}>
       {/* Main Button */}
       <button
         onClick={() => {
           router.push('/episodes');
         }}
-        className={styles.podcast_dropdown__main_btn}
+        className={styles.cta__main_btn}
       >
-        <span className={styles.podcast_dropdown__main_text}>LISTEN NOW</span>
+        <span className={styles.cta__main_text}>LISTEN NOW</span>
       </button>
+
+      <div className={styles. other_listenig}>
+        {/* Listening Options */}
+        <Link className={styles.list_option} href={platform_links.spotify} target="_blank" rel="noopener noreferrer">
+          {/* Image */}
+          <Image
+            src="/icons/spotify.png"
+            alt="Listen on Spotify"
+            width={48}
+            height={48}
+            className={styles.platform_icon}
+          />
+          {/* Text label */}
+          <span className={styles.platform_label}>Spotify</span>
+        </Link>
+        <Link className={styles.list_option} href={platform_links.applepods} target="_blank" rel="noopener noreferrer">
+          {/* Image */}
+          <Image
+            src="/icons/apple_podcast.png"
+            alt="Listen on Apple Podcasts"
+            width={48}
+            height={48}
+            className={styles.platform_icon}
+          />
+          {/* Text label */}
+          <span className={styles.platform_label}>Apple<br/>Podcasts</span>
+        </Link>
+        <Link className={styles.list_option} href={platform_links.podcast_addict} target="_blank" rel="noopener noreferrer">
+          {/* Image */}
+          <Image
+            src="/icons/podcast_addict.png"
+            alt="Listen on Podcast Addict"
+            width={48}
+            height={48}
+            className={styles.platform_icon}
+          />
+          <span className={styles.platform_label}>Podcast<br/>Addict</span>
+        </Link>
+      </div>
     </div>
   );
 };
