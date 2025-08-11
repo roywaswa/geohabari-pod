@@ -10,28 +10,56 @@ import NairobiMap from "../images/nairobi.png"
 <Layout title="Home" description="Welcome to GeoHabari">
   <section class="container hero">
     <div class="hero-content">
-      
       <h1 class="heading">
         Amplifying African tech stories & building tech brilliance.
       </h1>
-      <div class="sub-heading">
+      <h5 class="sub-heading">
         Catalysing spiritual, social and economic renewal in our immediate communities and as a result the world
-      </div>
+      </h5>
       <div class="cta-component">
-        <Button>LISTEN NOW</Button>
+        <button class="cta-btn">
+          <h5>LISTEN NOW</h5>
+        </button>
         <div class="secondary-cta">
-          <div class="spotify"></div>
-          <div class="apple-pods"></div>
-          <div class="pod-addict"></div>
+          <div class="platform">
+            <Image
+              src="https://placehold.co/48x48"
+              alt="Hero Graphics"
+              width={48}
+              height={48}
+              class="icon"
+            />
+            <p>Spotify</p>
+          </div>
+          <div class="platform">
+            <Image
+              src="https://placehold.co/48x48"
+              alt="Hero Graphics"
+              width={48}
+              height={48}
+              class="icon"
+            />
+            <p>Apple Podcast</p>
+          </div>
+          <div class="platform">
+            <Image
+              src="https://placehold.co/48x48"
+              alt="Hero Graphics"
+              width={48}
+              height={48}
+              class="icon"
+            />
+            <p>Podcast Addict</p>
+          </div>
         </div>
       </div>
     </div>
     <div class="hero-graphics">
       <Image
-        src={NairobiMap}
+        src="https://placehold.co/720x720"
         alt="Hero Graphics"
-        width={600}
-        height={400}
+        width={720}
+        height={720}
         class="hero-image"
       />
     </div>
@@ -48,28 +76,28 @@ import NairobiMap from "../images/nairobi.png"
     </h3>
     <div class="img-strip">
       <Image
-        src={NairobiMap}
+        src="https://placehold.co/400x400"
         alt="Hero Graphics"
         width={400}
         height={400}
         class="hero-image"
       />
       <Image
-        src={NairobiMap}
+        src="https://placehold.co/400x400"
         alt="Hero Graphics"
         width={400}
         height={400}
         class="hero-image"
       />
       <Image
-        src={NairobiMap}
+        src="https://placehold.co/400x400"
         alt="Hero Graphics"
         width={400}
         height={400}
         class="hero-image"
       />
       <Image
-        src={NairobiMap}
+        src="https://placehold.co/400x400"
         alt="Hero Graphics"
         width={400}
         height={400}
@@ -78,15 +106,15 @@ import NairobiMap from "../images/nairobi.png"
     </div>
   </section>
   <section class="container topics">
-    <div class="topics_heading">
-      <h3>
+    <div class="topics-heading">
+      <h2>
         With conversations that cut across the board in ...
-      </h3>
+      </h2>
       <h5>
         It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
       </h5>
     </div>
-    <div class="container_themes">
+    <div class="container-themes">
       <ThemeCard />
       <ThemeCard />
       <ThemeCard />
@@ -293,7 +321,152 @@ import NairobiMap from "../images/nairobi.png"
     </form>
   </section>
 </Layout>
+<style lang="scss">
+  @use "../styles/partials/combined.scss" as *;
 
+  section.hero{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: $spacing-4 $spacing-6;
+    align-self: stretch;
+    flex-wrap: wrap;
+    gap: $spacing-6;
+    .hero-content{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $spacing-3;
+      width: clamp(300px, 45%, 1024px);
+      .heading{
+        text-align: center;
+        line-height: 1.2;
+        margin: 0;
+      }
+      .sub-heading{
+        text-align: center;
+        font-size: px-to-rem($h4-px);
+        font-weight: 700;
+        color: $black;
+      }
+      .cta-component {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap:$spacing-5;
+
+        .cta-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 0.5rem;
+          background: $purple;
+          border: none;
+          padding: $spacing-3 $spacing-6;
+
+          h5{
+            font-size: clamp(px-to-rem($h6-px), 1.2rem, 1.5rem);
+            color: $white;
+            letter-spacing: 0.45rem;
+            font-weight: 700;
+            margin: 0;
+          }
+        }
+
+        .secondary-cta {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          gap: $spacing-3;
+
+          .platform {
+            width: 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: $spacing-2;
+
+            .icon {
+              border-radius: $radius-full;
+              overflow: hidden;
+            }
+
+            p{
+              font-size: px-to-rem($a-sm-px);
+              text-align: center;
+              line-height: 1.0;
+            }
+          }
+        }
+      }
+    }
+    .hero-graphics{
+      width: clamp(300px, 45%, 720px);
+
+      .hero-image{
+        width: 100%;
+        height: auto;
+        
+      }
+    }
+  }
+
+  section.introduction{
+    display: flext;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-7;
+    align-self: stretch;
+    padding: $spacing-4 $spacing-6;
+
+    .brief, .purpose, .outro {
+      color: $black;
+      width: clamp(300px, 45%, 1024px);
+    }
+    .img-strip{
+      display: flex;
+      align-items: flex-start;
+      gap: $spacing-3;
+      width: 100%;
+      overflow: hidden;
+    }
+  }
+
+  section.topics{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: $spacing-4 $spacing-6;
+    align-self: stretch;
+
+    .topics-heading{
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      align-self: stretch;
+      gap: $spacing-4;
+
+      h2 {
+        width: clamp(30rem, 20vw, 300px);
+        line-height: 1.4;
+      }
+      h5 {
+        width: clamp(30rem, 20vw, 300px);
+        font-weight:700;
+      }
+    }
+    .container-themes{
+      display: flex;
+      align-items: flex-end;
+      align-content: flex-end;
+      gap: $spacing-4;
+      align-self: stretch;
+      flex-wrap: wrap;
+    }
+  }
+
+</style>
 <script>
   import { gsap } from "gsap";
   import { SplitText } from "gsap/SplitText";
@@ -319,7 +492,5 @@ import NairobiMap from "../images/nairobi.png"
         return split;
       }
     });
-
   });
-
 </script>

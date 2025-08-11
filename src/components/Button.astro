@@ -2,13 +2,14 @@
 interface ButtonProps {
   type?: string;
   id?: string;
-  href?: string;
+  class?: string;
 }
 
-const { type = 'primary', id=" " } = Astro.props as ButtonProps;
+const { type = 'primary' } = Astro.props as ButtonProps;
 ---
 
-<button id=`${id}` class={`btn ${type}`}>
+<button id={Astro.props.id} 
+  class={`${Astro.props.class} btn ${type} `}>
   <slot />
 </button>
 
