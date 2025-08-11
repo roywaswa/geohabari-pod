@@ -18,5 +18,10 @@ export default defineConfig({
     playformCompress(),
     icon()
   ],
-  adapter: vercel()
+  output: 'server',
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true
+    }
+  })
 });

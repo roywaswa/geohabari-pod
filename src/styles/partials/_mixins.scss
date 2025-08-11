@@ -1,4 +1,4 @@
-
+@use 'sass:map';
 @use './variables.scss' as *;
 
 @mixin font-face($name, $file, $weight: 400, $style: normal) {
@@ -37,7 +37,7 @@ $breakpoints: (
 );
 
 @mixin media($size) {
-  $value: map-get($breakpoints, $size);
+  $value: map.get($breakpoints, $size);
 
   @if $value {
     @media screen and (max-width: $value) {
