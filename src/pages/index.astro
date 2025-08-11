@@ -251,7 +251,7 @@ import PodcastPlayer from "../components/PodcastPlayer.jsx";
       </div>
     </div>
     <div class="recenteps_episodes">
-      <EpisodeCard />
+      <EpisodeCard  active/>
       <EpisodeCard />
       <EpisodeCard />
       <EpisodeCard />
@@ -261,7 +261,7 @@ import PodcastPlayer from "../components/PodcastPlayer.jsx";
     <div class="recenteps_crumbs">
       <div class="crumb"></div>
       <div class="crumb"></div>
-      <div class="crumb"></div>
+      <div class="crumb active"></div>
       <div class="crumb"></div>
       <div class="crumb"></div>
       <div class="crumb"></div>
@@ -604,6 +604,88 @@ import PodcastPlayer from "../components/PodcastPlayer.jsx";
       }
     }
 
+  }
+
+  section.recenteps{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: $spacing-6;
+    flex-shrink: 0;
+    align-self: stretch;
+
+    .recenteps_intro {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      align-self: stretch;
+      width: 100%;
+      gap: $spacing-4;
+
+      .intro_details {
+        display: flex;
+        align-items: flex-start;
+        gap: $spacing-4;
+
+        h1 {
+          margin: 0;
+        }
+        h5 {
+          font-weight: 500;
+          margin: 0;
+          width: clamp(300px, 30vw, 560px);
+        }
+      }
+
+      .eps_navigation {
+        display: flex;
+        gap: $spacing-2;
+
+        .nav_button {
+          padding: $spacing-2 $spacing-4;
+          cursor: pointer;
+
+          border-radius: $radius-full;
+          border: 1px solid rgba(139, 139, 139,0.5);
+          background: $white;
+          box-shadow: 0 0 14px 4px rgba(139, 139, 139,0.2);;
+
+          &:hover {
+            // background-color: $purple-dark;
+          }
+        }
+      }
+    }
+
+    .recenteps_episodes {
+      display: flex;
+      overflow: hidden;
+      gap: $spacing-4;
+      width: 100%;
+    }
+
+    .recenteps_crumbs {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: $spacing-6;
+      align-self: stretch;
+
+      .crumb{
+        width: 8px;
+        height: 8px;
+        aspect-ratio: 1/1;
+        background: $gray;
+        border-radius: $radius-full;
+        
+        &.active {
+          background-color: $purple;
+          width: 12px;
+          height: 12px;
+        }
+      }
+    }
   }
 
 </style>

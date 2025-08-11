@@ -1,7 +1,66 @@
 ---
+import Image from "astro/components/Image.astro"
+import Button from "./Button.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  active?: boolean;
+}
+
+const { 
+  title = 'The Episode Title in a short form',
+  description = "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham."
+  , active = false
+} = Astro.props as Props;
 
 ---
 
-<div class="episode_card">
-  <h3>EPISODE CARD</h3>
+<div class={`episode_card ${active ? 'active' : ''}`}>
+  <Image
+    src="https://placehold.co/400"
+    alt="Episode Thumbnail"
+    width={400}
+    height={400}
+    class="ep_thumbnail"
+  />
+  <div class="ep_details">
+    <h5 class="ep-number">Season 2 Episode 5</h5>
+    <h3>The Episode Title in a short form</h3>
+    <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
+    <Button type="tertiary">Listen Now</Button>
+  </div>
 </div>
+
+<style lang="scss">
+  @use "../styles/partials/combined.scss" as *;
+
+  .episode_card {
+    display: flex;
+    padding: $spacing-5 $spacing-6;
+    align-items: flex-start;
+    gap: $spacing-5;
+    filter: blur(4px);
+    margin-right: $spacing-5;
+  
+    &.active {
+      filter: blur(0);
+    }
+
+    border-radius: $radius-md;
+    border: 1px solid rgba(139, 139, 139,0.5);
+    background: $white;
+    box-shadow: 0 0 14px 4px rgba(139, 139, 139,0.2);
+
+    .ep_thumbnail {
+      border-radius: $radius-sm;
+    }
+    .ep_details {
+      display: flex;
+      flex-direction: column;
+      width: clamp(300px, 30vw, 560px);
+    }
+  }
+</style>
+
+
