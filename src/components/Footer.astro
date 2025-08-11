@@ -1,0 +1,180 @@
+---
+import LogoImage from "../images/logo/geopod-green.svg";
+---
+
+<footer>
+  <div class="component-footer">
+    <div class="containter-description">
+      <LogoImage class="logo-vector" width={150} height={56} />
+      <p>
+        Geohabari is an African tech podcast that celebrates innovations fosters community engagement among geospatial professionals, and explores impactful technologies.
+      </p>
+    </div>
+    <div class="containter-links">
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/episodes">Episodes</a>
+      </div>
+      <div class="email-links">
+        <h4>Reach Out</h4>
+        <a href="mailto:yariwo@geohabari.com">yariwo@geohabari.com</a>
+        <a href="mailto:info@geohabari.com">info@geohabari.com</a>
+      </div>
+    </div>
+    <div class="containter-socials">
+      <div class="subscribe">
+        <h4>Subscribe</h4>
+        <div class="sub-platforms">
+          <a href="https://podcasts.apple.com/us/podcast/geohabari/id1706468850">
+            Apple Podcasts
+          </a>
+          <a href="https://open.spotify.com/show/6b1k2c4d8f3e5f3e5f3e5f3e">
+            Spotify
+          </a>
+          <a href="https://www.youtube.com/@geohabari">
+            YouTube
+          </a>
+        </div>
+      </div>
+      <div class="socials">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="https://twitter.com/geohabari">
+            twitter
+          </a>
+          <a href="https://www.linkedin.com/company/geohabari">
+            linkedin
+          </a>
+          <a href="https://www.instagram.com/geohabari">
+            instagram
+          </a>
+          <a href="https://www.instagram.com/geohabari">
+            tiktok
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="copyright">&copy;{new Date().getFullYear()} GeoHabari. All rights reserved.</p>
+</footer>
+
+
+<style lang="scss">
+  @use '../styles/partials/combined.scss' as *;
+  
+  footer {
+    background-image: url('../images/footer-bg.png');
+    background-size: contain;
+    background-position: center;
+
+    padding: $spacing-2 $spacing-5;
+    @include flexbox(column, center, center);
+    gap: $spacing-3;
+
+    .component-footer {
+      @include flexbox(row, space-evenly, center);
+      flex-wrap: wrap;
+      gap: $spacing-2;
+
+      div {
+        @include flexbox(column, center, space-between);
+        gap: $spacing-1;
+        width: clamp(260px, 30vw, 400px);
+      }
+      .containter-description{
+        text-align: center;
+
+        .logo-vector {
+          margin-bottom: $spacing-2;
+          align-self: center;
+        }
+
+        p {
+          color: $white;
+          letter-spacing: 0.9px;
+          font-weight: 500;
+          line-height: 1.5;
+        }
+      }
+      .containter-links {
+        text-align: center;
+        align-items: center;
+        min-width: max-content;
+
+        div {
+          @include flexbox(column, center, space-between);
+          gap: $spacing-1;
+          min-width: max-content;
+        }
+        .nav-links {
+          a {
+            color: $white;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color $transition-fast;
+
+            &:hover {
+              color: $green;
+            }
+          }
+        }
+
+        .email-links {
+          h4 {
+            color: $white;
+          }
+
+          a {
+            color: $white;
+            text-decoration: none;
+            transition: color $transition-fast;
+
+            &:hover {
+              color: $green;
+            }
+          }
+        }
+      }
+      .containter-socials {
+        @include flexbox(column, space-evenly, center);
+        gap: $spacing-2;
+
+        .subscribe, .socials {
+          width: 100%;
+          text-align: center;
+          h4 {
+            color: $white;
+          }
+
+          .sub-platforms, .social-icons {
+            @include flexbox(row, center, space-between);
+            gap: $spacing-1;
+            width: 100%;
+
+            a {
+              color: $white;
+              text-decoration: none;
+              transition: color $transition-fast;
+
+              &:hover {
+                color: $green;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .copyright {
+      color: $white;
+      font-size: px-to-rem($a-sm-px);
+      text-align: center;
+      margin-top: $spacing-2;
+    }
+  }
+
+</style>
+

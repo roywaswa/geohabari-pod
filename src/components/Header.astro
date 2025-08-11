@@ -1,0 +1,133 @@
+---
+import { MenuIcon, CloseIcon } from './Icons';
+import LogoImage from "../images/logo/geopod-dark.svg";
+import Button from "./Button.astro";
+import Link from "./Link.astro";
+---
+
+<script>
+  import { navigate } from "astro:transitions/client";
+  const menuicon = document.querySelector('div.icon_menu');
+  const closeicon = document.querySelector('div.close_icon');
+  const toEpisode = document.querySelector('#to_episodes');
+  const drawer = document.querySelector('.drawer');
+
+  menuicon?.addEventListener('click', () => {    
+    drawer?.classList.replace('closed', 'open');
+  });
+
+  closeicon?.addEventListener('click', () => {
+    drawer?.classList.replace('open', 'closed');
+  });
+
+  toEpisode?.addEventListener('click', () => {
+    drawer?.classList.replace('open', 'closed');
+    navigate('/episodes');
+  });
+</script>
+
+<header>
+  <div class="container_logo">
+    <LogoImage class="logo-vector"  width={150} height={56}/>
+  </div>
+  <nav class="container_nav">
+    <Link href="/">home</Link>
+    <Link href="/about">about</Link>
+    <Link href="/contact">contact</Link>
+    <Button id="to_episodes">EPISODES</Button>
+  </nav>
+  <div class="icon_menu">
+    <MenuIcon />
+  </div>
+</header>
+
+<div class="drawer closed">
+  <div class="close_icon">
+    <CloseIcon />
+  </div>
+  <nav class="drawer_nav">
+    <Link href="/">home</Link>
+    <Link href="/about">about</Link>
+    <Link href="/contact">contact</Link>
+    <Button id="to_episodes">EPISODES</Button>
+  </nav>
+</div>
+
+<style lang="scss">
+  @use '../styles/partials/combined.scss' as *;
+  header {
+    @include flexbox(row, space-between, center);
+    padding: $spacing-2 $spacing-5;
+    backdrop-filter: blur(2px);
+
+    .container_logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .logo-vector {
+        width: 150px;
+        height: 56px;
+        fill: $black; // Assuming $black is defined in variables.scss
+      }
+    }
+    .container_nav {
+      @include flexbox(row, space-between, center);
+      min-width: 35%;
+      gap: $spacing-4;
+    }
+    .icon_menu {
+      display: none;
+      cursor: pointer;
+      @include media(sm) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    @include media(sm) {
+      padding: $spacing-2 $spacing-3;
+      gap: $spacing-3;
+
+      .container_nav {
+        display: none;
+      }
+    }
+  }
+
+  .drawer {
+    position: fixed;
+    @include flexbox(column, center, center);
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: $white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform $transition-fast;
+    z-index: 1000;
+
+    &.open {
+      transform: translateX(0);
+    }
+
+    .drawer_nav {
+      @include flexbox(column, center, center);
+      padding: $spacing-3;
+      gap: $spacing-2;
+
+      a {
+        color: $black;
+        font-weight: 500;
+        text-decoration: none;
+        transition: color $transition-fast;
+
+        &:hover {
+          color: $green; // Assuming $green is defined in variables.scss
+        }
+      }
+    }
+  }
+</style>

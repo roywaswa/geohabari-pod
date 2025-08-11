@@ -1,0 +1,50 @@
+---
+import Layout from "../layout/Layout.astro";
+import Nairobigray from "../images/nairobi_gray.png";
+import Image from "astro/components/Image.astro";
+---
+<Layout>
+  <section class="page_lost">
+    <h1>awkwaaaard ...</h1>
+    <h1 class="code">500</h1>
+    <h1>SERVER ERROR</h1>
+    <h3>“The server had one job. It failed spectacularly.” — <i>Us trying to fix</i></h3>
+    <Image
+      src={Nairobigray}
+      alt="500 image"
+      width={400}
+      height={400}
+      class="nairobi-gray" />
+  </section>
+</Layout>
+
+<style lang="scss">
+  @use '../styles/partials/combined.scss' as *;
+  .page_lost {
+    @include flexbox(column, center, flex-start);
+    color: $white;
+    h1 {
+      margin-bottom: $spacing-2;
+    }
+    h3 {
+      margin-bottom: $spacing-1;
+    }
+  }
+
+  .code {
+    font-size: 10rem;
+    font-weight: 900;
+    color: $green;
+    margin-bottom: $spacing-2;
+    line-height: 0.8;
+  }
+
+  .nairobi-gray{
+    position: absolute;
+    right: 3%;
+    top: 20%;
+    z-index: -1;
+  }
+</style>
+
+

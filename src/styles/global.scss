@@ -1,0 +1,27 @@
+@use './partials/combined.scss' as *;
+
+* {
+  font-family: 'Bender', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: $black;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  font-family: 'Bender', sans-serif;
+}
+
+// Global styles for the application
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Bender', sans-serif;
+}
+
+section {
+  padding: $spacing-3 $spacing-5;
+}

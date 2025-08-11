@@ -1,0 +1,127 @@
+---
+import Image from "astro/components/Image.astro"
+import Layout from "../layout/Layout.astro"
+---
+
+<Layout>
+  <section class="container episodes-player">
+    <div class="ep-list-selector">
+      <div class="seasons-tab">
+        <div class="season active">
+          <h5>SEASON 2</h5>
+        </div>
+        <div class="season">
+          <h5>SEASON 1</h5>
+        </div>
+      </div>
+      <div class="ep-filter">
+        <p>Filter by Tag</p>
+        <select>
+          <option class="tag" value="all">All</option>
+          <option class="tag" value="technology">Technology</option>
+          <option class="tag" value="culture">Culture</option>
+          <option class="tag" value="news">News</option>
+          <option class="tag" value="interviews">Interviews</option>
+        </select>
+      </div>
+      <ul class="ep-list">
+        <li class="ep-list-ite">
+          <h6>S2E4</h6>
+          <h5>Title of the Episode</h5>
+          <p>Short description of the episode content.</p>
+        </li>
+        <li class="ep-list-ite">
+          <h6>S2E4</h6>
+          <h5>Title of the Episode</h5>
+          <p>Short description of the episode content.</p>
+        </li>
+        <li class="ep-list-ite">
+          <h6>S2E4</h6>
+          <h5>Title of the Episode</h5>
+          <p>Short description of the episode content.</p>
+        </li>
+        <li class="ep-list-ite">
+          <h6>S2E4</h6>
+          <h5>Title of the Episode</h5>
+          <p>Short description of the episode content.</p>
+        </li>
+        <li class="ep-list-ite">
+          <h6>S2E4</h6>
+          <h5>Title of the Episode</h5>
+          <p>Short description of the episode content.</p>
+        </li>
+        <li class="ep-list-ite">
+          <h6>S2E4</h6>
+          <h5>Title of the Episode</h5>
+          <p>Short description of the episode content.</p>
+        </li>
+      </ul>
+    </div>
+    <div class="episode">
+      <div class="streaming">
+        <div class="platform">
+          <div class="platform-text">
+            <p>Listen on</p>
+            <h6>Spotify</h6>
+          </div>
+          <div class="platform-icon">
+            <Image
+              src="https://placehold.co/48x48"
+              alt="Spotify Icon"
+              width={50}
+              height={50}
+            />
+          </div>
+        </div>
+        <div class="platform">
+          <div class="platform-text">
+            <p>Listen on</p>
+            <h6>Apple Podcasts</h6>
+          </div>
+          <div class="platform-icon">
+            <Image
+              src="https://placehold.co/48x48"
+              alt="Spotify Icon"
+              width={50}
+              height={50}
+            />
+          </div>
+        </div>
+        <div class="platform">
+          <div class="platform-text">
+            <p>Listen on</p>
+            <h6>Podcast Addict</h6>
+          </div>
+          <div class="platform-icon">
+            <Image
+              src="https://placehold.co/48x48"
+              alt="Spotify Icon"
+              width={50}
+              height={50}
+            />
+          </div>
+        </div>
+      </div>
+      <div class="ep-player">
+        <Image
+          src="https://placehold.co/400x400"
+          alt="Episode Cover"
+          width={400}
+          height={400}
+          class="ep-cover"
+        />
+        <div class="ep-details">
+          <h5>S2E4</h5>
+          <h4>The Tech Stacks Series: Beyond the Stack — Smart Tracking Alone Can&apos;t Deliver Business Value</h4>
+          <div class="player-controls">
+            [[ player controls ]]
+          </div>
+        </div>
+      </div>
+      <div class="ep-descr">
+        <p>In this episode, we talk e-mobility with Amos Njenga, Lead Software Engineer at Greenwheels. From real-time tracking to battery monitoring and fleet management, Amos walks us through the intricate backend systems that power electric mobility in Kenya. We explore how smart tracking isn't just about location—it's about integrating operational data (from driver apps to battery health) to deliver meaningful business value. Whether it's choosing between custom vs. off-the-shelf tools or designing scalable tech stacks in the cloud, this episode breaks down what it really takes to build resilient systems in a fast-moving sector.
+</p>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,53 @@
+
+@use './variables.scss' as *;
+
+@mixin font-face($name, $file, $weight: 400, $style: normal) {
+  @font-face {
+    font-family: $name;
+    src: 
+      url('/fonts/#{$file}-webfont.woff2') format('woff2'),
+      url('/fonts/#{$file}-webfont.woff') format('woff');
+    font-weight: $weight;
+    font-style: $style;
+    font-display: swap;
+  }
+}
+
+// Typography base font stack
+@mixin font-stack {
+  font-family: 'Bender', 'Segoe UI', sans-serif;
+  color: $black;
+}
+
+
+// Flexbox function that allows for easy alignment and spacing
+@mixin flexbox($direction: row, $justify: flex-start, $align: stretch) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+// Responsive mixins for media queries
+$breakpoints: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px
+);
+
+@mixin media($size) {
+  $value: map.get($breakpoints, $size);
+
+  @if $value {
+    @media screen and (max-width: $value) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint #{$size} not found in \$breakpoints map.";
+  }
+}
+
+
+
+

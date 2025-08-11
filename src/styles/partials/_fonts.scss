@@ -1,0 +1,103 @@
+@use './_mixins.scss' as *;
+@use './_functions.scss' as *;
+@use './_variables.scss' as *;
+
+// Regular
+@include font-face('Bender', 'bender', 400, normal);
+
+// Italic
+@include font-face('Bender', 'bender-italic', 400, italic);
+
+// Light
+@include font-face('Bender', 'bender-light', 300, normal);
+@include font-face('Bender', 'bender-lightitalic', 300, italic);
+
+// Bold
+@include font-face('Bender', 'bender-bold', 700, normal);
+@include font-face('Bender', 'bender-bolditalic', 700, italic);
+
+// Black
+@include font-face('Bender', 'bender-black', 900, normal);
+@include font-face('Bender', 'bender-blackitalic', 900, italic);
+
+
+// Generate scaled sizes
+$h1-px: $base-font-size-px * pow($scale, 5); // ~73.9
+$h2-px: $base-font-size-px * pow($scale, 4); // ~56.5
+$h3-px: $base-font-size-px * pow($scale, 3); // ~43.2
+$h4-px: $base-font-size-px * pow($scale, 2); // ~33
+$h5-px: $base-font-size-px * $scale;         // ~20.9
+$h6-px: $base-font-size-px;                  // 16
+$p-px:  $base-font-size-px;                  // 16
+$a-sm-px: calc($base-font-size-px / $scale);       // ~12.2
+
+h1, h2, h3, h4, h5, h6, p, a, small {
+  @include font-stack;
+  margin: 0 0 0.5em 0;
+  line-height: 1.4;
+}
+
+h1 {
+  font-size: px-to-rem($h1-px); // ~4.62rem
+  font-weight: 900;
+}
+
+h2 {
+  font-size: px-to-rem($h2-px); // ~3.53rem
+  font-weight: 800;
+}
+
+h3 {
+  font-size: px-to-rem($h3-px); // ~2.7rem
+  font-weight: 700;
+}
+
+h4 {
+  font-size: px-to-rem($h4-px); // ~2.06rem
+  font-weight: 600;
+}
+
+h5 {
+  font-size: px-to-rem($h5-px); // ~1.31rem
+  font-weight: 500;
+}
+
+h6 {
+  font-size: px-to-rem($h6-px); // 1rem
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+p {
+  font-size: px-to-rem($p-px);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+small {
+  font-size: px-to-rem($a-sm-px); // ~0.76rem
+  font-weight: 400;
+}
+
+button {
+  font-size: px-to-rem($h6-px); // ~2.06rem
+  font-weight: 600;
+  letter-spacing: $spacing-1;
+}
+
+a {
+  font-size: px-to-rem($p-px);
+  color: #007acc;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &.sm {
+    font-size: px-to-rem($a-sm-px); // ~0.76rem
+    font-weight: 400;
+    opacity: 0.85;
+  }
+}
