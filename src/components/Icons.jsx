@@ -26,3 +26,8 @@ export function CloseIcon(props) {
   </svg>
   );
 }
+
+
+export function RightArrow(props) {
+	return (<svg xmlns="http://www.w3.org/2000/svg" width={48} height={48} viewBox="0 0 50 50" {...props}><g fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.4}><path stroke="#8DC63F" d="M16.667 25h16.666m-5.208-5.208L33.333 25l-5.208 5.208"></path><path stroke="#783FC6" d="M25 43.75c10.355 0 18.75-8.395 18.75-18.75S35.355 6.25 25 6.25S6.25 14.645 6.25 25S14.645 43.75 25 43.75"></path></g></svg>);
+}
