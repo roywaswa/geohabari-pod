@@ -351,16 +351,16 @@ import PodcastPlayer from "../components/PodcastPlayer.jsx";
     .hero-content{
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: start;
       gap: $spacing-3;
       width: clamp(300px, 45%, 1024px);
       .heading{
-        text-align: center;
+        text-align: left;
         line-height: 1.2;
         margin: 0;
       }
       .sub-heading{
-        text-align: center;
+        text-align: left;
         font-size: px-to-rem($h4-px);
         font-weight: 700;
         color: $black;
@@ -369,7 +369,9 @@ import PodcastPlayer from "../components/PodcastPlayer.jsx";
         display: flex;
         flex-direction: row;
         align-items: flex-start;
-        gap:$spacing-5;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        width: 100%;
 
         .cta-btn {
           display: inline-flex;
@@ -379,6 +381,7 @@ import PodcastPlayer from "../components/PodcastPlayer.jsx";
           background: $purple;
           border: none;
           padding: $spacing-3 $spacing-6;
+          width: max-content;
 
           h5{
             font-size: clamp(px-to-rem($h6-px), 1.2rem, 1.5rem);
@@ -473,8 +476,9 @@ import PodcastPlayer from "../components/PodcastPlayer.jsx";
     }
     .container-themes{
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       align-content: flex-end;
+      justify-content: space-evenly;
       gap: $spacing-4;
       align-self: stretch;
       flex-wrap: wrap;
@@ -704,7 +708,7 @@ import PodcastPlayer from "../components/PodcastPlayer.jsx";
 
     .intro {
       display: flex;
-      width: clamp(300px, 30vw, 560px);
+      width: clamp(300px, 40vw, 560px);
       padding: $spacing-4 $spacing-6;
       flex-direction: column;
       justify-content: flex-end;
