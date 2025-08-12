@@ -22,10 +22,11 @@ const { href = '#' } = Astro.props as Props;
     .link {
       text-decoration: none;
       color: $black;
-      font-weight: 500;
+      font-weight: 700;
       transition: color $transition-fast;
       padding: $spacing-1;
       height: max-content;
+      font-size: px-to-rem($h6-px);
 
       &:hover {
         color: $green;

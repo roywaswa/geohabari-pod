@@ -25,3 +25,37 @@ html, body {
 section {
   padding: $spacing-3 $spacing-5;
 }
+
+main{
+  margin-top: 64px; // Adjusted to account for the fixed header
+}
+
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $spacing-4;
+  width: 100%;
+
+  label {
+    margin-bottom: $spacing-1;
+    font-weight: 600;
+    color: $black;
+  }
+
+  input {
+    outline: none;
+    padding: $spacing-3 $spacing-4;
+    border: 0;
+    border-bottom: 2px solid $green;
+    font-size: px-to-rem(16);
+    color: $black;
+    background-color: $gray-light;
+
+    &:focus {
+      border-color: $purple;
+      background-color: $white;
+      outline: none;
+    }
+  }
+}

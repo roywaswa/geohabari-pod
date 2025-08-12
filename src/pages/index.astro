@@ -267,44 +267,44 @@ import PodcastPlayer from "../components/PodcastPlayer.jsx";
       <div class="crumb"></div>
     </div>
   </section>
-  <section class="container qupotes">
-    <div class="quotes_intro">
+  <section class="container quotes">
+    <div class="intro">
       <h3 class="heading">
         Statements that reorganized our brain chemistry ... “
       </h3>
-      <h6>
+      <h6 class="sub-heading">
         "Don't ever underestimate the power of your words. Just one voice can change the hearts and minds of people." 
         <br/> <i>— Barack Obama</i>
       </h6>
-      <div class="quotes_nav">
+      <div class="quotes nav">
         <div class="nav_button prev">PREV</div>
         <div class="nav_button next">NEXT</div>
       </div>
     </div>
-    <div class="contaier_quotes">
+    <div class="contaier-quotes">
       <Image
-        src={NairobiMap}
+        src="https://placehold.co/400"
         alt="Quote Image"
         width={400}
         height={400}
         class="quote_image"
       />
       <Image
-        src={NairobiMap}
+        src="https://placehold.co/400"
         alt="Quote Image"
         width={400}
         height={400}
         class="quote_image"
       />
       <Image
-        src={NairobiMap}
+        src="https://placehold.co/400"
         alt="Quote Image"
         width={400}
         height={400}
         class="quote_image"
       />
       <Image
-        src={NairobiMap}
+        src="https://placehold.co/400"
         alt="Quote Image"
         width={400}
         height={400}
@@ -313,17 +313,25 @@ import PodcastPlayer from "../components/PodcastPlayer.jsx";
     </div>
   </section>
   <section class="container newsletters">
-    <div class="newsletter_promt">
+    <div class="prompt">
       <h1>
         WE ARE BUILDING A COMMUNITY ...
       </h1>
-      <h3>
+      <h4>
         And you can join countless others in this glorious purpose that is bigger than any one person by signing up for our newsletters and events.
-      </h3>
+      </h4>
     </div>
-    <form action="POST" class="newsletter_form">
-      <input type="text" placeholder="Enter your name" class="name_input" />
-      <input type="text" placeholder="Enter your email address" class="email_input" />
+    <form action="POST" class="newsletter">
+      <h2>Welcome to Geohabari ...</h2>
+      <div class="form-field">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter your name" class="name_input" />
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email address" class="email_input" />
+      </div>
       <Button type="primary">SUBSCRIBE</Button>
     </form>
   </section>
@@ -684,6 +692,109 @@ import PodcastPlayer from "../components/PodcastPlayer.jsx";
           width: 12px;
           height: 12px;
         }
+      }
+    }
+  }
+
+  section.quotes {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-6;
+    align-self: stretch;
+
+    .intro {
+      display: flex;
+      width: clamp(300px, 30vw, 560px);
+      padding: $spacing-4 $spacing-6;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-end;
+      gap: $spacing-2;
+      align-self: stretch;
+
+      .heading {
+        align-self: stretch;
+        line-height: 1.2;
+        margin: 0;
+      }
+      .sub-heading {
+        text-align: right;
+        font-size: px-to-rem($h6-px);
+        font-weight: 700;
+        color: $black;
+      }
+
+      .nav {
+        display: flex;
+        gap: $spacing-2;
+
+        .nav_button {
+          padding: $spacing-2 $spacing-4;
+          cursor: pointer;
+
+          border-radius: $radius-full;
+          border: 1px solid rgba(139, 139, 139,0.5);
+          background: $white;
+          box-shadow: 0 0 14px 4px rgba(139, 139, 139,0.2);;
+
+          &:hover {
+            // background-color: $purple-dark;
+          }
+        }
+      }
+    }
+    .contaier-quotes {
+      display: flex;
+      align-items: center;
+      gap: $spacing-4;
+      width: 100%;
+      overflow: hidden;
+
+      .quote_image {
+        width: 400px;
+        height: 400px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: $radius-md;
+      }
+    }
+  }
+
+  section.newsletters{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: $spacing-6;
+    // align-self: stretch;
+
+    .prompt{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $spacing-2;
+      width: clamp(300px, 40vw, 560px);
+
+      h1 {
+        // text-align: center;
+        margin: 0;
+      }
+      h3 {
+        // text-align: center;
+        font-weight: 500;
+        margin: 0;
+      }
+    }
+
+    form.newsletter {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $spacing-2;
+      width: clamp(300px, 40vw, 560px);
+
+      Button {
+        flex-shrink: 0;
       }
     }
   }
