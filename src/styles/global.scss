@@ -51,7 +51,7 @@ section {
     color: $black;
   }
 
-  input {
+  input, textarea {
     outline: none;
     padding: $spacing-3 $spacing-4;
     border: 0;
