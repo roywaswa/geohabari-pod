@@ -24,6 +24,58 @@ import Link from "./Link.astro";
     drawer?.classList.replace('open', 'closed');
     navigate('/episodes');
   });
+
+  import gsap from "gsap";
+  import { ScrollTrigger,ScrollSmoother } from "gsap/all";
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    ScrollTrigger.create({
+      trigger: "header",
+      start: "top top",
+      end: "bottom top",
+      onLeave:()=>{
+        const header = document.querySelector('header');
+        header?.classList.toggle('floating', true);
+
+        gsap.fromTo(header,
+          { y: -100, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }
+        )
+      },
+      onEnterBack: () => {
+        const header = document.querySelector('header');
+        gsap.to(header, {
+          y: -100,
+          opacity: 0,
+          duration: 0.3,
+          ease: "power2.in",
+          onComplete: () => {
+            header?.classList.remove('floating');
+            gsap.fromTo(header,
+              { y: -50, opacity: 0.8 },
+              { y: 0, opacity: 1, duration: 0.3, ease: "power2.out"
+          })}
+        });
+      },
+      onRefresh: ({ progress,isActive }) => {
+        const header = document.querySelector('header');
+        header?.classList.toggle('floating', isActive);
+        header?.classList.toggle('floating', progress > 0.1);
+
+        gsap.fromTo(header, {
+          y: isActive ? -50 : 0,
+          opacity: isActive ? 0.8 : 1,
+        }, {
+          y: 0,
+          opacity: 1,
+          duration: 0.3,
+          delay:0.5,
+          ease: "power2.out"
+        });
+      }
+    })
+  })
 </script>
 
 <header>
@@ -59,15 +111,20 @@ import Link from "./Link.astro";
     @include flexbox(row, space-between, center);
     padding: $spacing-2 $spacing-5;
     backdrop-filter: blur(4px);
-    position: fixed;
-    top: $spacing-2;
-    left: 5%;
-    right: 5%;
+    
     z-index: 1000;
-    width: 90%;
-    border-radius: $radius-full;
-    align-items: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+
+    &.floating{
+      position: fixed;
+      top: $spacing-2;
+      left: 5%;
+      right: 5%;
+      width: 90%;
+      border-radius: $radius-full;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
 
     .container_logo {
       display: flex;
