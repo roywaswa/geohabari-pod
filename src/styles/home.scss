@@ -98,6 +98,8 @@ section.introduction{
   gap: $spacing-7;
   align-self: stretch;
   padding: $spacing-4 $spacing-6;
+  width: 100%;
+  overflow: hidden;
 
   .brief, .purpose, .outro {
     color: $black;
@@ -108,7 +110,6 @@ section.introduction{
     align-items: flex-start;
     gap: $spacing-3;
     width: 100%;
-    overflow: hidden;
   }
 }
 
