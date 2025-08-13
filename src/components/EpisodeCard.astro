@@ -1,34 +1,54 @@
 ---
 import Image from "astro/components/Image.astro"
 import Button from "./Button.astro";
+import sanitizeHtml from "sanitize-html";
 
 interface Props {
   title?: string;
   description?: string;
   active?: boolean;
+  image?: string;
+  date?: string;
+  duration?: string;
+  episodeNumber?: number;
+  seasonNumber?: number;
+  episodeId?: number;
 }
 
 const { 
-  title = 'The Episode Title in a short form',
-  description = "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham."
-  , active = false
+  title = 'Title',
+  description = "Desc",
+  image = "https://placehold.co/400",
+  date = "2023-01-01",
+  duration = "1000",
+  episodeNumber = 1,
+  seasonNumber = 2,
+  episodeId = 23,
+  active = false
 } = Astro.props as Props;
+
+
+
+const charLimit = 300;
+const plainText = sanitizeHtml(description, { allowedTags: [], allowedAttributes: {} });
+const truncatedText = plainText.slice(0, charLimit) + (plainText.length > charLimit ? "..." : "");
+
 
 ---
 
 <div class={`episode_card ${active ? 'active' : ''}`}>
   <Image
-    src="https://placehold.co/400"
+    src={image}
     alt="Episode Thumbnail"
     width={400}
     height={400}
     class="ep_thumbnail"
   />
   <div class="ep_details">
-    <h5 class="ep-number">Season 2 Episode 5</h5>
-    <h3>The Episode Title in a short form</h3>
-    <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
-    <Button type="tertiary">Listen Now</Button>
+    <h5 class="ep-number">Season {seasonNumber} Episode {episodeId}</h5>
+    <h3>{title}</h3>
+    <p class="truncate" set:html={truncatedText}></p>
+    <Button id={episodeId} class="ep-card-btn" type="tertiary">Listen Now</Button>
   </div>
 </div>
 
@@ -37,10 +57,10 @@ const {
 
   .episode_card {
     display: flex;
-    padding: $spacing-5 $spacing-6;
-    align-items: flex-start;
+    padding: $spacing-4 $spacing-5;
+    align-items: center;
     gap: $spacing-5;
-    filter: blur(4px);
+    // filter: blur(4px);
     margin: $spacing-4;
   
     &.active {
@@ -54,6 +74,11 @@ const {
 
     .ep_thumbnail {
       border-radius: $radius-sm;
+      overflow: hidden;
+      border: 2px solid $green;
+      // width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
     }
     .ep_details {
       display: flex;
@@ -62,5 +87,14 @@ const {
     }
   }
 </style>
+
+
+<script>
+  const button = document.querySelector('.ep-card-btn');
+  button?.addEventListener('click', () => {
+    const episodeId = button.id;
+    window.location.href = `/episodes#${episodeId}`;
+  });
+</script>
 
 

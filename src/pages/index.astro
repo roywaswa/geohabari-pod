@@ -9,6 +9,13 @@ import KampalaMap from "../images/kampala.png"
 import PodcastPlayer from "../components/PodcastPlayer.jsx";
 import { RightArrow } from "../components/Icons";
 import '../styles/home.scss';
+import { getRecentEpisodes } from "../utils/buzzsprout.js";
+
+
+
+const recentEpisodes = await getRecentEpisodes();
+// console.log(recentEpisodes);
+
 ---
 
 <Layout title="Home" description="Welcome to GeoHabari">
@@ -264,12 +271,20 @@ import '../styles/home.scss';
       </div>
     </div>
     <div class="recenteps_episodes">
-      <EpisodeCard  active/>
-      <EpisodeCard />
-      <EpisodeCard />
-      <EpisodeCard />
-      <EpisodeCard />
-      <EpisodeCard />
+      {
+        recentEpisodes.map((episode:any) => (
+          <EpisodeCard
+            title={episode.title}
+            description={episode.description}
+            image={episode.artwork_url}
+            date={episode.published_at}
+            episodeNumber={episode.episode_number}
+            seasonNumber={episode.season_number}
+            episodeId={episode.id}
+            duration={episode.duration}
+          />
+        ))
+      }
     </div>
     <div class="recenteps_crumbs">
       <div class="crumb"></div>
@@ -398,10 +413,14 @@ import '../styles/home.scss';
         start: "-200px 100px",
         end: "bottom 200px",
         scrub: true,
-        markers: true,
+        markers: false,
       },
       x: `-100%`,
       ease: "power1",
     });
   });
+  import { getRecentEpisodes } from "../utils/buzzsprout.js";
+  const recentEpisodes = await getRecentEpisodes(6);
+  console.log(recentEpisodes);
+  
 </script>
