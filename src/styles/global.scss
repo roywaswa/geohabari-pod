@@ -27,7 +27,15 @@ section {
 }
 
 main{
-  margin-top: 64px; // Adjusted to account for the fixed header
+  margin-top: 64px; 
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  padding: $spacing-4 $spacing-7;
+  width: clamp(380px, 100%, 1540px);
 }
 
 
@@ -48,7 +56,6 @@ main{
     padding: $spacing-3 $spacing-4;
     border: 0;
     border-bottom: 2px solid $green;
-    font-size: px-to-rem(16);
     color: $black;
     background-color: $gray-light;
 

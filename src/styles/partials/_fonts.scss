@@ -1,6 +1,12 @@
+@use "sass:math";
+
 @use './_mixins.scss' as *;
 @use './_functions.scss' as *;
 @use './_variables.scss' as *;
+
+// ------------------------------
+// Font Faces
+// ------------------------------
 
 // Regular
 @include font-face('Bender', 'bender', 400, normal);
@@ -20,84 +26,79 @@
 @include font-face('Bender', 'bender-black', 900, normal);
 @include font-face('Bender', 'bender-blackitalic', 900, italic);
 
+// ---- sensible defaults so it won't crash if not defined elsewhere
+$black: #111 !default;
 
-// Generate scaled sizes
-$h1-px: $base-font-size-px * pow($scale, 5); // ~73.9
-$h2-px: $base-font-size-px * pow($scale, 4); // ~56.5
-$h3-px: $base-font-size-px * pow($scale, 3); // ~43.2
-$h4-px: $base-font-size-px * pow($scale, 2); // ~33
-$h5-px: $base-font-size-px * $scale;         // ~20.9
-$h6-px: $base-font-size-px;                  // 16
-$p-px:  $base-font-size-px;                  // 16
-$a-sm-px: calc($base-font-size-px / $scale);       // ~12.2
+// ---- base settings (feel free to override before importing this file)
+$base-size-min: 12px !default; // smallest root font size
+$base-size-max: 18px !default; // largest root font size
+$scale-ratio: 1.333!default;   // Major Third
 
-h1, h2, h3, h4, h5, h6, p, a, small {
+// px → rem helper (modern division)
+@function rem($px, $context: 16px) {
+  @return math.div($px, $context) * 1rem;
+}
+
+// simplified heading scale: -1 .. 4 (H4→H1)
+$scale-steps: (
+  -1: math.div(1, $scale-ratio),  // small text
+   0: 1,                          // body
+   1: $scale-ratio,               // h4
+   2: math.pow($scale-ratio, 2),  // h3
+   3: math.pow($scale-ratio, 3),  // h2
+   4: math.pow($scale-ratio, 4)   // h1
+);
+
+// ---- :root variables
+:root {
+  // fluid root so rems scale everywhere
+  font-size: clamp(#{$base-size-min}, 1.5vw, #{$base-size-max});
+
+  // type scale vars (avoid deprecated math & runtime multiplications)
+  @each $step, $m in $scale-steps {
+    --fs-#{$step}: clamp(
+      #{rem($base-size-min * $m)},
+      calc(#{$m * 1rem} + 0.5vw),
+      #{rem($base-size-max * $m)}
+    );
+  }
+
+  // utility sizes
+  --fs-button: clamp(0.875rem, calc(1rem + 0.2vw), 1rem);
+  --fs-small: var(--fs--1);
+}
+
+body {
   @include font-stack;
-  margin: 0 0 0.5em 0;
-  line-height: 1.4;
-}
-
-h1 {
-  font-size: px-to-rem($h1-px); // ~4.62rem
-  font-weight: 900;
-}
-
-h2 {
-  font-size: px-to-rem($h2-px); // ~3.53rem
-  font-weight: 800;
-}
-
-h3 {
-  font-size: px-to-rem($h3-px); // ~2.7rem
-  font-weight: 700;
-}
-
-h4 {
-  font-size: px-to-rem($h4-px); // ~2.06rem
-  font-weight: 600;
-}
-
-h5 {
-  font-size: px-to-rem($h5-px); // ~1.31rem
-  font-weight: 500;
-}
-
-h6 {
-  font-size: px-to-rem($h6-px); // 1rem
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-p {
-  font-size: px-to-rem($p-px);
-  font-weight: 400;
+  font-size: var(--fs-0);
   line-height: 1.6;
-}
-
-small {
-  font-size: px-to-rem($a-sm-px); // ~0.76rem
   font-weight: 400;
+  letter-spacing: 0;
 }
 
-button {
-  font-size: px-to-rem($h6-px); // ~2.06rem
+// ---- headings (4-step hierarchy)
+h1, h2, h3, h4 {
+  font-family: 'Bender', 'Segoe UI', sans-serif;
+  font-weight: 700;
+  margin: 0 0 0.5em;
+  color: $black;
+}
+
+h1 { font-size: var(--fs-4); line-height: 1.15; letter-spacing: -0.02em; }
+h2 { font-size: var(--fs-3); line-height: 1.20; letter-spacing: -0.015em; }
+h3 { font-size: var(--fs-2); line-height: 1.25; letter-spacing: -0.01em; }
+h4 { font-size: var(--fs-1); line-height: 1.30; letter-spacing: -0.005em; }
+
+// ---- text elements
+p     { margin: 0 0 1em; }
+small { font-size: var(--fs-small); line-height: 1.4; letter-spacing: 0.01em; }
+strong, b { font-weight: 700; }
+
+// ---- buttons
+button,
+.btn {
+  font-size: var(--fs-button);
   font-weight: 600;
-  letter-spacing: $spacing-1;
-}
-
-a {
-  font-size: px-to-rem($p-px);
-  color: #007acc;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-
-  &.sm {
-    font-size: px-to-rem($a-sm-px); // ~0.76rem
-    font-weight: 400;
-    opacity: 0.85;
-  }
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
