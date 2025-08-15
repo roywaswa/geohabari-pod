@@ -5,7 +5,7 @@
     "**/*"
   ],
   "exclude": [
-    "dist"
+    "dist",  "**/*.astro" 
   ],
   "compilerOptions": {
     "jsx": "react-jsx",

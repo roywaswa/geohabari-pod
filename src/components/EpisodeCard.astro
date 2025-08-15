@@ -27,14 +27,15 @@ const {
   active = false
 } = Astro.props as Props;
 
-
-
 const charLimit = 300;
 const plainText = sanitizeHtml(description, { allowedTags: [], allowedAttributes: {} });
 const truncatedText = plainText.slice(0, charLimit) + (plainText.length > charLimit ? "..." : "");
+
+// Generate unique ID for this component instance
+const uniqueId = `episode-card-${episodeId}`;
 ---
 
-<div class={`episode_card ${active ? 'active' : ''}`}>
+<div class={`episode_card ${active ? 'active' : ''}`} data-episode-id={episodeId}>
   <Image
     src={image}
     alt="Episode Thumbnail"
@@ -43,10 +44,10 @@ const truncatedText = plainText.slice(0, charLimit) + (plainText.length > charLi
     class="ep_thumbnail"
   />
   <div class="ep_details">
-    <h5 class="ep-number">Season {seasonNumber} Episode {episodeId}</h5>
+    <h5 class="ep-number">Season {seasonNumber} Episode {episodeNumber}</h5>
     <h3>{title}</h3>
     <p class="truncate" set:html={truncatedText}></p>
-    <Button id={episodeId} class="ep-card-btn" type="tertiary">Listen Now</Button>
+    <Button id={uniqueId} class="ep-card-btn" type="tertiary">Listen Now</Button>
   </div>
 </div>
 
@@ -86,13 +87,19 @@ const truncatedText = plainText.slice(0, charLimit) + (plainText.length > charLi
   }
 </style>
 
-
 <script>
-  const button = document.querySelector('.ep-card-btn');
-  button?.addEventListener('click', () => {
-    const episodeId = button.id;
-    window.location.href = `/episodes#${episodeId}`;
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.episode_card .ep-card-btn');
+    
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const episodeCard = button.closest('.episode_card');
+        const episodeId = episodeCard?.getAttribute('data-episode-id');
+        
+        if (episodeId) {
+          window.location.href = `/episodes#${episodeId}`;
+        }
+      });
+    });
   });
 </script>
-
-

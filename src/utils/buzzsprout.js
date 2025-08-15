@@ -200,7 +200,7 @@ export function getDefaultClient() {
     const apiToken = import.meta.env.BUZZSPROUT_API_TOKEN;
     
     if (!podcastId || !apiToken) {
-      throw new Error('Missing BUZZSPROUT_PODCAST_ID or BUZZSPROUT_API_TOKEN in environment variables');
+      throw new Error('Missing BUZZSPROUT_PODCAST_IDENTIFIER or BUZZSPROUT_API_TOKEN in environment variables');
     }
     
     defaultClient = new BuzzsproutAPI(podcastId, apiToken);
@@ -229,3 +229,12 @@ export async function searchEpisodes(searchTerm) {
 export async function getEpisodesPaginated(page = 1, perPage = 10) {
   return getDefaultClient().getEpisodesPaginated(page, perPage);
 }
+
+export async function getEpisodesBySeason(seasonNumber) {
+  return getDefaultClient().getEpisodesBySeason(seasonNumber);
+}
+
+export async function getSeasonList(){
+  return getDefaultClient().getSeasonList();
+}
+
