@@ -32,8 +32,6 @@ const {
 const charLimit = 300;
 const plainText = sanitizeHtml(description, { allowedTags: [], allowedAttributes: {} });
 const truncatedText = plainText.slice(0, charLimit) + (plainText.length > charLimit ? "..." : "");
-
-
 ---
 
 <div class={`episode_card ${active ? 'active' : ''}`}>
@@ -60,7 +58,7 @@ const truncatedText = plainText.slice(0, charLimit) + (plainText.length > charLi
     padding: $spacing-4 $spacing-5;
     align-items: center;
     gap: $spacing-5;
-    // filter: blur(4px);
+    filter: blur(4px);
     margin: $spacing-4;
   
     &.active {

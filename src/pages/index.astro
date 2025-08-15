@@ -14,8 +14,6 @@ import { getRecentEpisodes } from "../utils/buzzsprout.js";
 
 
 const recentEpisodes = await getRecentEpisodes();
-// console.log(recentEpisodes);
-
 ---
 
 <Layout title="Home" description="Welcome to GeoHabari">
@@ -253,48 +251,48 @@ const recentEpisodes = await getRecentEpisodes();
       
     </div>
   </section>
+
   <section class="container recenteps">
-    <div class="recenteps_intro">
-      <div class="intro_details">
-        <h1>EPISODES</h1>
-        <h5>
-          From our archives for you to knock yourself out with or binge or share with someone you think would enjoy 
-        </h5>
-      </div>
-      <div class="eps_navigation">
-        <div class="nav_button prev">
-          <RightArrow/>
+      <div class="recenteps_intro">
+        <div class="intro_details">
+          <h1>EPISODES</h1>
+          <h5>
+            From our archives for you to knock yourself out with or binge or share with someone you think would enjoy 
+          </h5>
         </div>
-        <div class="nav_button next">
-          <RightArrow/>
+        <div class="eps_navigation">
+          <div class="nav_button prev">
+            <RightArrow/>
+          </div>
+          <div class="nav_button next">
+            <RightArrow/>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="recenteps_episodes">
-      {
-        recentEpisodes.map((episode:any) => (
-          <EpisodeCard
-            title={episode.title}
-            description={episode.description}
-            image={episode.artwork_url}
-            date={episode.published_at}
-            episodeNumber={episode.episode_number}
-            seasonNumber={episode.season_number}
-            episodeId={episode.id}
-            duration={episode.duration}
-          />
-        ))
-      }
-    </div>
-    <div class="recenteps_crumbs">
-      <div class="crumb"></div>
-      <div class="crumb"></div>
-      <div class="crumb active"></div>
-      <div class="crumb"></div>
-      <div class="crumb"></div>
-      <div class="crumb"></div>
-    </div>
+      <div class="recenteps_episodes">
+        {
+          recentEpisodes.map((episode:any) => (
+            <EpisodeCard
+              title={episode.title}
+              description={episode.description}
+              image={episode.artwork_url}
+              date={episode.published_at}
+              episodeNumber={episode.episode_number}
+              seasonNumber={episode.season_number}
+              episodeId={episode.id}
+              duration={episode.duration}
+            />
+          ))
+        }
+      </div>
+      <div class="recenteps_crumbs">
+        {/* Generate crumbs dynamically based on your data */}
+        {Array.from({ length: Math.ceil(recentEpisodes.length / 1) }, (_, i) => (
+          <div class={`crumb ${i === 0 ? 'active' : ''}`}></div>
+        ))}
+      </div>
   </section>
+  <!-- 
   <section class="container quotes">
     <div class="intro">
       <h3 class="heading">
@@ -340,6 +338,68 @@ const recentEpisodes = await getRecentEpisodes();
       />
     </div>
   </section>
+-->
+  <section class="container quotes">
+    <div class="intro">
+      <h3 class="heading">
+        Statements that reorganized our brain chemistry ... "
+      </h3>
+      <h6 class="sub-heading">
+        "Don't ever underestimate the power of your words. Just one voice can change the hearts and minds of people." 
+        <br/> <i>— Barack Obama</i>
+      </h6>
+      <div class="quotes nav">
+        <div class="nav_button prev" id="prevBtn"><RightArrow/></div>
+        <div class="nav_button next" id="nextBtn"><RightArrow/></div>
+      </div>
+    </div>
+    <div class="carousel-wrapper">
+      <div class="contaier-quotes" id="carouselTrack">
+        <Image
+          src="https://placehold.co/400"
+          alt="Quote Image"
+          width={400}
+          height={400}
+          class="quote_image"
+        />
+        <Image
+          src="https://placehold.co/400"
+          alt="Quote Image"
+          width={400}
+          height={400}
+          class="quote_image"
+        />
+        <Image
+          src="https://placehold.co/400"
+          alt="Quote Image"
+          width={400}
+          height={400}
+          class="quote_image"
+        />
+        <Image
+          src="https://placehold.co/400"
+          alt="Quote Image"
+          width={400}
+          height={400}
+          class="quote_image"
+        />
+        <Image
+          src="https://placehold.co/400"
+          alt="Quote Image"
+          width={400}
+          height={400}
+          class="quote_image"
+        />
+        <Image
+          src="https://placehold.co/400"
+          alt="Quote Image"
+          width={400}
+          height={400}
+          class="quote_image"
+        />
+      </div>
+    </div>
+  </section>
   <section class="container newsletters">
     <div class="prompt">
       <h1>
@@ -365,10 +425,15 @@ const recentEpisodes = await getRecentEpisodes();
   </section>
 </Layout>
 
+
+
 <script>
+  import { initializeAllCarousels } from "../utils/carousel.js"
   import { gsap } from "gsap";
   import { SplitText } from "gsap/SplitText";
   gsap.registerPlugin(SplitText);
+  initializeAllCarousels();
+
 
   document.addEventListener("DOMContentLoaded", () => {
     gsap.set(".heading", { opacity: 1 });
@@ -424,3 +489,5 @@ const recentEpisodes = await getRecentEpisodes();
   console.log(recentEpisodes);
   
 </script>
+
+
