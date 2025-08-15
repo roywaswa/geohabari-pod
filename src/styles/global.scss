@@ -1,0 +1,78 @@
+@use './partials/combined.scss' as *;
+
+* {
+  font-family: 'Bender', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: $black;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  font-family: 'Bender', sans-serif;
+}
+
+// Global styles for the application
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Bender', sans-serif;
+  
+}
+
+section {
+  padding: $spacing-3 $spacing-5;
+}
+
+main{
+  // margin-top: 64px; 
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  padding: $spacing-4 $spacing-7;
+  width: clamp(380px, 100%, 1540px);
+}
+
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $spacing-4;
+  width: 100%;
+
+  label {
+    margin-bottom: $spacing-1;
+    font-weight: 600;
+    color: $black;
+  }
+
+  input, textarea {
+    outline: none;
+    padding: $spacing-3 $spacing-4;
+    border: 0;
+    border-bottom: 2px solid $green;
+    color: $black;
+    background-color: $gray-light;
+
+    &:focus {
+      border-color: $purple;
+      background-color: $white;
+      outline: none;
+    }
+  }
+}
+
+
+.truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* limit to 2 lines */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

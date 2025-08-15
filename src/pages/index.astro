@@ -1,0 +1,445 @@
+---
+import Image from "astro/components/Image.astro"
+import Button from "../components/Button.astro";
+import ThemeCard from "../components/ThemeCard.astro";
+import EpisodeCard from "../components/EpisodeCard.astro";
+import Layout from "../layout/Layout.astro"
+import DarMap from "../images/dar_es_salaam.png"
+import KampalaMap from "../images/kampala.png"
+import PodcastPlayer from "../components/PodcastPlayer.jsx";
+import { RightArrow } from "../components/Icons";
+import '../styles/home.scss';
+import { getRecentEpisodes } from "../utils/buzzsprout.js";
+
+
+
+const recentEpisodes = await getRecentEpisodes();
+---
+
+<Layout title="Home" description="Welcome to GeoHabari">
+  <section class="container hero">
+    <div class="hero-content">
+      <h1 class="heading">
+        Amplifying African tech stories & building tech brilliance.
+      </h1>
+      <h5 class="sub-heading">
+        Catalysing spiritual, social and economic renewal in our immediate communities and as a result the world
+      </h5>
+      <div class="cta-component">
+        <button class="cta-btn">
+          <h5>LISTEN NOW</h5>
+        </button>
+        <div class="secondary-cta">
+          <div class="platform">
+            <Image
+              src="https://placehold.co/48x48"
+              alt="Hero Graphics"
+              width={48}
+              height={48}
+              class="icon"
+            />
+            <small>Spotify</small>
+          </div>
+          <div class="platform">
+            <Image
+              src="https://placehold.co/48x48"
+              alt="Hero Graphics"
+              width={48}
+              height={48}
+              class="icon"
+            />
+            <small>Apple Podcast</small>
+          </div>
+          <div class="platform">
+            <Image
+              src="https://placehold.co/48x48"
+              alt="Hero Graphics"
+              width={48}
+              height={48}
+              class="icon"
+            />
+            <small>Podcast Addict</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-graphics">
+      <Image
+        src="https://placehold.co/720x720"
+        alt="Hero Graphics"
+        width={720}
+        height={720}
+        class="hero-image"
+      />
+    </div>
+  </section>
+  <section class="container introduction">
+    <h3 class="brief">
+      Geohabari Podcast focuses on telling African tech stories by engaging the pioneers and jauganuts who have trodded the path.
+    </h3>
+    <h3 class="purpose">
+      We talk to industry experts, designers, founders, aspiring professionals and students
+    </h3>
+    <h3 class="outro">
+      Empowering the african genius in every space.
+    </h3>
+    <div class="img-strip">
+      <Image
+        src="https://placehold.co/400x400"
+        alt="Hero Graphics"
+        width={400}
+        height={400}
+        class="hero-image"
+      />
+      <Image
+        src="https://placehold.co/400x400"
+        alt="Hero Graphics"
+        width={400}
+        height={400}
+        class="hero-image"
+      />
+      <Image
+        src="https://placehold.co/400x400"
+        alt="Hero Graphics"
+        width={400}
+        height={400}
+        class="hero-image"
+      />
+      <Image
+        src="https://placehold.co/400x400"
+        alt="Hero Graphics"
+        width={400}
+        height={400}
+        class="hero-image"
+      />
+      <Image
+        src="https://placehold.co/400x400"
+        alt="Hero Graphics"
+        width={400}
+        height={400}
+        class="hero-image"
+      />
+
+    </div>
+  </section>
+  <section class="container topics">
+    <div class="topics-heading">
+      <h2>
+        With conversations that cut across the board in ...
+      </h2>
+      <h5>
+        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+      </h5>
+    </div>
+    <div class="container-themes">
+      <ThemeCard />
+      <ThemeCard />
+      <ThemeCard />
+      <ThemeCard />
+      <ThemeCard />
+      <ThemeCard />
+      <ThemeCard />
+      <h3 class="theme_outro">
+        And so much more ....
+      </h3>
+    </div>
+  </section>
+  <section class="container latestep">
+    <div class="latestep_intro">
+      <h2>New Episodes every week on Monday </h2>
+      <h5>Here is this weeks episode, dive in and catch a glimpse of what we are all about ...</h5>
+    </div>
+    <div class="latestep_player">
+      <div class="ep_details">
+        <Image
+          src="https://placehold.co/240"
+          alt="Episode Image"
+          width={240}
+          height={240}
+          class="ep_image"
+        />
+        <div class="ep_info">
+          <h6 class="ep_number">LATEST EPISODE #S2E04</h6>
+          <h4 class="ep_title">The Space Economy Playbook</h4>
+          <Button type="secondary">Go to Episode</Button>
+        </div>
+      </div>
+      <div class="ep_player">
+        <audio controls>
+          <source src="/path/to/episode.mp3" type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+        <!-- <PodcastPlayer client:load/> -->
+      </div>
+    </div>
+  </section>
+  <section class="container nextep">
+    <Image
+      src={DarMap}
+      alt="Next Episode Image"
+      width={240}
+      height={240}
+      class="nextep_image left"
+    />
+    <Image
+      src={KampalaMap}
+      alt="Next Episode Image"
+      width={240}
+      height={240}
+      class="nextep_image right"
+    />
+    <div class="host profile">
+      <Image
+        src="https://placehold.co/160"
+        alt="Host Image"
+        width={160}
+        height={160}
+        class="image profile"
+      />
+      <div class="info">
+        <h4 class="name">Roy Waswa</h4>
+        <h5 class="title">Host & Producer</h5>
+      </div>
+    </div>
+    <div class="nextep_details">
+      <h6 class="nextep_number">UP NEXT #S2E05</h6>
+      <h5 class="nextep_title">
+        The Young Professionals Segment: The Geospatial Journey No One Prepares You For.
+      </h5>
+      <h6 class="nextep_date">RELEASING ON: 26-05-2025</h6>
+    </div>
+    <div class="nextep_guests">
+      <div class="guest profile">
+        <Image
+          src="https://placehold.co/100"
+          alt="Guest Image"
+          width={100}
+          height={100}
+          class="image"
+        />
+        <div class="info">
+          <h4 class="name">Guest Name</h4>
+          <h5 class="title">Guest Title</h5>
+        </div>
+      </div>
+      <div class="guest profile">
+        <Image
+          src="https://placehold.co/100"
+          alt="Guest Image"
+          width={100}
+          height={100}
+          class="image"
+        />
+        <div class="info">
+          <h4 class="name">Guest Name</h4>
+          <h5 class="title">Guest Title</h5>
+        </div>
+      </div>
+      <div class="guest profile">
+        <Image
+          src="https://placehold.co/100"
+          alt="Guest Image"
+          width={100}
+          height={100}
+          class="image"
+        />
+        <div class="info">
+          <h4 class="name">Guest Name</h4>
+          <h5 class="title">Guest Title</h5>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <section class="container recenteps">
+      <div class="recenteps_intro">
+        <div class="intro_details">
+          <h1>EPISODES</h1>
+          <h5>
+            From our archives for you to knock yourself out with or binge or share with someone you think would enjoy 
+          </h5>
+        </div>
+        <div class="eps_navigation">
+          <div class="nav_button prev">
+            <RightArrow/>
+          </div>
+          <div class="nav_button next">
+            <RightArrow/>
+          </div>
+        </div>
+      </div>
+      <div class="recenteps_episodes">
+        {
+          recentEpisodes.map((episode:any) => (
+            <EpisodeCard
+              title={episode.title}
+              description={episode.description}
+              image={episode.artwork_url}
+              date={episode.published_at}
+              episodeNumber={episode.episode_number}
+              seasonNumber={episode.season_number}
+              episodeId={episode.id}
+              duration={episode.duration}
+            />
+          ))
+        }
+      </div>
+      <div class="recenteps_crumbs">
+        {/* Generate crumbs dynamically based on your data */}
+        {Array.from({ length: Math.ceil(recentEpisodes.length / 1) }, (_, i) => (
+          <div class={`crumb ${i === 0 ? 'active' : ''}`}></div>
+        ))}
+      </div>
+  </section>
+
+  <section class="container quotes">
+    <div class="intro">
+      <h3 class="heading">
+        Statements that reorganized our brain chemistry ... "
+      </h3>
+      <h6 class="sub-heading">
+        "Don't ever underestimate the power of your words. Just one voice can change the hearts and minds of people." 
+        <br/> <i>— Barack Obama</i>
+      </h6>
+      <div class="quotes nav">
+        <div class="nav_button prev" id="prevBtn"><RightArrow/></div>
+        <div class="nav_button next" id="nextBtn"><RightArrow/></div>
+      </div>
+    </div>
+    <div class="carousel-wrapper">
+      <div class="contaier-quotes" id="carouselTrack">
+        <Image
+          src="https://placehold.co/400"
+          alt="Quote Image"
+          width={400}
+          height={400}
+          class="quote_image"
+        />
+        <Image
+          src="https://placehold.co/400"
+          alt="Quote Image"
+          width={400}
+          height={400}
+          class="quote_image"
+        />
+        <Image
+          src="https://placehold.co/400"
+          alt="Quote Image"
+          width={400}
+          height={400}
+          class="quote_image"
+        />
+        <Image
+          src="https://placehold.co/400"
+          alt="Quote Image"
+          width={400}
+          height={400}
+          class="quote_image"
+        />
+        <Image
+          src="https://placehold.co/400"
+          alt="Quote Image"
+          width={400}
+          height={400}
+          class="quote_image"
+        />
+        <Image
+          src="https://placehold.co/400"
+          alt="Quote Image"
+          width={400}
+          height={400}
+          class="quote_image"
+        />
+      </div>
+    </div>
+  </section>
+  <section class="container newsletters">
+    <div class="prompt">
+      <h1>
+        WE ARE BUILDING A COMMUNITY ...
+      </h1>
+      <h4>
+        And you can join countless others in this glorious purpose that is bigger than any one person by signing up for our newsletters and events.
+      </h4>
+    </div>
+    <form action="POST" class="newsletter">
+      <h2>Welcome to Geohabari ...</h2>
+      <div class="form-field">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter your name" class="name_input" />
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email address" class="email_input" />
+      </div>
+      <Button type="primary">SUBSCRIBE</Button>
+    </form>
+  </section>
+</Layout>
+
+<script>
+  import { initializeAllCarousels } from "../utils/carousel.js"
+  import { gsap } from "gsap";
+  import { SplitText } from "gsap/SplitText";
+  gsap.registerPlugin(SplitText);
+  initializeAllCarousels();
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    gsap.set(".heading", { opacity: 1 });
+
+    let split;
+    SplitText.create(".heading", {
+      type: "words,lines",
+      linesClass: "line",
+      autoSplit: true,
+      mask: "lines",
+      onSplit: (self) => {
+        split = gsap.from(self.lines, {
+          duration: 1.2,
+          yPercent: 100,
+          opacity: 0.78,
+          stagger: 0.1,
+          ease: "expo.out",
+        });
+        return split;
+      }
+    });
+
+    let timeline = gsap.timeline({
+      defaults: { duration: 1.6, ease: "expo.out" },
+    });
+
+    timeline.from(".hero-content", {
+      y: 100,
+      opacity: 0,
+      duration: 1.2,
+      ease: "expo.out",
+    });
+    timeline.from(".hero-image", {
+      x: -200,
+      ease: "expo.out",
+      duration: 1.2,
+    }, "<");
+
+    gsap.to(".img-strip", {
+      scrollTrigger: {
+        trigger: ".img-strip",
+        start: "-200px 100px",
+        end: "bottom 200px",
+        scrub: true,
+        markers: false,
+      },
+      x: `-100%`,
+      ease: "power1",
+    });
+  });
+  import { getRecentEpisodes } from "../utils/buzzsprout.js";
+  const recentEpisodes = await getRecentEpisodes(6);
+  console.log(recentEpisodes);
+  
+</script>
+
+
