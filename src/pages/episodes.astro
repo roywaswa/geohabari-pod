@@ -1,13 +1,26 @@
 ---
+/**
+ * episodes.astro
+ * * This file serves as the main page for the podcast's episode list and player.
+ * It fetches episode data and season information, organizes it, and passes it
+ * to the main page layout and the AudioPlayer component for dynamic rendering.
+ */
+
+// --- Component Imports ---
 import Image from "astro/components/Image.astro"
 import Layout from "../layout/Layout.astro"
+import AudioPlayer from "../components/AudioPlayer.astro"
 import "../styles/episodes.scss";
 import { getAllEpisodes, getSeasonList } from "../utils/buzzsprout";
+import ApplePodcastIcon from "../images/icons/apple_podcast.png"
+import SpotifyIcon from "../images/icons/spotify.png"
+import PodcastAddictIcon from "../images/icons/podcast_addict.png"
 
+// --- Data Fetching (Server-side) ---
 const seasons = await getSeasonList();
 const episodes = await getAllEpisodes();
 
-// Organize episodes by season (using season number as key, not array index)
+// --- Data Preparation and Transformation ---
 const episodesBySeason = {};
 episodes?.forEach(ep => {
   const seasonNum = ep.season_number || ep.season || 1;
@@ -21,12 +34,10 @@ episodes?.forEach(ep => {
   });
 });
 
-// Sort episodes within each season by episode number (descending for latest first)
 Object.keys(episodesBySeason).forEach(season => {
   episodesBySeason[season].sort((a, b) => (b.episodeNumber || 0) - (a.episodeNumber || 0));
 });
 
-// Get all unique tags from episodes for filter
 const allTags = new Set();
 episodes?.forEach(ep => {
   if (ep.tags) {
@@ -36,11 +47,16 @@ episodes?.forEach(ep => {
 
 const availableSeasons = seasons.sort((a, b) => (b.season || b.season_number) - (a.season || a.season_number));
 const defaultSeason = availableSeasons[0]?.season || availableSeasons[0]?.season_number || 1;
+
+// Get the first episode for initial player state
+const firstSeasonEpisodes = episodesBySeason[defaultSeason] || [];
+const initialEpisode = firstSeasonEpisodes[0];
 ---
 
 <Layout>
   <section class="container episodes-player">
     <div class="ep-list-selector">
+      <!-- Season Tabs -->
       <div class="seasons-tab">
         {
           availableSeasons.map((season, index) => {
@@ -56,6 +72,8 @@ const defaultSeason = availableSeasons[0]?.season || availableSeasons[0]?.season
           })
         }
       </div>
+      
+      <!-- Tag Filter -->
       <div class="ep-filter">
         <p>Filter by Tag</p>
         <select id="tag-filter">
@@ -69,133 +87,82 @@ const defaultSeason = availableSeasons[0]?.season || availableSeasons[0]?.season
           }
         </select>
       </div>
+      
+      <!-- Episode List Container -->
       <ul id="episodes-list-container" class="ep-list"></ul>
     </div>
+    
+    <!-- Episode Player Section -->
     <div class="episode">
+      <!-- Streaming Platform Links -->
       <div class="streaming">
         <div class="platform">
           <div class="platform-text">
-            <p>Listen on</p>
-            <h6>Spotify</h6>
+            <small>Listen on</small>
+            <p>Spotify</p>
           </div>
           <div class="platform-icon">
             <Image
-              src="https://placehold.co/48x48"
+              src={SpotifyIcon}
               alt="Spotify Icon"
-              width={50}
-              height={50}
+              width={32}
+              height={32}
             />
           </div>
         </div>
         <div class="platform">
           <div class="platform-text">
-            <p>Listen on</p>
-            <h6>Apple Podcasts</h6>
+            <small>Listen on</small>
+            <p>Apple Podcasts</p>
           </div>
           <div class="platform-icon">
             <Image
-              src="https://placehold.co/48x48"
+              src={ApplePodcastIcon}
               alt="Apple Podcasts Icon"
-              width={50}
-              height={50}
+              width={32}
+              height={32}
             />
           </div>
         </div>
         <div class="platform">
           <div class="platform-text">
-            <p>Listen on</p>
-            <h6>Podcast Addict</h6>
+            <small>Listen on</small>
+            <p>Podcast Addict</p>
           </div>
           <div class="platform-icon">
             <Image
-              src="https://placehold.co/48x48"
+              src={PodcastAddictIcon}
               alt="Podcast Addict Icon"
-              width={50}
-              height={50}
+              width={32}
+              height={32}
             />
           </div>
         </div>
       </div>
-      <div class="ep-player">
-        <Image
-          src="https://placehold.co/400x400"
-          alt="Episode Cover"
-          width={400}
-          height={400}
-          class="ep-cover"
+      
+      <!-- Audio Player Component -->
+      <div class="audio-player-component">
+        <AudioPlayer 
+          audioUrl={initialEpisode?.audio_url}
+          title={initialEpisode?.title}
+          episodeNumber={initialEpisode ? `S${initialEpisode.season}E${initialEpisode.episodeNumber}` : undefined}
+          coverImageUrl={initialEpisode?.artwork_url}
+          duration={initialEpisode?.duration}
+          autoLoad={false}
         />
-        <div class="ep-details">
-          <h5 id="current-episode-number">Select an episode</h5>
-          <h4 id="current-episode-title">Choose an episode from the list to start listening</h4>
-          <div class="player-controls">
-            <audio id="main-audio-player" preload="metadata" style="display: none;">
-              Your browser does not support the audio element.
-            </audio>
-            <div class="custom-audio-player">
-              <div class="player-main-controls">
-                <button id="play-pause-btn" class="play-btn" disabled>
-                  <svg class="play-icon" viewBox="0 0 24 24" width="24" height="24">
-                    <path fill="currentColor" d="M8 5v14l11-7z"/>
-                  </svg>
-                  <svg class="pause-icon" viewBox="0 0 24 24" width="24" height="24" style="display: none;">
-                    <path fill="currentColor" d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-                  </svg>
-                </button>
-                <button id="skip-back-btn" class="control-btn">
-                  <svg viewBox="0 0 24 24" width="20" height="20">
-                    <path fill="currentColor" d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/>
-                  </svg>
-                </button>
-                <button id="skip-forward-btn" class="control-btn">
-                  <svg viewBox="0 0 24 24" width="20" height="20">
-                    <path fill="currentColor" d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/>
-                  </svg>
-                </button>
-              </div>
-              
-              <div class="player-progress">
-                <div class="time-info">
-                  <span id="current-time">0:00</span>
-                  <div class="progress-container">
-                    <div class="progress-bar">
-                      <div id="progress-fill" class="progress-fill"></div>
-                      <input type="range" id="progress-slider" class="progress-slider" min="0" max="100" value="0">
-                    </div>
-                  </div>
-                  <span id="duration-time">0:00</span>
-                </div>
-              </div>
-
-              <div class="player-volume">
-                <button id="mute-btn" class="control-btn">
-                  <svg class="volume-on" viewBox="0 0 24 24" width="18" height="18">
-                    <path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-                  </svg>
-                  <svg class="volume-off" viewBox="0 0 24 24" width="18" height="18" style="display: none;">
-                    <path fill="currentColor" d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
-                  </svg>
-                </button>
-                <input type="range" id="volume-slider" class="volume-slider" min="0" max="100" value="70">
-              </div>
-
-              <div class="playback-speed">
-                <button id="speed-btn" class="control-btn">1x</button>
-              </div>
-            </div>
-          </div>
+          <!-- Episode Description -->
+        <div class="ep-descr">
+          <p id="current-episode-description"></p>
         </div>
-      </div>
-      <div class="ep-descr">
-        <p id="current-episode-description">
-          Select an episode from the list to view its description and start listening.
-        </p>
       </div>
     </div>
   </section>
 </Layout>
 
 <script define:vars={{ episodesBySeason, defaultSeason }} type="module">
-  // Improved createEpisodesList function with proper error handling and episode selection
+  /**
+   * Creates and populates the episode list based on selected season and tag filter
+   */
   function createEpisodesList(episodes, selectedTag = 'all') {
     const episodeContainer = document.getElementById('episodes-list-container');
     if (!episodeContainer) {
@@ -203,7 +170,6 @@ const defaultSeason = availableSeasons[0]?.season || availableSeasons[0]?.season
       return;
     }
 
-    // Clear existing content
     episodeContainer.innerHTML = '';
 
     if (!episodes || episodes.length === 0) {
@@ -211,7 +177,7 @@ const defaultSeason = availableSeasons[0]?.season || availableSeasons[0]?.season
       return;
     }
 
-    // Filter episodes by tag if specified
+    // Filter episodes by tag
     let filteredEpisodes = episodes;
     if (selectedTag !== 'all') {
       filteredEpisodes = episodes.filter(episode => {
@@ -225,12 +191,12 @@ const defaultSeason = availableSeasons[0]?.season || availableSeasons[0]?.season
       return;
     }
 
+    // Create episode list items
     filteredEpisodes.forEach((episode, index) => {
       const li = document.createElement('li');
       li.className = 'ep-list-item';
       li.setAttribute('data-episode-id', episode.id || index);
       
-      // Clean up description and handle potential HTML
       const description = episode.description ? 
         episode.description.replace(/<[^>]*>/g, '').slice(0, 100) + '...' : 
         'No description available';
@@ -241,225 +207,46 @@ const defaultSeason = availableSeasons[0]?.season || availableSeasons[0]?.season
         <p>${description}</p>
       `;
 
-      // Add click handler for episode selection
       li.addEventListener('click', () => selectEpisode(episode, li));
-      
       episodeContainer.appendChild(li);
     });
 
-    // Auto-select first episode if none selected
+    // Auto-select first episode
     const firstItem = episodeContainer.querySelector('.ep-list-item');
     if (firstItem && filteredEpisodes.length > 0) {
       selectEpisode(filteredEpisodes[0], firstItem);
     }
   }
 
-  // Function to handle episode selection and update player
+  /**
+   * Handles episode selection and updates the audio player
+   */
   function selectEpisode(episode, listItem) {
-    // Remove active class from all episodes
+    // Update active state in list
     document.querySelectorAll('.ep-list-item').forEach(item => {
       item.classList.remove('active');
     });
-
-    // Add active class to selected episode
     listItem.classList.add('active');
 
-    // Update episode details in player
-    const episodeNumber = document.getElementById('current-episode-number');
-    const episodeTitle = document.getElementById('current-episode-title');
-    const episodeDescription = document.getElementById('current-episode-description');
-
-    if (episodeNumber) {
-      episodeNumber.textContent = `S${episode.season_number || 1}E${episode.episode_number || 1}`;
-    }
-    
-    if (episodeTitle) {
-      episodeTitle.textContent = episode.title || 'Untitled Episode';
-    }
-    
-    if (episodeDescription) {
-      const cleanDescription = episode.description ? 
-        episode.description.replace(/<[^>]*>/g, '') : 
-        'No description available for this episode.';
-      episodeDescription.textContent = cleanDescription;
+    // Load episode into audio player using the global controller
+    if (window.audioPlayerController) {
+      const episodeData = {
+        audioUrl: episode.audio_url,
+        title: episode.title || 'Untitled Episode',
+        episodeNumber: `S${episode.season_number || episode.season || 1}E${episode.episode_number || episode.episodeNumber || 1}`,
+        description: episode.description || 'No description available for this episode.',
+        coverImageUrl: episode.artwork_url || 'https://placehold.co/400x400',
+        duration: episode.duration
+      };
+      
+      window.audioPlayerController.loadEpisode(episodeData);
     }
 
-    // Update episode cover if available
-    const episodeCover = document.querySelector('.ep-cover');
-    if (episodeCover && episode.artwork_url) {
-      episodeCover.src = episode.artwork_url;
-      episodeCover.alt = `${episode.title} Cover`;
-    }
-
-    // Load episode into audio player
-    loadEpisodeIntoPlayer(episode);
+    console.log(`Selected episode: ${episode.title}`);
   }
 
-  // Audio Player Functions
-  function loadEpisodeIntoPlayer(episode) {
-    const audioPlayer = document.getElementById('main-audio-player');
-    const playPauseBtn = document.getElementById('play-pause-btn');
-    
-    if (!audioPlayer || !episode.audio_url) return;
-
-    // Reset player state
-    audioPlayer.pause();
-    audioPlayer.currentTime = 0;
-    updatePlayPauseButton(false);
-    
-    // Load new episode
-    audioPlayer.src = episode.audio_url;
-    playPauseBtn.disabled = false;
-    
-    // Update duration when metadata loads
-    audioPlayer.addEventListener('loadedmetadata', () => {
-      updateDurationDisplay(episode.duration || audioPlayer.duration);
-    });
-
-    console.log(`Loaded episode: ${episode.title}`);
-  }
-
-  function initializeAudioPlayer() {
-    const audioPlayer = document.getElementById('main-audio-player');
-    const playPauseBtn = document.getElementById('play-pause-btn');
-    const skipBackBtn = document.getElementById('skip-back-btn');
-    const skipForwardBtn = document.getElementById('skip-forward-btn');
-    const progressSlider = document.getElementById('progress-slider');
-    const progressFill = document.getElementById('progress-fill');
-    const currentTimeDisplay = document.getElementById('current-time');
-    const muteBtn = document.getElementById('mute-btn');
-    const volumeSlider = document.getElementById('volume-slider');
-    const speedBtn = document.getElementById('speed-btn');
-
-    if (!audioPlayer) return;
-
-    let isDragging = false;
-    const playbackSpeeds = [0.5, 0.75, 1, 1.25, 1.5, 2];
-    let currentSpeedIndex = 2; // Start at 1x
-
-    // Play/Pause functionality
-    playPauseBtn?.addEventListener('click', () => {
-      if (audioPlayer.paused) {
-        audioPlayer.play();
-      } else {
-        audioPlayer.pause();
-      }
-    });
-
-    // Skip back 15 seconds
-    skipBackBtn?.addEventListener('click', () => {
-      audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 15);
-    });
-
-    // Skip forward 15 seconds
-    skipForwardBtn?.addEventListener('click', () => {
-      audioPlayer.currentTime = Math.min(audioPlayer.duration, audioPlayer.currentTime + 15);
-    });
-
-    // Progress slider
-    progressSlider?.addEventListener('mousedown', () => { isDragging = true; });
-    progressSlider?.addEventListener('mouseup', () => { isDragging = false; });
-    
-    progressSlider?.addEventListener('input', (e) => {
-      if (audioPlayer.duration) {
-        const time = (e.target.value / 100) * audioPlayer.duration;
-        audioPlayer.currentTime = time;
-      }
-    });
-
-    // Volume control
-    volumeSlider?.addEventListener('input', (e) => {
-      const volume = e.target.value / 100;
-      audioPlayer.volume = volume;
-      updateMuteButton(volume > 0);
-    });
-
-    muteBtn?.addEventListener('click', () => {
-      if (audioPlayer.volume > 0) {
-        audioPlayer.dataset.lastVolume = audioPlayer.volume;
-        audioPlayer.volume = 0;
-        volumeSlider.value = 0;
-        updateMuteButton(false);
-      } else {
-        const lastVolume = audioPlayer.dataset.lastVolume || 0.7;
-        audioPlayer.volume = lastVolume;
-        volumeSlider.value = lastVolume * 100;
-        updateMuteButton(true);
-      }
-    });
-
-    // Playback speed
-    speedBtn?.addEventListener('click', () => {
-      currentSpeedIndex = (currentSpeedIndex + 1) % playbackSpeeds.length;
-      const newSpeed = playbackSpeeds[currentSpeedIndex];
-      audioPlayer.playbackRate = newSpeed;
-      speedBtn.textContent = `${newSpeed}x`;
-    });
-
-    // Audio event listeners
-    audioPlayer.addEventListener('play', () => updatePlayPauseButton(true));
-    audioPlayer.addEventListener('pause', () => updatePlayPauseButton(false));
-    
-    audioPlayer.addEventListener('timeupdate', () => {
-      if (!isDragging && audioPlayer.duration) {
-        const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-        progressSlider.value = progress;
-        progressFill.style.width = `${progress}%`;
-        currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
-      }
-    });
-
-    audioPlayer.addEventListener('error', (e) => {
-      console.error('Audio player error:', e);
-      playPauseBtn.disabled = true;
-    });
-
-    // Initialize volume
-    audioPlayer.volume = 0.7;
-  }
-
-  function updatePlayPauseButton(isPlaying) {
-    const playIcon = document.querySelector('.play-icon');
-    const pauseIcon = document.querySelector('.pause-icon');
-    
-    if (isPlaying) {
-      playIcon.style.display = 'none';
-      pauseIcon.style.display = 'block';
-    } else {
-      playIcon.style.display = 'block';
-      pauseIcon.style.display = 'none';
-    }
-  }
-
-  function updateMuteButton(hasVolume) {
-    const volumeOn = document.querySelector('.volume-on');
-    const volumeOff = document.querySelector('.volume-off');
-    
-    if (hasVolume) {
-      volumeOn.style.display = 'block';
-      volumeOff.style.display = 'none';
-    } else {
-      volumeOn.style.display = 'none';
-      volumeOff.style.display = 'block';
-    }
-  }
-
-  function updateDurationDisplay(duration) {
-    const durationDisplay = document.getElementById('duration-time');
-    if (durationDisplay) {
-      durationDisplay.textContent = formatTime(duration);
-    }
-  }
-
-  function formatTime(seconds) {
-    if (isNaN(seconds)) return '0:00';
-    
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  }
-
-  document.addEventListener('DOMContentLoaded', async () => {
+  // Initialize the page
+  document.addEventListener('DOMContentLoaded', () => {
     const seasonTabs = document.querySelectorAll('.seasons-tab .season');
     const tagFilter = document.getElementById('tag-filter');
 
@@ -471,24 +258,19 @@ const defaultSeason = availableSeasons[0]?.season || availableSeasons[0]?.season
     let activeSeasonNumber = defaultSeason;
     let selectedTag = 'all';
 
-    // Initialize with default season episodes
+    // Load initial episode list
     if (episodesBySeason[activeSeasonNumber]) {
       createEpisodesList(episodesBySeason[activeSeasonNumber], selectedTag);
     }
 
-    // Initialize audio player
-    initializeAudioPlayer();
-
-    // Season tab handlers
+    // Season tab event listeners
     seasonTabs.forEach(tab => {
-      tab.addEventListener('click', async () => {
-        // Update active tab
+      tab.addEventListener('click', () => {
         seasonTabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         
         activeSeasonNumber = parseInt(tab.getAttribute('data-season'));
         
-        // Load episodes for selected season
         if (episodesBySeason[activeSeasonNumber]) {
           createEpisodesList(episodesBySeason[activeSeasonNumber], selectedTag);
         } else {
@@ -500,448 +282,19 @@ const defaultSeason = availableSeasons[0]?.season || availableSeasons[0]?.season
       });
     });
 
-    // Tag filter handler
+    // Tag filter event listener
     if (tagFilter) {
       tagFilter.addEventListener('change', (e) => {
         selectedTag = e.target.value;
         
-        // Reload episodes with new filter
         if (episodesBySeason[activeSeasonNumber]) {
           createEpisodesList(episodesBySeason[activeSeasonNumber], selectedTag);
         }
       });
     }
 
+    console.log('Episodes page initialized');
     console.log('Episodes by season:', episodesBySeason);
     console.log('Active season:', activeSeasonNumber);
   });
 </script>
-
-<style lang="scss">
-  // Audio Player Styles - Add this to your episodes.scss file
-@use "../styles/partials/combined.scss" as *;
-.custom-audio-player {
-  background: $white;
-  border-radius: $radius-lg;
-  padding: $spacing-5;
-  margin-top: $spacing-4;
-  // border: 1px solid $gray-light;
-  // box-shadow: $shadow-md;
-  transition: $transition-base;
-
-  .player-main-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: $spacing-4;
-    margin-bottom: $spacing-5;
-
-    .play-btn {
-      width: 56px;
-      height: 56px;
-      border-radius: $radius-full;
-      background: $purple;
-      border: none;
-      color: $white;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: $transition-fast;
-      box-shadow: $shadow-sm;
-      
-      &:hover:not(:disabled) {
-        background: $purple-dark;
-        transform: scale(1.05);
-        box-shadow: $shadow-md;
-      }
-      
-      &:disabled {
-        background: $gray;
-        cursor: not-allowed;
-        transform: none;
-        box-shadow: none;
-      }
-
-      svg {
-        transition: $transition-fast;
-      }
-    }
-
-    .control-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: $radius-full;
-      background: $gray-light;
-      border: none;
-      color: $black;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: $transition-fast;
-
-      &:hover {
-        background: $purple-light;
-        color: $purple-dark;
-        transform: scale(1.05);
-      }
-
-      svg {
-        fill: currentColor;
-      }
-    }
-  }
-
-  .player-progress {
-    margin-bottom: $spacing-4;
-
-    .time-info {
-      display: flex;
-      align-items: center;
-      gap: $spacing-3;
-      font-size: 14px;
-      color: $gray;
-      font-weight: 500;
-
-      .progress-container {
-        flex: 1;
-        position: relative;
-
-        .progress-bar {
-          position: relative;
-          height: 6px;
-          background: $gray-light;
-          border-radius: $radius-sm;
-          overflow: hidden;
-
-          .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, $purple, $purple-light);
-            border-radius: $radius-sm;
-            transition: width 0.1s ease;
-            width: 0%;
-            box-shadow: 0 0 8px rgba($purple, 0.3);
-          }
-
-          .progress-slider {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            transform: translateY(-50%);
-            width: 100%;
-            height: 6px;
-            background: transparent;
-            appearance: none;
-            cursor: pointer;
-            border-radius: $radius-sm;
-
-            &::-webkit-slider-thumb {
-              appearance: none;
-              width: 16px;
-              height: 16px;
-              border-radius: $radius-full;
-              background: $purple;
-              cursor: pointer;
-              border: 2px solid $white;
-              box-shadow: $shadow-sm;
-              transition: $transition-fast;
-
-              &:hover {
-                transform: scale(1.2);
-                box-shadow: $shadow-md;
-              }
-            }
-
-            &::-moz-range-thumb {
-              width: 16px;
-              height: 16px;
-              border-radius: $radius-full;
-              background: $purple;
-              cursor: pointer;
-              border: 2px solid $white;
-              box-shadow: $shadow-sm;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .player-volume {
-    display: flex;
-    align-items: center;
-    gap: $spacing-2;
-    margin-bottom: $spacing-3;
-
-    .control-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: $radius-full;
-      background: $gray-light;
-      border: none;
-      color: $black;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: $transition-fast;
-
-      &:hover {
-        background: $purple-light;
-        color: $purple-dark;
-      }
-    }
-
-    .volume-slider {
-      width: 80px;
-      height: 4px;
-      background: $gray-light;
-      appearance: none;
-      border-radius: $radius-sm;
-      cursor: pointer;
-
-      &::-webkit-slider-thumb {
-        appearance: none;
-        width: 14px;
-        height: 14px;
-        border-radius: $radius-full;
-        background: $purple;
-        cursor: pointer;
-        border: 1px solid $white;
-        box-shadow: $shadow-sm;
-        transition: $transition-fast;
-
-        &:hover {
-          transform: scale(1.1);
-        }
-      }
-
-      &::-moz-range-thumb {
-        width: 14px;
-        height: 14px;
-        border-radius: $radius-full;
-        background: $purple;
-        cursor: pointer;
-        border: 1px solid $white;
-        box-shadow: $shadow-sm;
-      }
-    }
-  }
-
-  .playback-speed {
-    display: flex;
-    justify-content: flex-end;
-
-    #speed-btn {
-      padding: $spacing-2 $spacing-3;
-      border-radius: $radius-lg;
-      background: $gray-light;
-      border: none;
-      color: $black;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 600;
-      transition: $transition-fast;
-      min-width: 36px;
-
-      &:hover {
-        background: $purple-light;
-        color: $purple-dark;
-      }
-
-      &:active {
-        background: $purple;
-        color: $white;
-      }
-    }
-  }
-
-  // Responsive adjustments
-  @media (max-width: $breakpoint-md) {
-    padding: $spacing-4;
-
-    .player-main-controls {
-      gap: $spacing-3;
-      margin-bottom: $spacing-4;
-
-      .play-btn {
-        width: 48px;
-        height: 48px;
-      }
-
-      .control-btn {
-        width: 36px;
-        height: 36px;
-      }
-    }
-
-    .player-volume {
-      .volume-slider {
-        width: 60px;
-      }
-    }
-  }
-
-  @media (max-width: $breakpoint-sm) {
-    padding: $spacing-3;
-
-    .player-main-controls {
-      gap: $spacing-2;
-
-      .control-btn {
-        width: 32px;
-        height: 32px;
-      }
-    }
-
-    .time-info {
-      font-size: 12px;
-      gap: $spacing-2;
-    }
-
-    .player-volume {
-      .volume-slider {
-        width: 50px;
-      }
-    }
-  }
-}
-
-// Episode list item active state
-.ep-list-item {
-  transition: $transition-fast;
-  cursor: pointer;
-  padding: $spacing-3;
-  border-radius: $radius-md;
-  border: 1px solid transparent;
-  margin-bottom: $spacing-2;
-
-  &:hover {
-    background: rgba($purple-light, 0.1);
-    border-color: $purple-light;
-    transform: translateY(-1px);
-    box-shadow: $shadow-sm;
-  }
-
-  &.active {
-    background: rgba($purple-light, 0.2);
-    border-color: $purple;
-    box-shadow: $shadow-md;
-    transform: translateY(-2px);
-
-    h5, h6 {
-      color: $purple-dark;
-      font-weight: 600;
-    }
-
-    p {
-      color: $black;
-    }
-  }
-
-  h6 {
-    color: $purple;
-    font-size: 12px;
-    font-weight: 700;
-    margin-bottom: $spacing-1;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  h5 {
-    color: $black;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: $spacing-2;
-    line-height: 1.4;
-  }
-
-  p {
-    color: $gray;
-    font-size: 14px;
-    line-height: 1.5;
-    margin: 0;
-  }
-}
-
-.no-episodes {
-  text-align: center;
-  padding: $spacing-7 $spacing-4;
-  color: $gray;
-  font-style: italic;
-  background: rgba($gray-light, 0.1);
-  border-radius: $radius-md;
-  border: 2px dashed $gray-light;
-}
-
-// Season tabs styling enhancement
-.seasons-tab {
-  .season {
-    transition: $transition-fast;
-    cursor: pointer;
-    padding: $spacing-3 $spacing-4;
-    border-radius: $radius-md;
-    border: 1px solid $gray-light;
-    background: $white;
-    margin-right: $spacing-2;
-    margin-bottom: $spacing-2;
-
-    &:hover {
-      background: rgba($purple-light, 0.1);
-      border-color: $purple-light;
-      transform: translateY(-1px);
-    }
-
-    &.active {
-      background: $purple;
-      border-color: $purple-dark;
-      color: $white;
-      box-shadow: $shadow-md;
-
-      h5 {
-        color: $white;
-      }
-    }
-
-    h5 {
-      margin: 0;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      color: $purple-dark;
-    }
-  }
-}
-
-// Filter styling enhancement
-.ep-filter {
-  select {
-    background: $white;
-    border: 1px solid $gray-light;
-    border-radius: $radius-md;
-    padding: $spacing-2 $spacing-3;
-    color: $black;
-    transition: $transition-fast;
-    cursor: pointer;
-
-    &:hover {
-      border-color: $purple-light;
-    }
-
-    &:focus {
-      outline: none;
-      border-color: $purple;
-      box-shadow: 0 0 0 3px rgba($purple, 0.1);
-    }
-  }
-
-  p {
-    color: $gray;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: $spacing-2;
-  }
-}
-</style>
