@@ -141,7 +141,6 @@ const initialEpisode = firstSeasonEpisodes[0];
       </div>
       
       <!-- Audio Player Component -->
-      <div class="audio-player-component">
         <AudioPlayer 
           audioUrl={initialEpisode?.audio_url}
           title={initialEpisode?.title}
@@ -154,7 +153,6 @@ const initialEpisode = firstSeasonEpisodes[0];
         <div class="ep-descr">
           <p id="current-episode-description"></p>
         </div>
-      </div>
     </div>
   </section>
 </Layout>
@@ -238,7 +236,7 @@ const initialEpisode = firstSeasonEpisodes[0];
         coverImageUrl: episode.artwork_url || 'https://placehold.co/400x400',
         duration: episode.duration
       };
-      
+      document.querySelector("#current-episode-description").innerHTML = episode.description
       window.audioPlayerController.loadEpisode(episodeData);
     }
 

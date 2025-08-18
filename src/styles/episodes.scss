@@ -14,16 +14,36 @@ section.episodes-player {
   display: flex;
   flex-direction: row;
   gap: $spacing-3;
+  margin-top: $spacing-5;
+
 
   div.ep-list-selector{
     width: clamp(320px, 30vw, 720px);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+
+    ul {
+      list-style: none;
+      height: 80vh;
+      overflow-y: scroll;
+      padding: $spacing-4 0;
+    }
   }
   div.episode{
     width: clamp(320px, 60vw, 960px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: $spacing-4;
+    gap: $spacing-3;
+    padding: $spacing-3;
+    height: 100vh;
+    overflow: hidden;
+    background-color: $white;
+    // border: 2px solid $green;
+    border-radius: $radius-md;
 
     .streaming {
       display: flex;
@@ -31,6 +51,7 @@ section.episodes-player {
       justify-content: space-evenly;
       align-items: center;
       width: 80%;
+      height: 10vh;
 
       .platform {
         display: flex;
@@ -71,20 +92,38 @@ section.episodes-player {
       }
     }
 
-    
+    .ep-player {
+      height: 40vh;
+      overflow: hidden;
+    }
+    .ep-descr{
+      height: 50vh;
+      min-height: min-content;
+      overflow-y: scroll;
+
+      p {
+        font-size: small;
+      }
+    }
   }
-  ul {
-    list-style: none;
-  }
+  
 }
 
 /* --- Custom Audio Player Styles --- */
 .custom-audio-player {
   background: $white;
   border-radius: $radius-lg;
-  padding: $spacing-5;
-  margin-top: $spacing-4;
+  padding: $spacing-3 $spacing-5;
   transition: $transition-base;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  >div{
+    width: 100%;
+  }
   // A single container for the audio player, with a clean, rounded card-like appearance.
 
   .player-main-controls {
@@ -92,7 +131,6 @@ section.episodes-player {
     align-items: center;
     justify-content: center;
     gap: $spacing-4;
-    margin-bottom: $spacing-5;
     // Centers the primary control buttons (play, skip back, skip forward).
 
     .play-btn {
@@ -111,7 +149,7 @@ section.episodes-player {
       // Main play/pause button with a dynamic size and hover effects for a premium feel.
 
       &:hover:not(:disabled) {
-        background: $purple-dark;
+        background: $purple-light;
         transform: scale(1.05);
         box-shadow: $shadow-md;
       }
@@ -147,7 +185,6 @@ section.episodes-player {
   }
 
   .player-progress {
-    margin-bottom: $spacing-4;
     // Container for the progress bar and time display.
 
     .time-info {
@@ -228,11 +265,17 @@ section.episodes-player {
     }
   }
 
+  .player-bottom-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+  }
   .player-volume {
     display: flex;
     align-items: center;
     gap: $spacing-2;
-    margin-bottom: $spacing-3;
     // Container for the volume controls.
 
     .control-btn {
@@ -325,8 +368,13 @@ section.episodes-player {
 
 /* --- Episode Cover --- */
 .ep-cover {
-  width: clamp(200px, 40vw, 400px);
+  // width: clamp(200px, 40vw, 400px);
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1/1;
   border-radius: $radius-md;
+  border: 2px solid $purple;
+
   // Responsive image for the episode cover.
 }
 
