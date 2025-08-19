@@ -4,10 +4,15 @@ import Image from 'astro/components/Image.astro';
 interface Props {
   title?: string;
   description?: string;
+  background?: string;
+  icon?: string;
+  
 }
 const { 
   title = 'CAREER',
-  description="Navigate diverse career paths in the geospatial industry. Discussing pivotal moments, key learnings, and challenges, these episodes inspire you to explore new career horizons." 
+  description="Navigate diverse career paths in the geospatial industry. Discussing pivotal moments, key learnings, and challenges, these episodes inspire you to explore new career horizons." ,
+  background = "https://placehold.co/400",
+  icon = "https://placehold.co/72"
   } = Astro.props as Props;
 ---
 
@@ -19,6 +24,13 @@ const {
     height={72}
     class="theme-icon"
   />
+  <Image
+    src="https://placehold.co/400"
+    alt="Background Image"
+    width={400}
+    height={400}
+    class="bg-image"
+  />
   <div class="theme-details">
     <h3>{title}</h3>
     <p>{description}</p>
@@ -26,29 +38,45 @@ const {
 </div>
 
 
+
+
 <style lang="scss">
   @use "../styles/partials/combined.scss" as *;
 
   .card-theme{
     display: flex;
+    position: relative;
     width: 20rem;
     height: 20rem;
     padding: $spacing-6 $spacing-4;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
-    // gap: 3rem;
     flex-shrink: 0;
     aspect-ratio: 1/1;
+    overflow: hidden;
+    transition: hover 2s ease-in-out;
 
-    background: no-repeat center url("https://placehold.co/400");
     border-radius: $radius-md;
+    
+    .bg-image{
+      position: absolute;
+      top:0;
+      left:0;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      align-self: center;
+      aspect-ratio: 1/1;
+      z-index: -1;
+    }
 
     .theme-icon{
       border: 2px solid $purple;
     }
     .theme-details {
       width:100%;
+      // transform: translateY(80%);
       h3 {
         margin: 0;
       }

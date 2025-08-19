@@ -11,7 +11,14 @@ import { RightArrow } from "../components/Icons";
 import '../styles/home.scss';
 import { getRecentEpisodes } from "../utils/buzzsprout.js";
 
-
+const topics = [
+  {
+    title:"",
+    description:"",
+    icon:"",
+    background:""
+  }
+]
 
 const recentEpisodes = await getRecentEpisodes();
 ---
@@ -382,12 +389,50 @@ const recentEpisodes = await getRecentEpisodes();
 <script>
   import { initializeAllCarousels } from "../utils/carousel.js"
   import { gsap } from "gsap";
-  import { SplitText } from "gsap/SplitText";
-  gsap.registerPlugin(SplitText);
+  import { SplitText, Observer } from "gsap/all";
+  gsap.registerPlugin(SplitText, Observer);
   initializeAllCarousels();
 
 
+
   document.addEventListener("DOMContentLoaded", () => {
+    //Start Card Observer
+    gsap.utils.toArray(".card-theme").forEach((card) => {
+      if (!card) return;
+      let imgbg = (card as HTMLElement).querySelector(".bg-image")
+      let texts = (card as HTMLElement).querySelector(".theme-details")
+      Observer.create({
+        target: card as HTMLElement,
+        type: "pointer",
+        onHover: () => {
+          gsap.to(card, {
+            scale: 1.01,
+            ease: "power1.in",
+            duration: 0.2
+          })
+          gsap.to(imgbg, {
+            filter: "blur(4px)"
+          })
+          gsap.from(texts, {
+            y:100,
+          })
+        },
+        onHoverEnd: () => {
+          gsap.to(card, {
+            scale:1,
+            ease: "power1.out",
+            duration: 0.2
+          })
+          gsap.to(imgbg, {
+            filter: "blur(0px)"
+          })
+          gsap.from(texts, {
+            y:-50
+          })
+        }
+      })
+    })
+    // End Card Observer
     gsap.set(".heading", { opacity: 1 });
 
     let split;
@@ -436,9 +481,6 @@ const recentEpisodes = await getRecentEpisodes();
       ease: "power1",
     });
   });
-  import { getRecentEpisodes } from "../utils/buzzsprout.js";
-  const recentEpisodes = await getRecentEpisodes(6);
-  console.log(recentEpisodes);
   
 </script>
 
