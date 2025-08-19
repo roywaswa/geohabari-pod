@@ -157,7 +157,7 @@ const initialEpisode = firstSeasonEpisodes[0];
   </section>
 </Layout>
 
-<script define:vars={{ episodesBySeason, defaultSeason }} type="module">
+<script define:vars={{ episodesBySeason, defaultSeason, episodes }} type="module">
   /**
    * Creates and populates the episode list based on selected season and tag filter
    */
@@ -209,11 +209,7 @@ const initialEpisode = firstSeasonEpisodes[0];
       episodeContainer.appendChild(li);
     });
 
-    // Auto-select first episode
-    const firstItem = episodeContainer.querySelector('.ep-list-item');
-    if (firstItem && filteredEpisodes.length > 0) {
-      selectEpisode(filteredEpisodes[0], firstItem);
-    }
+    return filteredEpisodes;
   }
 
   /**
@@ -240,7 +236,64 @@ const initialEpisode = firstSeasonEpisodes[0];
       window.audioPlayerController.loadEpisode(episodeData);
     }
 
+    // Update URL fragment without triggering page reload
+    if (episode.id) {
+      history.replaceState(null, '', `#${episode.id}`);
+    }
+
     console.log(`Selected episode: ${episode.title}`);
+  }
+
+  /**
+   * Finds and loads an episode by its ID from the URL fragment
+   */
+  function loadEpisodeFromFragment() {
+    const fragment = window.location.hash.substring(1); // Remove the # symbol
+    
+    if (!fragment) {
+      return false; // No fragment found
+    }
+
+    console.log('Looking for episode with ID:', fragment);
+
+    // Search through all episodes to find the one with matching ID
+    const targetEpisode = episodes?.find(ep => ep.id && ep.id.toString() === fragment);
+    
+    if (!targetEpisode) {
+      console.log('Episode not found with ID:', fragment);
+      return false;
+    }
+
+    console.log('Found target episode:', targetEpisode);
+
+    // Find which season this episode belongs to
+    const episodeSeason = targetEpisode.season_number || targetEpisode.season || 1;
+    
+    // Switch to the correct season tab
+    const seasonTabs = document.querySelectorAll('.seasons-tab .season');
+    seasonTabs.forEach(tab => {
+      tab.classList.remove('active');
+      if (parseInt(tab.getAttribute('data-season')) === episodeSeason) {
+        tab.classList.add('active');
+      }
+    });
+
+    // Load the episode list for that season
+    const seasonEpisodes = episodesBySeason[episodeSeason];
+    if (seasonEpisodes) {
+      const filteredEpisodes = createEpisodesList(seasonEpisodes, 'all');
+      
+      // Find and select the specific episode
+      const episodeListItems = document.querySelectorAll('.ep-list-item');
+      episodeListItems.forEach(item => {
+        const itemEpisodeId = item.getAttribute('data-episode-id');
+        if (itemEpisodeId === fragment) {
+          selectEpisode(targetEpisode, item);
+        }
+      });
+    }
+
+    return true;
   }
 
   // Initialize the page
@@ -256,9 +309,21 @@ const initialEpisode = firstSeasonEpisodes[0];
     let activeSeasonNumber = defaultSeason;
     let selectedTag = 'all';
 
-    // Load initial episode list
-    if (episodesBySeason[activeSeasonNumber]) {
-      createEpisodesList(episodesBySeason[activeSeasonNumber], selectedTag);
+    // Check if there's a fragment in the URL and try to load that episode
+    const fragmentLoaded = loadEpisodeFromFragment();
+    
+    // If no fragment or episode not found, load default season
+    if (!fragmentLoaded) {
+      if (episodesBySeason[activeSeasonNumber]) {
+        createEpisodesList(episodesBySeason[activeSeasonNumber], selectedTag);
+      }
+    } else {
+      // Update activeSeasonNumber to match the loaded episode's season
+      const fragment = window.location.hash.substring(1);
+      const targetEpisode = episodes?.find(ep => ep.id && ep.id.toString() === fragment);
+      if (targetEpisode) {
+        activeSeasonNumber = targetEpisode.season_number || targetEpisode.season || 1;
+      }
     }
 
     // Season tab event listeners
@@ -277,6 +342,9 @@ const initialEpisode = firstSeasonEpisodes[0];
             episodeContainer.innerHTML = '<li class="no-episodes">No episodes found for this season.</li>';
           }
         }
+
+        // Clear URL fragment when manually switching seasons
+        history.replaceState(null, '', window.location.pathname);
       });
     });
 
@@ -290,6 +358,11 @@ const initialEpisode = firstSeasonEpisodes[0];
         }
       });
     }
+
+    // Listen for hash changes (back/forward navigation)
+    window.addEventListener('hashchange', () => {
+      loadEpisodeFromFragment();
+    });
 
     console.log('Episodes page initialized');
     console.log('Episodes by season:', episodesBySeason);
