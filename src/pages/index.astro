@@ -13,11 +13,47 @@ import { getRecentEpisodes } from "../utils/buzzsprout.js";
 
 const topics = [
   {
-    title:"",
-    description:"",
-    icon:"",
+    title:"CAREER",
+    description:"Navigate diverse career paths in the geospatial industry. Discussing pivotal moments, key learnings, and challenges, these episodes inspire you to explore new career horizons.",
+    icon:"/themeIcons/icon_career.png",
     background:""
-  }
+  },
+  {
+    title:"ACADEMIA",
+    description:"Discover African organizations leading in geo-enabling and   other cutting-edge technologies. We dive into the  systems' components, from programming languages to seamless integrations, showcasing impactful use cases across the continent.",
+    icon:"/themeIcons/icon_academia.png",
+    background:""
+  },
+  {
+    title:"STUDY ABROAD",
+    description:"Scholarship recipients share their application tips and tricks, covering everything from requirements to living abroad. The ultimate starter pack for geospatial students looking to study overseas.",
+    icon:"/themeIcons/icon_study.png",
+    background:""
+  },
+  {
+    title:"BANTER",
+    description:"Blend technical expertise with humor to humanize experiences in the tech world. Ideal for those looking for a light-hearted, tech-centric laugh.",
+    icon:"/themeIcons/icon_banter.png",
+    background:""
+  },
+  {
+    title:"EARTH",
+    description:"Dive into Earth Observation (EO) use cases across various sectors. From technical tools and datasets to real-world applications and impacts, each episode offers a comprehensive look at EO's potential.",
+    icon:"/themeIcons/icon_earth.png",
+    background:""
+  },
+  {
+    title:"TECH",
+    description:"Discover African organizations leading in geo-enabling and   other cutting-edge technologies. We dive into the  systems' components, from programming languages to seamless integrations, showcasing impactful use cases across the continent.",
+    icon:"/themeIcons/icon_tech.png",
+    background:""
+  },
+  {
+    title:"ACTION",
+    description:"Explore how tech is used across Africa to drive change. Highlighting limitless possibilities, we showcase how GIS is leveraged for impactful solutions in different industries.",
+    icon:"/themeIcons/icon_action.png",
+    background:""
+  },
 ]
 
 const recentEpisodes = await getRecentEpisodes();
@@ -139,13 +175,15 @@ const recentEpisodes = await getRecentEpisodes();
       </h5>
     </div>
     <div class="container-themes">
-      <ThemeCard />
-      <ThemeCard />
-      <ThemeCard />
-      <ThemeCard />
-      <ThemeCard />
-      <ThemeCard />
-      <ThemeCard />
+      {
+        topics.map(topic => (
+          <ThemeCard 
+            title={topic.title}
+            description={topic.description}
+            icon={topic.icon}
+          />
+        ))
+      }
       <h3 class="theme_outro">
         And so much more ....
       </h3>
@@ -426,8 +464,8 @@ const recentEpisodes = await getRecentEpisodes();
           gsap.to(imgbg, {
             filter: "blur(0px)"
           })
-          gsap.from(texts, {
-            y:-50
+          gsap.to(texts, {
+            y:10
           })
         }
       })
