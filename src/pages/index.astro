@@ -465,8 +465,12 @@ const recentEpisodes = await getRecentEpisodes();
           gsap.to(imgbg, {
             filter: "blur(0px) brightness(1)"
           })
-          gsap.to(texts, {
-            y:10
+          gsap.fromTo(texts, {
+            y:10,
+            opacity:0.5
+          }, {
+            y:0,
+            opacity:1
           })
         }
       })
