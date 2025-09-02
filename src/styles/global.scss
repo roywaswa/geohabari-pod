@@ -13,6 +13,7 @@ body{
   display: flex;
   flex-direction: column;
   font-family: 'Bender', sans-serif;
+  background-color: $white;
 }
 
 // Global styles for the application
@@ -23,12 +24,7 @@ html, body {
   
 }
 
-section {
-  padding: $spacing-3 $spacing-5;
-}
-
 main{
-  // margin-top: 64px; 
   align-items: center;
   display: flex;
   flex-direction: column;

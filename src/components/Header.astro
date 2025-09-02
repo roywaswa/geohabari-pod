@@ -111,7 +111,6 @@ import Link from "./Link.astro";
     @include flexbox(row, space-between, center);
     padding: $spacing-2 $spacing-5;
     backdrop-filter: blur(4px);
-    
     z-index: 1000;
     width: 100%;
 
@@ -144,6 +143,8 @@ import Link from "./Link.astro";
 
       a {
         font-weight: 700;
+        mix-blend-mode: multiply;
+        // backdrop-filter: c;
       }
     }
     .icon_menu {
