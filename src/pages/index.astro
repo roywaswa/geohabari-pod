@@ -410,7 +410,7 @@ const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
         And you can join countless others in this glorious purpose that is bigger than any one person by signing up for our newsletters and events.
       </h4>
     </div>
-    <form action="POST" class="newsletter">
+    <form action="POST" class="newsletter" name="subscription">
       <h2>Welcome to Geohabari ...</h2>
       <div class="form-field">
         <label for="name">Name</label>
@@ -534,6 +534,19 @@ const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
     let cta_btn = document.querySelector(".cta-btn")
     cta_btn?.addEventListener("click", () => {
       navigate("/episodes")
+    })
+
+    // Mail Subscription
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxIuL6LcFNe55Izy0n9aL1cA85_pYm6lSMEtS5QZJkZMZk2yJUmpHBlat3RRsl66d7W/exec'
+    const form = document.forms['subscription']
+
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      const formdata = new FormData(form)
+      console.log(formdata)
+      // fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      //   .then(response => console.log('Success!', response))
+      //   .catch(error => console.error('Error!', error.message))
     })
   });
 

@@ -1,7 +1,60 @@
 ---
 import Image from "astro/components/Image.astro";
 import Layout from "../layout/Layout.astro";
+import NairobiMap from "../images/cities/nairobi.svg"
+import KampalaMap from "../images/cities/kampala.svg"
+
 import '../styles/about.scss';
+const team_members = [
+  {
+    name:"Yariwo Kitiyo",
+    bio: "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.",
+    position: "Founder & Host",
+    profile_photo: "https://images.unsplash.com/photo-1551247074-b14d3491bec6?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    socials: [
+      {x: "https://twitter.com/yariwo"},
+      {linkedin: "https://linkedin.com/in/yariwo"},
+      {github: "https://github.com/yariwo"},
+      {website: "https://yariwo.dev"},
+    ]
+  },
+  {
+    name:"Sarah Johnson",
+    bio: "Sarah is a geospatial data scientist with over 5 years of experience in mapping and spatial analysis. She brings technical expertise and creative problem-solving to every project.",
+    position: "Lead Data Scientist",
+    profile_photo: "https://images.unsplash.com/photo-1494790108755-2616b612b494?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    socials: [
+      {x: "https://x.com/sarahjohnson"},
+      {linkedin: "https://linkedin.com/in/sarahjohnson"},
+      {github: "https://github.com/sarahjohnson"},
+      {email: "mailto:sarah@geohabari.com"},
+    ]
+  },
+  {
+    name:"Michael Chen",
+    bio: "Michael is a full-stack developer specializing in geospatial web applications. He's passionate about creating user-friendly interfaces that make complex data accessible to everyone.",
+    position: "Senior Developer",
+    profile_photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    socials: [
+      {x: "https://x.com/michaelchen"},
+      {linkedin: "https://linkedin.com/in/michaelchen"},
+      {github: "https://github.com/michaelchen"},
+      {website: "https://michaelchen.dev"},
+    ]
+  },
+  {
+    name:"Amara Okafor",
+    bio: "Amara is a UX/UI designer with a background in geography and human-computer interaction. She ensures our products are not only functional but also intuitive and beautiful.",
+    position: "UX/UI Designer",
+    profile_photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    socials: [
+      {x: "https://x.com/amaraokafor"},
+      {linkedin: "https://linkedin.com/in/amaraokafor"},
+      {github: "https://github.com/amaraokafor"},
+      {instagram: "https://instagram.com/amaraokafor"},
+    ]
+  },
+]
 ---
 
 <Layout>
@@ -19,7 +72,7 @@ import '../styles/about.scss';
     </h3>
     <div class="content">
       <Image
-        src="https://placehold.co/400"
+        src="https://plus.unsplash.com/premium_photo-1679079456790-bf73ddd14964?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="Identity Image"
         width={600}
         height={400}
@@ -31,13 +84,11 @@ import '../styles/about.scss';
         </h2>
         <div class="details">
           <p>
-            We focus on how technology intertwines with life and activities; BUT more than that, we focus on the voices, the people behind the scenes
+            We focus on how technology intertwines with life and activities;
+            BUT more than that, we focus on the voices, the people behind the scenes
           </p>
           <p>
-            More than just a podcast. 
-              <br/>We are a platform. 
-              <br/>A lens. 
-              <br/>A conversation
+            More than just a podcast. <br/>We are a platform. <br/>A lens. <br/>A conversation
           </p>
         </div>
       </div>
@@ -53,7 +104,7 @@ import '../styles/about.scss';
             To amplify African geospatial and tech stories, making complex ideas simple, relatable, and impactful — one conversation at a time.
           </p>
           <Image
-            src="https://placehold.co/220"
+            src={NairobiMap}
             alt="Mission Image"
             width={220}
             height={220}
@@ -62,7 +113,7 @@ import '../styles/about.scss';
         </div>
         <div class="vision">
           <Image
-            src="https://placehold.co/220"
+            src={KampalaMap}
             alt="Mission Image"
             width={220}
             height={220}
@@ -76,7 +127,7 @@ import '../styles/about.scss';
       </div>
     </div>
     <Image
-      src="https://placehold.co/400"
+      src="https://images.unsplash.com/photo-1642165870627-cd54c078a11f?q=80&w=685&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
       alt="Mission and Vision"
       width={600}
       height={400}
@@ -95,21 +146,21 @@ import '../styles/about.scss';
     </div>
     <div class="details">
       <Image
-        src="https://placehold.co/400"
+        src="https://plus.unsplash.com/premium_photo-1712254285216-26092c37cf8c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="Purpose Image"
         width={600}
-        height={400}
+        height={200}
         class="purpose_image"
       />
       <div class="purpose_text">
         <p>
-          We exist to demystify geospatial technology — to break it down, open it up, and let it speak in everyday language. But more than that, we&apos;re here to spotlight African innovation — the thinkers, builders, mappers, and dreamers who are solving real-world problems with homegrown solutions.
+          We exist to demystify geospatial technology — to break it down, open it up, and let it speak in everyday language. But more than that, we're here to spotlight African innovation — the thinkers, builders, mappers, and dreamers who are solving real-world problems with homegrown solutions.
         </p>
         <p>
-          This is not about catching up. It&apos;s about catching fire — and telling the stories that matter.
+          This is not about catching up. It's about catching fire — and telling the stories that matter.
         </p>
         <h5>
-          “When you understand space, you understand power. That&apos;s why we tell these stories.”
+          "When you understand space, you understand power. That's why we tell these stories."
         </h5>
       </div>
     </div>
@@ -127,7 +178,7 @@ import '../styles/about.scss';
       </h3>
     </div>
     <Image
-      src="https://placehold.co/400"
+      src="https://images.unsplash.com/photo-1505243542579-da5adfe8338f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
       alt="About Us"
       width={400}
       height={400}
@@ -138,60 +189,274 @@ import '../styles/about.scss';
     <h3 class="heading">
       Meet the Team
     </h3>
-    <div class="profiles">
-      <div class="photos">
-        <Image
-          src="https://placehold.co/400"
-          alt="Roy Waswa"
-          width={200}
-          height={200}
-          class="team-photo"
-        />
-        <Image
-          src="https://placehold.co/400"
-          alt="Roy Waswa"
-          width={200}
-          height={200}
-          class="team-photo"
-        />
-        <Image
-          src="https://placehold.co/400"
-          alt="Roy Waswa"
-          width={200}
-          height={200}
-          class="team-photo"
-        />
-        <Image
-          src="https://placehold.co/400"
-          alt="Roy Waswa"
-          width={200}
-          height={200}
-          class="team-photo"
-        />
-        <Image
-          src="https://placehold.co/400"
-          alt="Roy Waswa"
-          width={200}
-          height={200}
-          class="team-photo active"
-        />
+    <div class="team-carousel">
+      <div class="team-thumbnails">
+        {
+          team_members.map((member, index) => (
+            <div class={`team-thumbnail ${index === 0 ? 'active' : ''}`} data-index={index}>
+              <Image
+                src={member.profile_photo}
+                alt={member.name}
+                width={120}
+                height={120}
+                class="thumbnail-photo"
+              />
+            </div>
+          ))
+        }
       </div>
-      <div class="spotlight">
-        <h3 class="spotlight-name">Roy Waswa</h3>
-        <h4 class="spotlight-role">Founder & CEO</h4>
-        <p class="spotlight-bio">
-          Roy is a passionate developer and entrepreneur with a vision to create impactful digital solutions.
-          He leads the team with a focus on innovation and excellence.
-        </p>
-        <div class="social-links">
-          <a href="https://twitter.com/roywaswa" target="_blank" rel="noopener noreferrer">Twitter</a>
-          <a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="#" target="_blank" rel="noopener noreferrer">GitHub</a> 
-          <a href="#" target="_blank" rel="noopener noreferrer">Website</a>
+      <div class="team-spotlight">
+        <div class="spotlight-image">
+          <Image
+            src={team_members[0].profile_photo}
+            alt={team_members[0].name}
+            width={300}
+            height={400}
+            class="main-photo"
+          />
+        </div>
+        <div class="spotlight-details">
+          <h3 class="spotlight-name">{team_members[0].name}</h3>
+          <h4 class="spotlight-role">{team_members[0].position}</h4>
+          <p class="spotlight-bio">{team_members[0].bio}</p>
+          <div class="social-links">
+            {team_members[0].socials.map(social => {
+              const platform = Object.keys(social)[0];
+              const url = social[platform];
+              return (
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                  {platform.charAt(0).toUpperCase() + platform.slice(1)}
+                </a>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
   </section>
 </Layout>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const team_members = [
+      {
+        name:"Yariwo Kitiyo",
+        bio: "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.",
+        position: "Founder & Host",
+        profile_photo: "https://images.unsplash.com/photo-1551247074-b14d3491bec6?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        socials: [
+          {x: "https://twitter.com/yariwo"},
+          {linkedin: "https://linkedin.com/in/yariwo"},
+          {github: "https://github.com/yariwo"},
+          {website: "https://yariwo.dev"},
+        ]
+      },
+      {
+        name:"Sarah Johnson",
+        bio: "Sarah is a geospatial data scientist with over 5 years of experience in mapping and spatial analysis. She brings technical expertise and creative problem-solving to every project.",
+        position: "Lead Data Scientist",
+        profile_photo: "https://images.unsplash.com/photo-1494790108755-2616b612b494?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        socials: [
+          {x: "https://x.com/sarahjohnson"},
+          {linkedin: "https://linkedin.com/in/sarahjohnson"},
+          {github: "https://github.com/sarahjohnson"},
+          {email: "mailto:sarah@geohabari.com"},
+        ]
+      },
+      {
+        name:"Michael Chen",
+        bio: "Michael is a full-stack developer specializing in geospatial web applications. He's passionate about creating user-friendly interfaces that make complex data accessible to everyone.",
+        position: "Senior Developer",
+        profile_photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        socials: [
+          {x: "https://x.com/michaelchen"},
+          {linkedin: "https://linkedin.com/in/michaelchen"},
+          {github: "https://github.com/michaelchen"},
+          {website: "https://michaelchen.dev"},
+        ]
+      },
+      {
+        name:"Amara Okafor",
+        bio: "Amara is a UX/UI designer with a background in geography and human-computer interaction. She ensures our products are not only functional but also intuitive and beautiful.",
+        position: "UX/UI Designer",
+        profile_photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        socials: [
+          {x: "https://x.com/amaraokafor"},
+          {linkedin: "https://linkedin.com/in/amaraokafor"},
+          {github: "https://github.com/amaraokafor"},
+          {instagram: "https://instagram.com/amaraokafor"},
+        ]
+      },
+    ];
 
+    // DOM elements
+    const thumbnails = document.querySelectorAll(".team-thumbnail");
+    const mainPhoto = document.querySelector(".main-photo") as HTMLImageElement;
+    const spotlightName = document.querySelector(".spotlight-name") as HTMLElement;
+    const spotlightRole = document.querySelector(".spotlight-role") as HTMLElement;
+    const spotlightBio = document.querySelector(".spotlight-bio") as HTMLElement;
+    const socialLinks = document.querySelector(".social-links") as HTMLElement;
+    const spotlightDetails = document.querySelector(".spotlight-details");
+    const spotlightImage = document.querySelector(".spotlight-image");
+
+    let currentIndex = 0;
+    let autoPlayTimer;
+    let isAnimating = false;
+
+    // Initialize GSAP timeline
+    const tl = gsap.timeline();
+    function updateSpotlight(memberIndex, animate = true) {
+      if (isAnimating) return;
+      isAnimating = true;
+      const member = team_members[memberIndex];
+      currentIndex = memberIndex;
+
+      // Update active thumbnail
+      thumbnails.forEach(thumb => thumb.classList.remove("active"));
+      thumbnails[memberIndex].classList.add("active");
+      if (animate) {
+        // Animate out current content
+        tl.clear()
+          .to([spotlightDetails, spotlightImage], {
+            opacity: 0,
+            x: 50,
+            duration: 0.3,
+            ease: "power2.out"
+          })
+          .call(() => {
+            // Update content
+            mainPhoto.src = member.profile_photo;
+            mainPhoto.alt = member.name;
+            spotlightName.textContent = member.name;
+            spotlightRole.textContent = member.position;
+            spotlightBio.textContent = member.bio;
+
+            // Update social links
+            socialLinks.innerHTML = "";
+            member.socials.forEach(social => {
+              const platform = Object.keys(social)[0];
+              const url = social[platform];
+              const link = document.createElement("a");
+
+              link.href = url;
+              link.target = "_blank";
+              link.rel = "noopener noreferrer";
+              link.textContent = platform.charAt(0).toUpperCase() + platform.slice(1);
+              socialLinks.appendChild(link);
+            });
+          })
+          .to([spotlightDetails, spotlightImage], {
+            opacity: 1,
+            x: 0,
+            duration: 0.4,
+            ease: "power2.out",
+            stagger: 0.1
+          })
+          .call(() => {
+            isAnimating = false;
+          });
+      } else {
+        // Instant update without animation
+        mainPhoto.src = member.profile_photo;
+        mainPhoto.alt = member.name;
+        spotlightName.textContent = member.name;
+        spotlightRole.textContent = member.position;
+        spotlightBio.textContent = member.bio;
+
+        socialLinks.innerHTML = "";
+        member.socials.forEach(social => {
+          const platform = Object.keys(social)[0];
+          const url = social[platform];
+          const link = document.createElement("a");
+          link.href = url;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.textContent = platform.charAt(0).toUpperCase() + platform.slice(1);
+          socialLinks.appendChild(link);
+        });
+        isAnimating = false;
+      }
+    }
+
+    function startAutoPlay() {
+      autoPlayTimer = setInterval(() => {
+        const nextIndex = (currentIndex + 1) % team_members.length;
+        updateSpotlight(nextIndex);
+      }, 15000); // 15 seconds
+    }
+
+    function resetAutoPlay() {
+      clearInterval(autoPlayTimer);
+      startAutoPlay();
+    }
+
+    // Add click event listeners to thumbnails
+    thumbnails.forEach((thumbnail, index) => {
+      thumbnail.addEventListener("click", () => {
+        if (index !== currentIndex) {
+          updateSpotlight(index);
+          resetAutoPlay();
+        }
+      });
+
+      // Add hover effect
+      thumbnail.addEventListener("mouseenter", () => {
+        if (!thumbnail.classList.contains("active")) {
+          gsap.to(thumbnail, {
+            scale: 1.1,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        }
+      });
+
+      thumbnail.addEventListener("mouseleave", () => {
+        if (!thumbnail.classList.contains("active")) {
+          gsap.to(thumbnail, {
+            scale: 1,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        }
+      });
+    });
+    // Initialize carousel
+    updateSpotlight(0, false);
+    startAutoPlay();
+
+    // Pause auto-play when user hovers over the carousel
+    const teamCarousel = document.querySelector(".team-carousel");
+    if (teamCarousel) {
+      teamCarousel.addEventListener("mouseenter", () => {
+        clearInterval(autoPlayTimer);
+      });
+      teamCarousel.addEventListener("mouseleave", () => {
+        startAutoPlay();
+      });
+    }
+
+    // Initial GSAP animations
+    gsap.fromTo(".team-thumbnail", {
+      opacity: 0,
+      y: 30
+    }, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      stagger: 0.1,
+      ease: "power2.out"
+    });
+    gsap.fromTo([".spotlight-image", ".spotlight-details"], {
+      opacity: 0,
+      x: 50
+    }, {
+      opacity: 1,
+      x: 0,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "power2.out",
+      delay: 0.3
+    });
+  });
+</script>
