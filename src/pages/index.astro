@@ -421,7 +421,7 @@ const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
         <label for="email">Email</label>
         <input type="email" id="email" placeholder="Enter your email address" class="email_input" />
       </div>
-      <Button type="primary">SUBSCRIBE</Button>
+      <button id="submitBtn" class="btn primary :disabled">SUBSCRIBE</button>
     </form>
   </section>
 </Layout>
@@ -539,14 +539,35 @@ const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
     // Mail Subscription
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxIuL6LcFNe55Izy0n9aL1cA85_pYm6lSMEtS5QZJkZMZk2yJUmpHBlat3RRsl66d7W/exec'
     const form = document.forms['subscription']
+    const field_name = document.querySelector("input#name") as HTMLInputElement
+    const field_email = document.querySelector("input#email") as HTMLInputElement
+    const submitBtn = document.querySelector("#submitBtn") as HTMLButtonElement
 
-    form.addEventListener('submit', e => {
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault()
-      const formdata = new FormData(form)
-      console.log(formdata)
-      // fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-      //   .then(response => console.log('Success!', response))
-      //   .catch(error => console.error('Error!', error.message))
+      submitBtn.disabled = true
+      submitBtn.textContent = "Processing ...";
+      let sub_name = field_name?.value || ''
+      let sub_email = field_email?.value || ''
+      const formData = new FormData()
+      formData.append("name", sub_name)
+      formData.append("email",sub_email)
+      fetch(scriptURL, { method: 'POST', body: formData})
+        .then(response => {
+          console.log('Success!', response)
+          field_name.value = ''
+          field_email.value = ''
+          submitBtn.textContent = "SUBSCRIBE";
+          submitBtn.disabled = false
+          alert("Subscription successful. Welcome to Geohabari!")
+        })
+        .catch(error => {
+          console.error('Error!', error.message)
+          submitBtn.textContent = "SUBSCRIBE";
+          submitBtn.disabled = false
+          alert("An error occurred. Please try again.")
+        })
     })
   });
 

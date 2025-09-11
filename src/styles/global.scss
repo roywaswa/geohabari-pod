@@ -72,3 +72,55 @@ section {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.btn {
+  border: none;
+  padding: $spacing-2 $spacing-4;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &.primary{
+    background-color: $purple; 
+    color: $white;
+
+    &:hover {
+      background-color: $purple;
+    }
+
+    &:active {
+      background-color: $purple-dark;
+    }
+  }
+
+  &.secondary {
+    background-color: $white;
+    color: $black;
+    border: 2px solid $purple;
+
+    &:hover {
+      background-color: $purple-light;
+      color: $white;
+    }
+
+    &:active {
+      background-color: $purple;
+      color: $white;
+    }
+  }
+
+  &.tertiary {
+    background-color: $white;
+    color: $black;
+    border: 2px solid $green;
+
+    &:hover {
+      background-color: $green-light;
+    }
+
+    &:active {
+      background-color: $green;
+      color: $white;
+    }
+  }
+}
