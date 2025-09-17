@@ -60,7 +60,7 @@ const uniqueId = `episode-card-${episodeId}`;
     align-items: center;
     gap: $spacing-5;
     filter: blur(4px);
-    margin: $spacing-4;
+    margin: $spacing-1;
   
     &.active {
       filter: blur(0);
@@ -83,6 +83,26 @@ const uniqueId = `episode-card-${episodeId}`;
       display: flex;
       flex-direction: column;
       width: clamp(300px, 30vw, 560px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .episode_card{
+      flex-direction: column;
+      text-align: center;
+      .ep_thumbnail {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+      }
+      .ep_details {
+        align-items: center;
+        h3 {
+          font-size: 1.5rem;
+        }
+      }
     }
   }
 </style>

@@ -1,11 +1,15 @@
 @use "../styles/partials/combined.scss" as *;
 
+section  {
+  width: 100%;
+  overflow: hidden;
+}
+
 section.hero{
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: $spacing-4 $spacing-6;
   align-self: stretch;
   flex-wrap: wrap;
   gap: $spacing-6;
@@ -186,19 +190,11 @@ section.topics{
   }
 
   .container-themes {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 16px 16px;
-    grid-auto-flow: row;
-    grid-template-areas:
-      ". . ."
-      ". . ."
-      ". theme_outro theme_outro";
-    // width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
   }
-
-  .theme_outro { grid-area: theme_outro; }
 
 }
 
@@ -697,42 +693,6 @@ section.recenteps{
   }
 }
 
-@media (max-width: 768px) {
-  section.recenteps {
-    .recenteps_episodes {
-      // Enable smoother touch scrolling
-      -webkit-overflow-scrolling: touch;
-      
-      // Prevent text selection during swipe
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-    
-    .eps_navigation {
-      .nav_button {
-        // Make buttons slightly larger on mobile for better touch targets
-        width: 52px;
-        height: 52px;
-      }
-    }
-    
-    .recenteps_crumbs {
-      .crumb {
-        // Make crumbs larger on mobile
-        width: 12px;
-        height: 12px;
-        
-        &.active {
-          width: 16px;
-          height: 16px;
-        }
-      }
-    }
-  }
-}
-
 section.quotes {
   display: flex;
   align-items: flex-start;
@@ -809,6 +769,7 @@ section.quotes {
     flex: 1;
     overflow: hidden;
     position: relative;
+      
   }
 
   .contaier-quotes {
@@ -897,6 +858,116 @@ section.newsletters{
 
     Button {
       flex-shrink: 0;
+    }
+  }
+}
+@media (max-width: 768px) {
+  section.recenteps {
+    .recenteps_episodes {
+      // Enable smoother touch scrolling
+      -webkit-overflow-scrolling: touch;
+      
+      // Prevent text selection during swipe
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    
+    .eps_navigation {
+      .nav_button {
+        // Make buttons slightly larger on mobile for better touch targets
+        width: 52px;
+        height: 52px;
+      }
+    }
+    
+    .recenteps_crumbs {
+      .crumb {
+        // Make crumbs larger on mobile
+        width: 12px;
+        height: 12px;
+        
+        &.active {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+
+  section.hero {
+    padding: $spacing-3 $spacing-6;
+    .hero-content{
+      width: 100%;
+      align-items: center;
+      text-align: center;
+      .heading, .sub-heading{
+        text-align: center;
+      }
+    }
+    .cta-btn {
+      padding: $spacing-2 $spacing-4;
+
+      h5 {
+        font-size: 0.875rem;
+        letter-spacing: 0.3rem;
+      }
+    }
+
+    .secondary-cta{
+      gap: $spacing-1;
+    }
+    .platform {
+      width: 32px;
+      .icon {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+  section.nextep {
+    .nextep_image{
+      display: none;
+    }
+  }
+
+  section.recenteps {
+    .recenteps_intro {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: $spacing-1;
+
+      .intro_details {
+        flex-direction: column;
+        align-items: center;
+        gap: $spacing-2;
+      }
+
+      .eps_navigation {
+        margin-top: $spacing-2;
+      }
+    }
+  }
+
+  section.quotes {
+    .contaier-quotes {
+      overflow-x: scroll;
+    }
+  }
+
+  section.newsletters {
+    margin: $spacing-6 0;
+    padding: $spacing-3 $spacing-6;
+    flex-direction: column;
+    gap: $spacing-4;
+
+    .prompt, form.newsletter {
+      width: 100%;
     }
   }
 }

@@ -1,10 +1,12 @@
 @use "./partials/combined.scss" as *;
 
-section {
-  & h3.heading {
+section  {
+  & h3.heading{
     color: $green;
     margin-bottom: $spacing-2;
   }
+  width: 100%;
+  overflow: hidden;
 }
 
 section.intro {
@@ -12,7 +14,7 @@ section.intro {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: flex-start;
-  padding: $spacing-5;
+  // padding: $spacing-5;
 
   h4 {
     color: $green;
@@ -47,7 +49,8 @@ section.identity {
       border-radius: $radius-md;
       object-fit: cover;
     }
-    .desc {
+    
+    .desc{
       display: flex;
       width: clamp(300px, 55vw, 720px);
       flex-direction: column;
@@ -75,7 +78,7 @@ section.misvis {
   align-items: flex-start;
   gap: $spacing-4;
 
-  .misvis_text {
+  .misvis_text{
     display: flex;
     width: clamp(300px, 55vw, 720px);
     flex-direction: column;
@@ -101,12 +104,12 @@ section.misvis {
         h3 {
           width: 100%;
         }
-        p {
+        p{
           width: 100%;
           text-align: justify;
         }
-        .misvis_map {
-          margin: $spacing-3;
+        .misvis_map{
+          margin: $spacing-1;
         }
       }
     }
@@ -121,7 +124,7 @@ section.misvis {
   }
 }
 
-section.purpose {
+section.purpose{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -198,131 +201,154 @@ section.aboutus {
 }
 
 section.team {
+  // padding: $spacing-5;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  
   .team-carousel {
     display: flex;
     flex-direction: row;
-    gap: $spacing-4;
+    gap: $spacing-5;
     align-items: flex-start;
-    justify-content: space-between;
-    width: 100%;
-  }
+    align-self: center;
+    width: 90%;
 
-  .team-thumbnails {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: $spacing-2;
+    .team-thumbnails {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-3;
+      flex-shrink: 0;
 
-    .team-thumbnail {
-      width: 120px;
-      height: 120px;
-      aspect-ratio: 1/1;
-      border-radius: $radius-md;
-      transition: all $transition-base;
-      cursor: pointer;
-      opacity: 0.7;
-      transform: scale(0.95);
-      filter: grayscale(20%);
-      position: relative;
-      overflow: hidden;
+      .team-thumbnail {
+        cursor: pointer;
+        border-radius: $radius-md;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        position: relative;
 
-      .thumbnail-photo {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      &:hover {
-        opacity: 0.9;
-        transform: scale(0.98);
-        filter: grayscale(0%);
-      }
-
-      &.active {
-        opacity: 1;
-        transform: scale(1);
-        border: 3px solid $green;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        filter: grayscale(0%);
+        .thumbnail-photo {
+          width: 120px;
+          height: 120px;
+          border-radius: $radius-md;
+          object-fit: cover;
+          display: block;
+          filter: grayscale(100%) brightness(0.8);
+          opacity: 0.6;
+          transition: all 0.3s ease;
+        }
 
         &:hover {
-          transform: scale(1.02);
+          transform: scale(1.05);
+          
+          .thumbnail-photo {
+            filter: grayscale(50%) brightness(0.9);
+            opacity: 0.8;
+          }
+        }
+
+        &.active {
+          transform: scale(1.05);
+          
+          .thumbnail-photo {
+            filter: grayscale(0%) brightness(1);
+            opacity: 1;
+            border: 2px solid $purple;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+          }
+
+          &:hover {
+            transform: scale(1.05);
+          }
         }
       }
     }
-  }
 
-  .team-spotlight {
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: $spacing-4;
-
-    .spotlight-image {
-      flex-shrink: 0;
-      width: 300px;
-      height: 400px;
-      border-radius: $radius-md;
-      overflow: hidden;
-
-      .main-photo {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
-
-    .spotlight-details {
+    .team-spotlight {
       display: flex;
-      flex-direction: column;
-      gap: $spacing-2;
-      min-height: 300px;
+      flex-direction: row;
+      gap: $spacing-4;
+      flex: 1;
+      align-items: flex-start;
+      min-height: 400px;
+      width: 50%;
 
-      .spotlight-name {
-        font-size: 1.8rem;
-        font-weight: 600;
-        color: $green;
-        margin: 0;
-      }
+      .spotlight-image {
+        flex-shrink: 0;
 
-      .spotlight-role {
-        font-size: 1.2rem;
-        font-weight: 500;
-        color: lighten($green, 15%);
-        margin: 0 0 $spacing-2 0;
-      }
-
-      .spotlight-bio {
-        text-align: justify;
-        line-height: 1.6;
-        color: #666;
-        margin: 0 0 $spacing-3 0;
-      }
-
-      .social-links {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        justify-content: flex-start;
-        gap: $spacing-3;
-        margin-top: auto;
-
-        a {
-          color: $green;
-          text-decoration: none;
-          padding: 8px 16px;
-          border: 1px solid $green;
-          border-radius: $radius-sm;
-          transition: all $transition-base;
-          font-size: 0.9rem;
-          font-weight: 500;
+        .main-photo {
+          width: 300px;
+          height: 400px;
+          border-radius: $radius-md;
+          object-fit: cover;
+          display: block;
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+          transition: all 0.3s ease;
 
           &:hover {
-            background-color: $green;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+          }
+        }
+      }
+
+      .spotlight-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-2;
+        padding-left: $spacing-3;
+        justify-content: flex-start;
+
+        .spotlight-name {
+          font-size: 2.2rem;
+          font-weight: 700;
+          color: $green;
+          margin: 0;
+          line-height: 1.2;
+        }
+
+        .spotlight-role {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: #666;
+          margin: 0 0 $spacing-3 0;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+
+        .spotlight-bio {
+          line-height: 1.7;
+          color: #444;
+          margin: 0 0 $spacing-4 0;
+          font-size: 1rem;
+          text-align: justify;
+        }
+
+        .social-links {
+          display: flex;
+          flex-direction: row;
+          gap: $spacing-2;
+          flex-wrap: wrap;
+          margin-top: auto;
+
+          a {
+            color: $green;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 2px solid $green;
+            border-radius: $radius-sm;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: capitalize;
+
+            &:hover {
+              background-color: $green;
+              color: white;
+              transform: translateY(-2px);
+              box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            }
           }
         }
       }
@@ -330,12 +356,47 @@ section.team {
   }
 }
 
-// Responsive adjustments
+// Responsive Design
+@media (max-width: 1024px) {
+  section.team {
+    .team-carousel {
+      gap: $spacing-3;
+
+      .team-thumbnails {
+        .team-thumbnail {
+          .thumbnail-photo {
+            width: 100px;
+            height: 100px;
+          }
+        }
+      }
+
+      .team-spotlight {
+        .spotlight-image {
+          .main-photo {
+            width: 250px;
+            height: 320px;
+          }
+        }
+
+        .spotlight-details {
+          padding-left: $spacing-2;
+
+          .spotlight-name {
+            font-size: 1.8rem;
+          }
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: 768px) {
   section.team {
     .team-carousel {
       flex-direction: column;
       gap: $spacing-3;
+      align-items: center;
 
       .team-thumbnails {
         flex-direction: row;
@@ -345,8 +406,14 @@ section.team {
         width: 100%;
 
         .team-thumbnail {
-          width: 80px;
-          height: 80px;
+          .thumbnail-photo {
+            width: 80px;
+            height: 80px;
+          }
+
+          &.active {
+            transform: scale(1.2);
+          }
         }
       }
 
@@ -354,18 +421,31 @@ section.team {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        gap: $spacing-3;
 
         .spotlight-image {
-          width: 250px;
-          height: 320px;
+          .main-photo {
+            width: 280px;
+            height: 350px;
+          }
         }
 
         .spotlight-details {
           padding-left: 0;
           align-items: center;
+          text-align: center;
 
           .spotlight-name {
             font-size: 1.6rem;
+          }
+
+          .spotlight-role {
+            font-size: 1rem;
+          }
+
+          .spotlight-bio {
+            text-align: center;
+            font-size: 0.95rem;
           }
 
           .social-links {
@@ -378,19 +458,65 @@ section.team {
 }
 
 @media (max-width: 480px) {
+  section.intro {
+    flex-direction: column;;
+  }
+
+  section.identity > .content{
+    flex-direction: column;
+    align-items: center;
+    .image{
+      width: 100%;
+    }
+  }
+
+  section.misvis {
+    flex-direction: column;
+    align-items: center;
+
+    .misvis_map{
+      width: 100%;
+    }
+
+    .mission_image {
+      width: 100%;
+      height: fit-content;
+      margin: 0px;
+    }
+  }
+
+  section.purpose {
+    .intro, .details {
+      flex-direction: column;
+    }
+  }
+
+  section.aboutus {
+    flex-direction: column;
+  }
+
   section.team {
     .team-carousel {
       .team-thumbnails {
         .team-thumbnail {
-          width: 60px;
-          height: 60px;
+          .thumbnail-photo {
+            width: 60px;
+            height: 60px;
+          }
+
+          &.active {
+            transform: scale(1.05);
+          }
         }
       }
 
       .team-spotlight {
+        width: 100%;
         .spotlight-image {
-          width: 200px;
-          height: 280px;
+          .main-photo {
+            width: 220px;
+            height: 280px;
+          }
         }
 
         .spotlight-details {
@@ -399,11 +525,18 @@ section.team {
           }
 
           .spotlight-role {
-            font-size: 1rem;
+            font-size: 0.9rem;
           }
 
           .spotlight-bio {
             font-size: 0.9rem;
+          }
+
+          .social-links {
+            a {
+              padding: 6px 12px;
+              font-size: 0.8rem;
+            }
           }
         }
       }

@@ -34,4 +34,21 @@ section.contact {
   }
 }
 
+@media (max-width: 480px) {
+  section.contact {
+    flex-direction: column;
+    padding: $spacing-4;
+
+    .contact-image {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4/3;
+    }
+
+    .contact-form {
+      width: 100%;
+    }
+  }
+}
+
 

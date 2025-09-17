@@ -46,8 +46,8 @@ const {
   .card-theme{
     display: flex;
     position: relative;
-    width: 20rem;
-    height: 20rem;
+    width:  20rem;
+    height: auto;
     padding: $spacing-6 $spacing-4;
     flex-direction: column;
     justify-content: space-between;
@@ -97,4 +97,23 @@ const {
     }
   }
 
+  @media (max-width: 480px) {
+    .card-theme{
+      width:  160px;
+      height: 160px;
+      padding: $spacing-4 $spacing-3;
+      .theme-icon{
+        width: 48px;
+        height: 48px;
+      }
+      .theme-details {
+        h3 {
+          font-size: medium;
+        }
+        p{
+          font-size: x-small;
+        }
+      }
+    }
+  }
 </style>

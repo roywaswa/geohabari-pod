@@ -5,55 +5,56 @@ import NairobiMap from "../images/cities/nairobi.svg"
 import KampalaMap from "../images/cities/kampala.svg"
 
 import '../styles/about.scss';
+
 const team_members = [
   {
     name:"Yariwo Kitiyo",
     bio: "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.",
     position: "Founder & Host",
     profile_photo: "https://images.unsplash.com/photo-1551247074-b14d3491bec6?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    socials: [
-      {x: "https://twitter.com/yariwo"},
-      {linkedin: "https://linkedin.com/in/yariwo"},
-      {github: "https://github.com/yariwo"},
-      {website: "https://yariwo.dev"},
-    ]
+    socials: {
+      x: "https://twitter.com/yariwo",
+      linkedin: "https://linkedin.com/in/yariwo",
+      github: "https://github.com/yariwo",
+      website: "https://yariwo.dev"
+    }
   },
   {
     name:"Sarah Johnson",
     bio: "Sarah is a geospatial data scientist with over 5 years of experience in mapping and spatial analysis. She brings technical expertise and creative problem-solving to every project.",
     position: "Lead Data Scientist",
-    profile_photo: "https://images.unsplash.com/photo-1494790108755-2616b612b494?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    socials: [
-      {x: "https://x.com/sarahjohnson"},
-      {linkedin: "https://linkedin.com/in/sarahjohnson"},
-      {github: "https://github.com/sarahjohnson"},
-      {email: "mailto:sarah@geohabari.com"},
-    ]
+    profile_photo: "https://images.unsplash.com/photo-1658498613819-6f3ab24df253?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    socials: {
+      x: "https://x.com/sarahjohnson",
+      linkedin: "https://linkedin.com/in/sarahjohnson",
+      github: "https://github.com/sarahjohnson",
+      email: "mailto:sarah@geohabari.com"
+    }
   },
   {
     name:"Michael Chen",
     bio: "Michael is a full-stack developer specializing in geospatial web applications. He's passionate about creating user-friendly interfaces that make complex data accessible to everyone.",
     position: "Senior Developer",
     profile_photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    socials: [
-      {x: "https://x.com/michaelchen"},
-      {linkedin: "https://linkedin.com/in/michaelchen"},
-      {github: "https://github.com/michaelchen"},
-      {website: "https://michaelchen.dev"},
-    ]
+    socials: {
+      x: "https://x.com/michaelchen",
+      linkedin: "https://linkedin.com/in/michaelchen",
+      github: "https://github.com/michaelchen",
+      website: "https://michaelchen.dev"
+    }
   },
   {
     name:"Amara Okafor",
     bio: "Amara is a UX/UI designer with a background in geography and human-computer interaction. She ensures our products are not only functional but also intuitive and beautiful.",
     position: "UX/UI Designer",
     profile_photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    socials: [
-      {x: "https://x.com/amaraokafor"},
-      {linkedin: "https://linkedin.com/in/amaraokafor"},
-      {github: "https://github.com/amaraokafor"},
-      {instagram: "https://instagram.com/amaraokafor"},
-    ]
-  },
+    socials: {
+      x: "https://x.com/amaraokafor",
+      linkedin: "https://linkedin.com/in/amaraokafor",
+      github: "https://github.com/amaraokafor",
+      instagram: "https://instagram.com/amaraokafor"
+    }
+  }
 ]
 ---
 
@@ -84,11 +85,13 @@ const team_members = [
         </h2>
         <div class="details">
           <p>
-            We focus on how technology intertwines with life and activities;
-            BUT more than that, we focus on the voices, the people behind the scenes
+            We focus on how technology intertwines with life and activities; BUT more than that, we focus on the voices, the people behind the scenes
           </p>
           <p>
-            More than just a podcast. <br/>We are a platform. <br/>A lens. <br/>A conversation
+            More than just a podcast. 
+              <br/>We are a platform. 
+              <br/>A lens. 
+              <br/>A conversation
           </p>
         </div>
       </div>
@@ -191,44 +194,39 @@ const team_members = [
     </h3>
     <div class="team-carousel">
       <div class="team-thumbnails">
-        {
-          team_members.map((member, index) => (
-            <div class={`team-thumbnail ${index === 0 ? 'active' : ''}`} data-index={index}>
-              <Image
-                src={member.profile_photo}
-                alt={member.name}
-                width={120}
-                height={120}
-                class="thumbnail-photo"
-              />
-            </div>
-          ))
-        }
+        {team_members.map((member, index) => (
+          <div class={`team-thumbnail ${index === 0 ? 'active' : ''}`} data-index={index}>
+            <img
+              src={member.profile_photo}
+              alt={member.name}
+              class="thumbnail-photo"
+              loading="lazy"
+            />
+          </div>
+        ))}
       </div>
+      
       <div class="team-spotlight">
         <div class="spotlight-image">
-          <Image
+          <img
             src={team_members[0].profile_photo}
             alt={team_members[0].name}
-            width={300}
-            height={400}
             class="main-photo"
+            id="main-photo"
+            loading="lazy"
           />
         </div>
+        
         <div class="spotlight-details">
-          <h3 class="spotlight-name">{team_members[0].name}</h3>
-          <h4 class="spotlight-role">{team_members[0].position}</h4>
-          <p class="spotlight-bio">{team_members[0].bio}</p>
-          <div class="social-links">
-            {team_members[0].socials.map(social => {
-              const platform = Object.keys(social)[0];
-              const url = social[platform];
-              return (
-                <a href={url} target="_blank" rel="noopener noreferrer">
-                  {platform.charAt(0).toUpperCase() + platform.slice(1)}
-                </a>
-              );
-            })}
+          <h3 class="spotlight-name" id="spotlight-name">{team_members[0].name}</h3>
+          <h4 class="spotlight-role" id="spotlight-role">{team_members[0].position}</h4>
+          <p class="spotlight-bio" id="spotlight-bio">{team_members[0].bio}</p>
+          <div class="social-links" id="social-links">
+            {Object.entries(team_members[0].socials).map(([platform, url]) => (
+              <a href={url} target="_blank" rel="noopener noreferrer">
+                {platform.charAt(0).toUpperCase() + platform.slice(1)}
+              </a>
+            ))}
           </div>
         </div>
       </div>
@@ -236,227 +234,196 @@ const team_members = [
   </section>
 </Layout>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const team_members = [
-      {
-        name:"Yariwo Kitiyo",
-        bio: "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.",
-        position: "Founder & Host",
-        profile_photo: "https://images.unsplash.com/photo-1551247074-b14d3491bec6?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        socials: [
-          {x: "https://twitter.com/yariwo"},
-          {linkedin: "https://linkedin.com/in/yariwo"},
-          {github: "https://github.com/yariwo"},
-          {website: "https://yariwo.dev"},
-        ]
-      },
-      {
-        name:"Sarah Johnson",
-        bio: "Sarah is a geospatial data scientist with over 5 years of experience in mapping and spatial analysis. She brings technical expertise and creative problem-solving to every project.",
-        position: "Lead Data Scientist",
-        profile_photo: "https://images.unsplash.com/photo-1494790108755-2616b612b494?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        socials: [
-          {x: "https://x.com/sarahjohnson"},
-          {linkedin: "https://linkedin.com/in/sarahjohnson"},
-          {github: "https://github.com/sarahjohnson"},
-          {email: "mailto:sarah@geohabari.com"},
-        ]
-      },
-      {
-        name:"Michael Chen",
-        bio: "Michael is a full-stack developer specializing in geospatial web applications. He's passionate about creating user-friendly interfaces that make complex data accessible to everyone.",
-        position: "Senior Developer",
-        profile_photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        socials: [
-          {x: "https://x.com/michaelchen"},
-          {linkedin: "https://linkedin.com/in/michaelchen"},
-          {github: "https://github.com/michaelchen"},
-          {website: "https://michaelchen.dev"},
-        ]
-      },
-      {
-        name:"Amara Okafor",
-        bio: "Amara is a UX/UI designer with a background in geography and human-computer interaction. She ensures our products are not only functional but also intuitive and beautiful.",
-        position: "UX/UI Designer",
-        profile_photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        socials: [
-          {x: "https://x.com/amaraokafor"},
-          {linkedin: "https://linkedin.com/in/amaraokafor"},
-          {github: "https://github.com/amaraokafor"},
-          {instagram: "https://instagram.com/amaraokafor"},
-        ]
-      },
-    ];
+import { gsap } from "gsap";
 
-    // DOM elements
-    const thumbnails = document.querySelectorAll(".team-thumbnail");
-    const mainPhoto = document.querySelector(".main-photo") as HTMLImageElement;
-    const spotlightName = document.querySelector(".spotlight-name") as HTMLElement;
-    const spotlightRole = document.querySelector(".spotlight-role") as HTMLElement;
-    const spotlightBio = document.querySelector(".spotlight-bio") as HTMLElement;
-    const socialLinks = document.querySelector(".social-links") as HTMLElement;
-    const spotlightDetails = document.querySelector(".spotlight-details");
-    const spotlightImage = document.querySelector(".spotlight-image");
+document.addEventListener("DOMContentLoaded", function() {
+  // Team members data
+  const teamMembers = [
+    {
+      name: "Yariwo Kitiyo",
+      bio: "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.",
+      position: "Founder & Host",
+      profile_photo: "https://images.unsplash.com/photo-1551247074-b14d3491bec6?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      socials: {
+        x: "https://twitter.com/yariwo",
+        linkedin: "https://linkedin.com/in/yariwo",
+        github: "https://github.com/yariwo",
+        website: "https://yariwo.dev"
+      }
+    },
+    {
+      name: "Sarah Johnson",
+      bio: "Sarah is a geospatial data scientist with over 5 years of experience in mapping and spatial analysis. She brings technical expertise and creative problem-solving to every project.",
+      position: "Lead Data Scientist",
+      profile_photo: "https://images.unsplash.com/photo-1658498613819-6f3ab24df253?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      socials: {
+        x: "https://x.com/sarahjohnson",
+        linkedin: "https://linkedin.com/in/sarahjohnson",
+        github: "https://github.com/sarahjohnson",
+        email: "mailto:sarah@geohabari.com"
+      }
+    },
+    {
+      name: "Michael Chen",
+      bio: "Michael is a full-stack developer specializing in geospatial web applications. He's passionate about creating user-friendly interfaces that make complex data accessible to everyone.",
+      position: "Senior Developer",
+      profile_photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      socials: {
+        x: "https://x.com/michaelchen",
+        linkedin: "https://linkedin.com/in/michaelchen",
+        github: "https://github.com/michaelchen",
+        website: "https://michaelchen.dev"
+      }
+    },
+    {
+      name: "Amara Okafor",
+      bio: "Amara is a UX/UI designer with a background in geography and human-computer interaction. She ensures our products are not only functional but also intuitive and beautiful.",
+      position: "UX/UI Designer",
+      profile_photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      socials: {
+        x: "https://x.com/amaraokafor",
+        linkedin: "https://linkedin.com/in/amaraokafor",
+        github: "https://github.com/amaraokafor",
+        instagram: "https://instagram.com/amaraokafor"
+      }
+    }
+  ];
 
-    let currentIndex = 0;
-    let autoPlayTimer;
-    let isAnimating = false;
+  // Get DOM elements
+  const thumbnails = document.querySelectorAll('.team-thumbnail');
+  const mainPhoto = document.getElementById('main-photo');
+  const spotlightName = document.getElementById('spotlight-name');
+  const spotlightRole = document.getElementById('spotlight-role');
+  const spotlightBio = document.getElementById('spotlight-bio');
+  const socialLinks = document.getElementById('social-links');
+  const teamCarousel = document.querySelector('.team-carousel');
 
-    // Initialize GSAP timeline
-    const tl = gsap.timeline();
-    function updateSpotlight(memberIndex, animate = true) {
-      if (isAnimating) return;
+  let currentIndex = 0;
+  let autoPlayInterval;
+  let isAnimating = false;
+
+  // Function to update spotlight content
+  function updateSpotlight(index, animate = true) {
+    if (isAnimating && animate) return;
+    
+    const member = teamMembers[index];
+    currentIndex = index;
+
+    // Update active thumbnail
+    thumbnails.forEach((thumb, i) => {
+      thumb.classList.toggle('active', i === index);
+    });
+
+    if (animate) {
       isAnimating = true;
-      const member = team_members[memberIndex];
-      currentIndex = memberIndex;
-
-      // Update active thumbnail
-      thumbnails.forEach(thumb => thumb.classList.remove("active"));
-      thumbnails[memberIndex].classList.add("active");
-      if (animate) {
-        // Animate out current content
-        tl.clear()
-          .to([spotlightDetails, spotlightImage], {
-            opacity: 0,
-            x: 50,
-            duration: 0.3,
-            ease: "power2.out"
-          })
-          .call(() => {
-            // Update content
-            mainPhoto.src = member.profile_photo;
-            mainPhoto.alt = member.name;
-            spotlightName.textContent = member.name;
-            spotlightRole.textContent = member.position;
-            spotlightBio.textContent = member.bio;
-
-            // Update social links
-            socialLinks.innerHTML = "";
-            member.socials.forEach(social => {
-              const platform = Object.keys(social)[0];
-              const url = social[platform];
-              const link = document.createElement("a");
-
-              link.href = url;
-              link.target = "_blank";
-              link.rel = "noopener noreferrer";
-              link.textContent = platform.charAt(0).toUpperCase() + platform.slice(1);
-              socialLinks.appendChild(link);
-            });
-          })
-          .to([spotlightDetails, spotlightImage], {
+      
+      // Animate out
+      gsap.to([mainPhoto, spotlightName, spotlightRole, spotlightBio, socialLinks], {
+        opacity: 0,
+        x: 30,
+        duration: 0.3,
+        ease: "power2.out",
+        onComplete: function() {
+          // Update content
+          updateContent(member);
+          
+          // Animate in
+          gsap.to([mainPhoto, spotlightName, spotlightRole, spotlightBio, socialLinks], {
             opacity: 1,
             x: 0,
             duration: 0.4,
             ease: "power2.out",
-            stagger: 0.1
-          })
-          .call(() => {
-            isAnimating = false;
-          });
-      } else {
-        // Instant update without animation
-        mainPhoto.src = member.profile_photo;
-        mainPhoto.alt = member.name;
-        spotlightName.textContent = member.name;
-        spotlightRole.textContent = member.position;
-        spotlightBio.textContent = member.bio;
-
-        socialLinks.innerHTML = "";
-        member.socials.forEach(social => {
-          const platform = Object.keys(social)[0];
-          const url = social[platform];
-          const link = document.createElement("a");
-          link.href = url;
-          link.target = "_blank";
-          link.rel = "noopener noreferrer";
-          link.textContent = platform.charAt(0).toUpperCase() + platform.slice(1);
-          socialLinks.appendChild(link);
-        });
-        isAnimating = false;
-      }
-    }
-
-    function startAutoPlay() {
-      autoPlayTimer = setInterval(() => {
-        const nextIndex = (currentIndex + 1) % team_members.length;
-        updateSpotlight(nextIndex);
-      }, 15000); // 15 seconds
-    }
-
-    function resetAutoPlay() {
-      clearInterval(autoPlayTimer);
-      startAutoPlay();
-    }
-
-    // Add click event listeners to thumbnails
-    thumbnails.forEach((thumbnail, index) => {
-      thumbnail.addEventListener("click", () => {
-        if (index !== currentIndex) {
-          updateSpotlight(index);
-          resetAutoPlay();
-        }
-      });
-
-      // Add hover effect
-      thumbnail.addEventListener("mouseenter", () => {
-        if (!thumbnail.classList.contains("active")) {
-          gsap.to(thumbnail, {
-            scale: 1.1,
-            duration: 0.3,
-            ease: "power2.out"
+            stagger: 0.05,
+            onComplete: function() {
+              isAnimating = false;
+            }
           });
         }
       });
+    } else {
+      updateContent(member);
+    }
+  }
 
-      thumbnail.addEventListener("mouseleave", () => {
-        if (!thumbnail.classList.contains("active")) {
-          gsap.to(thumbnail, {
-            scale: 1,
-            duration: 0.3,
-            ease: "power2.out"
-          });
-        }
-      });
+  // Function to update content without animation
+  function updateContent(member) {
+    mainPhoto.src = member.profile_photo;
+    mainPhoto.alt = member.name;
+    spotlightName.textContent = member.name;
+    spotlightRole.textContent = member.position;
+    spotlightBio.textContent = member.bio;
+
+    // Update social links
+    socialLinks.innerHTML = '';
+    Object.entries(member.socials).forEach(([platform, url]) => {
+      const link = document.createElement('a');
+      link.href = url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = platform.charAt(0).toUpperCase() + platform.slice(1);
+      socialLinks.appendChild(link);
     });
-    // Initialize carousel
-    updateSpotlight(0, false);
+  }
+
+  // Auto-play functionality
+  function startAutoPlay() {
+    autoPlayInterval = setInterval(() => {
+      const nextIndex = (currentIndex + 1) % teamMembers.length;
+      updateSpotlight(nextIndex, true);
+    }, 5000);
+  }
+
+  function stopAutoPlay() {
+    if (autoPlayInterval) {
+      clearInterval(autoPlayInterval);
+    }
+  }
+
+  function resetAutoPlay() {
+    stopAutoPlay();
     startAutoPlay();
+  }
 
-    // Pause auto-play when user hovers over the carousel
-    const teamCarousel = document.querySelector(".team-carousel");
-    if (teamCarousel) {
-      teamCarousel.addEventListener("mouseenter", () => {
-        clearInterval(autoPlayTimer);
-      });
-      teamCarousel.addEventListener("mouseleave", () => {
-        startAutoPlay();
-      });
-    }
-
-    // Initial GSAP animations
-    gsap.fromTo(".team-thumbnail", {
-      opacity: 0,
-      y: 30
-    }, {
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      stagger: 0.1,
-      ease: "power2.out"
-    });
-    gsap.fromTo([".spotlight-image", ".spotlight-details"], {
-      opacity: 0,
-      x: 50
-    }, {
-      opacity: 1,
-      x: 0,
-      duration: 0.8,
-      stagger: 0.2,
-      ease: "power2.out",
-      delay: 0.3
+  // Add click event listeners to thumbnails
+  thumbnails.forEach((thumbnail, index) => {
+    thumbnail.addEventListener('click', function() {
+      if (index !== currentIndex && !isAnimating) {
+        updateSpotlight(index, true);
+        resetAutoPlay();
+      }
     });
   });
+
+  // Pause auto-play on hover
+  teamCarousel.addEventListener('mouseenter', stopAutoPlay);
+  teamCarousel.addEventListener('mouseleave', startAutoPlay);
+
+  // Initialize carousel
+  updateSpotlight(0, false);
+  
+  // Start auto-play after a short delay
+  setTimeout(() => {
+    startAutoPlay();
+  }, 5000);
+
+  // Initial animations
+  //gsap.from('.team-thumbnail', {
+  //  opacity: 0,
+  //  y: 20,
+  //  duration: 0.6,
+  //  stagger: 0.1,
+  //  ease: "power2.out"
+  //});
+
+  // gsap.from(['.spotlight-image', '.spotlight-details'], {
+    // opacity: 0,
+    // x: 30,
+    // duration: 0.8,
+    // stagger: 0.2,
+    // ease: "power2.out",
+    // delay: 0.3
+  // });
+});
 </script>

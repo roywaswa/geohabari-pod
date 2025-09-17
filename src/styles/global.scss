@@ -33,6 +33,13 @@ main{
 section {
   padding: $spacing-4 $spacing-7;
   width: clamp(380px, 100%, 1540px);
+
+  @media (max-width: 768px) {
+    padding: $spacing-4 $spacing-5;
+  }
+  @media (max-width: 480px) {
+    padding: $spacing-3 $spacing-3;
+  }
 }
 
 

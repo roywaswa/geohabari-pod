@@ -59,6 +59,9 @@ import LogoImage from "../images/logo/geopod-green.svg";
     </div>
   </div>
   <p class="copyright">&copy;{new Date().getFullYear()} GeoHabari. All rights reserved.</p>
+  <div class="dev-credit">
+    <p>Developed by <a href="mailto:roywaswa.rw@gmail.com" target="_blank" rel="noopener noreferrer">Roy Waswa</a></p>
+  </div>
 </footer>
 
 
@@ -69,7 +72,7 @@ import LogoImage from "../images/logo/geopod-green.svg";
     background-image: url('../images/footer-bg.png');
     background-size: contain;
     background-position: center;
-
+    position: relative;
     padding: $spacing-2 $spacing-5;
     @include flexbox(column, center, center);
     gap: $spacing-3;
@@ -172,6 +175,32 @@ import LogoImage from "../images/logo/geopod-green.svg";
       color: $white;
       text-align: center;
       margin-top: $spacing-2;
+    }
+  }
+
+  .dev-credit{
+    position: absolute;
+    bottom: $spacing-2;
+    right: $spacing-2;
+    z-index: 10;
+
+    p {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      color: $white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: small;
+
+      a {
+      color: $green;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+      }
     }
   }
 
