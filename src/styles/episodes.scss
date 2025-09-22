@@ -61,12 +61,12 @@ section.episodes-player {
         gap: $spacing-4;
         padding: $spacing-1 $spacing-2;
         border-radius: $radius-md;
-        background: lighten($color: $gray, $amount: 30);
+        // background: lighten($color: $gray, $amount: 30);
         transition: all 0.6ms ease-in ;
         cursor: pointer;
 
         &:hover{
-          background: lighten($color: $purple, $amount: 30);
+          // background: lighten($color: $purple, $amount: 30);
         }
 
         .platform-text {
