@@ -1,5 +1,6 @@
 ---
 import LogoImage from "../images/logo/geopod-green.svg";
+import platforms from "../data/platforms.json"
 ---
 
 <footer>
@@ -27,16 +28,15 @@ import LogoImage from "../images/logo/geopod-green.svg";
       <div class="subscribe">
         <h4>Subscribe</h4>
         <div class="sub-platforms">
-          <a href="https://podcasts.apple.com/us/podcast/geohabari/id1706468850">
-            Apple Podcasts
-          </a>
-          <a href="https://open.spotify.com/show/6b1k2c4d8f3e5f3e5f3e5f3e">
-            Spotify
-          </a>
-          <a href="https://www.youtube.com/@GeohabariPod">
-            YouTube Podcast
-          </a>
-        </div>
+          {
+            platforms.map((platform) => (
+              <a href={platform.url} target="_blank">
+                <img src={platform.icon} alt={platform.name} width="auto" height="32" /> <br/>
+                {platform.name}
+              </a>
+            ))
+          }        
+          </div>
       </div>
       <div class="socials">
         <h4>Follow Us</h4>
