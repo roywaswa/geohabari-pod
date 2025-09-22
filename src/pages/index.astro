@@ -74,7 +74,7 @@ const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
                   (date.getMonth() + 1).toString().padStart(2, '0') + "-" +
                   date.getFullYear()
 const today = new Date();
-
+const recentEps = recentEpisodes.slice(0, 5);
 ---
 
 <Layout title="Home" description="Welcome to GeoHabari">
@@ -335,45 +335,97 @@ const today = new Date();
     )
   }
 
-  <section class="container recenteps">
-      <div class="recenteps_intro">
-        <div class="intro_details">
-          <h1>EPISODES</h1>
-          <h5>
-            From our archives for you to knock yourself out with or binge or share with someone you think would enjoy 
-          </h5>
+  <section class="RecentEps">
+    <!-- Background Elements -->
+    <div class="background_elements">
+      <div class="floating_circle_1"></div>
+      <div class="floating_circle_2"></div>
+      <div class="floating_circle_3"></div>
+    </div>
+
+    <div class="container">
+      <!-- Section Header -->
+      <div class="section_header">
+        <div class="header_accent">
+          <div class="accent_dot"></div>
+          <span>Latest Content</span>
+          <div class="accent_dot"></div>
         </div>
-        <div class="eps_navigation">
-          <div class="nav_button prev">
-            <RightArrow/>
-          </div>
-          <div class="nav_button next">
-            <RightArrow/>
+        <h3>EPISODES</h3>
+        <p class="header_description">
+          Dive into our latest conversations with industry leaders, innovators, and creative minds
+        </p>
+      </div>
+
+      <!-- Main Carousel -->
+      <div class="carousel_container">
+        <div class="episode_slider">
+          <div class="slider_track" id="slider-track">
+            {recentEps.map((episode, index) => (
+              <div class="episode_card">
+                <!-- Episode Artwork -->
+                <div class="artwork_container">
+                  <img 
+                    src={episode.artwork_url} 
+                    alt={episode.title}
+                    class="episode_image"
+                    width="400" 
+                    height="400"
+                  />
+                </div>
+                <div class="episode_info">
+                  <h4 class="episode_title">{episode.title}</h4>
+                  {/* <p class="episode_description" set:html={episode.description.slice(0,80)}></p> */}
+                  <a
+                    href={`/episodes#${episode.id}`}
+                    class="listen_button"
+                  >
+                    Listen Now
+                  </a>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
+
+        <!-- Navigation Arrows -->
+        <button
+          id="prev-btn"
+          class="nav_arrow nav_prev"
+          aria-label="Previous episode"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15,18 9,12 15,6"></polyline>
+          </svg>
+        </button>
+        
+        <button
+          id="next-btn"
+          class="nav_arrow nav_next"
+          aria-label="Next episode"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9,18 15,12 9,6"></polyline>
+          </svg>
+        </button>
       </div>
-      <div class="recenteps_episodes">
-        {
-          recentEpisodes.map((episode:any) => (
-            <EpisodeCard
-              title={episode.title}
-              description={episode.description}
-              image={episode.artwork_url}
-              date={episode.published_at}
-              episodeNumber={episode.episode_number}
-              seasonNumber={episode.season_number}
-              episodeId={episode.id}
-              duration={episode.duration}
-            />
-          ))
-        }
-      </div>
-      <div class="recenteps_crumbs">
-        {/* Generate crumbs dynamically based on your data */}
-        {Array.from({ length: Math.ceil(recentEpisodes.length / 1) }, (_, i) => (
-          <div class={`crumb ${i === 0 ? 'active' : ''}`}></div>
+
+      <!-- Enhanced Dot Indicators -->
+      <div class="slider_crumbs" id="slider-crumbs">
+        {recentEps.map((_, index) => (
+          <button
+            class={`crumb ${index === 0 ? 'crumb_active' : ''}`}
+            data-index={index}
+            aria-label={`Go to episode ${index + 1}`}
+          ></button>
         ))}
       </div>
+
+      <!-- Episode Counter -->
+      <div class="episode_counter" id="episode-counter">
+        Episode 1 of {Math.min(recentEps.length, 5)}
+      </div>
+    </div>
   </section>
 
   <section class="container quotes">
@@ -428,6 +480,118 @@ const today = new Date();
   import { SplitText, Observer } from "gsap/all";
   gsap.registerPlugin(SplitText, Observer);
   initializeAllCarousels();
+
+  class EpisodeCarousel {
+    constructor() {
+      this.currentIndex = 0;
+      this.maxEpisodes = 5;
+      this.touchStart = 0;
+      this.touchEnd = 0;
+      this.autoAdvanceInterval = null;
+      
+      this.sliderTrack = document.getElementById('slider-track');
+      this.prevBtn = document.getElementById('prev-btn');
+      this.nextBtn = document.getElementById('next-btn');
+      this.crumbs = document.querySelectorAll('.crumb');
+      this.episodeCounter = document.getElementById('episode-counter');
+      
+      this.init();
+    }
+
+    init() {
+      if (!this.sliderTrack) return;
+      
+      // Event listeners
+      this.prevBtn?.addEventListener('click', () => this.prevSlide());
+      this.nextBtn?.addEventListener('click', () => this.nextSlide());
+      
+      // Crumb navigation
+      this.crumbs.forEach((crumb, index) => {
+        crumb.addEventListener('click', () => this.goToSlide(index));
+      });
+      
+      // Touch events for mobile swipe
+      this.sliderTrack.addEventListener('touchstart', (e) => this.handleTouchStart(e));
+      this.sliderTrack.addEventListener('touchmove', (e) => this.handleTouchMove(e));
+      this.sliderTrack.addEventListener('touchend', () => this.handleTouchEnd());
+      
+      // Auto-advance
+      this.startAutoAdvance();
+      
+      // Pause auto-advance on hover
+      this.sliderTrack.addEventListener('mouseenter', () => this.stopAutoAdvance());
+      this.sliderTrack.addEventListener('mouseleave', () => this.startAutoAdvance());
+    }
+
+    nextSlide() {
+      this.currentIndex = this.currentIndex === this.maxEpisodes - 1 ? 0 : this.currentIndex + 1;
+      this.updateSlider();
+    }
+
+    prevSlide() {
+      this.currentIndex = this.currentIndex === 0 ? this.maxEpisodes - 1 : this.currentIndex - 1;
+      this.updateSlider();
+    }
+
+    goToSlide(index) {
+      this.currentIndex = index;
+      this.updateSlider();
+    }
+
+    updateSlider() {
+      // Update slider position
+      this.sliderTrack.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+      
+      // Update crumbs
+      this.crumbs.forEach((crumb, index) => {
+        crumb.classList.toggle('crumb_active', index === this.currentIndex);
+      });
+      
+      // Update counter
+      if (this.episodeCounter) {
+        this.episodeCounter.textContent = `Episode ${this.currentIndex + 1} of ${this.maxEpisodes}`;
+      }
+    }
+
+    handleTouchStart(e) {
+      this.touchEnd = null;
+      this.touchStart = e.touches[0].clientX;
+    }
+
+    handleTouchMove(e) {
+      this.touchEnd = e.touches[0].clientX;
+    }
+
+    handleTouchEnd() {
+      if (!this.touchStart || !this.touchEnd) return;
+      
+      const distance = this.touchStart - this.touchEnd;
+      const isLeftSwipe = distance > 50;
+      const isRightSwipe = distance < -50;
+
+      if (isLeftSwipe) this.nextSlide();
+      if (isRightSwipe) this.prevSlide();
+    }
+
+    startAutoAdvance() {
+      this.stopAutoAdvance();
+      this.autoAdvanceInterval = setInterval(() => {
+        this.nextSlide();
+      }, 10000);
+    }
+
+    stopAutoAdvance() {
+      if (this.autoAdvanceInterval) {
+        clearInterval(this.autoAdvanceInterval);
+        this.autoAdvanceInterval = null;
+      }
+    }
+  }
+
+  // Initialize carousel when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    new EpisodeCarousel();
+  });
 
 
 
