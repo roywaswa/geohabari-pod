@@ -381,7 +381,6 @@ class CarouselManager {
     
     if (episodesContainer && episodesPrevBtn && episodesNextBtn) {
       this.episodesCarousel = new EpisodesCarousel();
-      console.log('Episodes Carousel initialized');
     }
     
     // Initialize Quotes Carousel
@@ -391,7 +390,6 @@ class CarouselManager {
     
     if (quotesTrack && quotesPrevBtn && quotesNextBtn) {
       this.quotesCarousel = new QuotesCarousel();
-      console.log('Quotes Carousel initialized');
     }
     
     this.initialized = true;

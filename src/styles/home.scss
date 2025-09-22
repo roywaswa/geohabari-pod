@@ -508,6 +508,12 @@ section.nextep{
   align-self: stretch;
   flex-wrap: wrap;
 
+  .info {
+    *{
+      color: $white;
+    }
+  }
+
   .nextep_image {
     position: absolute;
     width: 240px;
@@ -699,72 +705,44 @@ section.quotes {
   gap: $spacing-6;
   align-self: stretch;
 
-  .intro {
+  .nav_button {
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    aspect-ratio: 1/1;
+    border-radius: $radius-full;
+    box-shadow: 0 0 14px 4px rgba(139, 139, 139,0.2);
+    border: none;
+    background: $white;
     display: flex;
-    width: clamp(300px, 40vw, 560px);
-    padding: $spacing-4 $spacing-6;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
-    gap: $spacing-2;
-    align-self: stretch;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
 
-    .heading {
-      align-self: stretch;
-      line-height: 1.2;
-      margin: 0;
-    }
-    .sub-heading {
-      text-align: right;
-      font-weight: 700;
-      color: $black;
-    }
-
-    .nav {
-      display: flex;
-      gap: $spacing-2;
-
-      .nav_button {
-        cursor: pointer;
-        width: 48px;
-        height: 48px;
-        aspect-ratio: 1/1;
-        border-radius: $radius-full;
-        box-shadow: 0 0 14px 4px rgba(139, 139, 139,0.2);
-        border: none;
-        background: $white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-
-        &:hover {
-          // background-color: $purple-dark;
-          color: $white;
-          transform: scale(1.05);
-        }
-
-        &:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-          
-          &:hover {
-            background: $white;
-            color: inherit;
-            transform: none;
-          }
-        }
+      &:hover {
+        // background-color: $purple-dark;
+        color: $white;
+        transform: scale(1.05);
       }
-      .prev {
-        transform: rotate(180deg);
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
         
         &:hover {
-          transform: rotate(180deg) scale(1.05);
+          background: $white;
+          color: inherit;
+          transform: none;
         }
       }
     }
-  }
-
+    .prev {
+      transform: rotate(180deg);
+      
+      &:hover {
+        transform: rotate(180deg) scale(1.05);
+      }
+    }
   .carousel-wrapper {
     flex: 1;
     overflow: hidden;
@@ -778,6 +756,7 @@ section.quotes {
     gap: $spacing-4;
     width: max-content;
     transition: transform 0.5s ease-in-out;
+
 
     .quote_image {
       width: 400px;
@@ -823,29 +802,66 @@ section.quotes {
   }
 }
 
-section.newsletters{
-  display:flex;
+section.newsletters {
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: $spacing-6;
-  // align-self: stretch;
+  position: relative;
+  padding: $spacing-8 $spacing-4;
+  min-height: 70vh;
+  
+  // Background image setup
+  background-image: url('https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  
+  // Dark overlay for better text readability
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+  
+  // Ensure content appears above overlay
+  > * {
+    position: relative;
+    z-index: 2;
+  }
 
-  .prompt{
+  .prompt {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: $spacing-2;
     width: clamp(300px, 40vw, 560px);
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.1);
+    padding: $spacing-4;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 
     h1 {
-      // text-align: center;
       margin: 0;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      text-align: center;
     }
-    h3 {
-      // text-align: center;
+    
+    h4 {
       font-weight: 500;
       margin: 0;
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+      text-align: center;
     }
   }
 
@@ -855,9 +871,83 @@ section.newsletters{
     align-items: center;
     gap: $spacing-2;
     width: clamp(300px, 40vw, 560px);
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.15);
+    padding: $spacing-4;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 
-    Button {
+    h2 {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      text-align: center;
+      margin-bottom: $spacing-2;
+    }
+    
+    .form-field {
+      width: 100%;
+      
+      label {
+        color: white;
+        font-weight: 500;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        display: block;
+        margin-bottom: $spacing-1;
+      }
+      
+      input {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(4px);
+        
+        &::placeholder {
+          color: rgba(0, 0, 0, 0.6);
+        }
+        
+        &:focus {
+          background: rgba(255, 255, 255, 1);
+          border-color: rgba(255, 255, 255, 0.8);
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+        }
+      }
+    }
+
+    button {
       flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(4px);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+      
+      &:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+      
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: $spacing-6 $spacing-2;
+    min-height: 80vh;
+    background-attachment: scroll; // Better performance on mobile
+    
+    .prompt,
+    form.newsletter {
+      width: 90%;
+      max-width: 400px;
     }
   }
 }

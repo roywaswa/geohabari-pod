@@ -42,7 +42,7 @@ const topics = [
     background:"https://images.unsplash.com/photo-1731475761027-0b6b33b74547?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   },
   {
-    title:"EARTH",
+    title:"SPACE",
     description:"Dive into Earth Observation (EO) use cases across various sectors. From technical tools and datasets to real-world applications and impacts, each episode offers a comprehensive look at EO's potential.",
     icon:"/themeIcons/icon_earth.png",
     background:"https://images.unsplash.com/photo-1454789548928-9efd52dc4031?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -72,14 +72,16 @@ const nextEp = await contentfulClient.getEntries({
 const date = nextEp?.fields?.releaseDate ? new Date(nextEp.fields.releaseDate) : new Date()
 const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
                   (date.getMonth() + 1).toString().padStart(2, '0') + "-" +
-                  date.getFullYear();
+                  date.getFullYear()
+const today = new Date();
+
 ---
 
 <Layout title="Home" description="Welcome to GeoHabari">
   <section class="container hero">
     <div class="hero-content">
       <h1 class="heading">
-        Amplifying African tech stories & building tech brilliance.
+        Amplifying African tech stories & elevating technical brilliance.
       </h1>
       <h4 class="sub-heading">
         Geohabari Podcast is a platform for us to tell our african tech stories for everyone from aspiring professionals to seasoned veterans . There is something for you ...
@@ -225,13 +227,14 @@ const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
 
     </div>
   </section>
+
   <section class="container topics">
     <div class="topics-heading">
       <h2>
-        With conversations that cut across the board in ...
+        With conversations that cut across the board
       </h2>
       <h5>
-        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+        We have curated themes that resonate with our audience and reflect the diverse facets of the tech industry both in Kenya and Africa at large.
       </h5>
     </div>
     <div class="container-themes">
@@ -245,15 +248,12 @@ const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
           />
         ))
       }
-      <h1 class="theme_outro">
-        And so much more ....
-      </h1>
     </div>
   </section>
 
   <section class="container latestep">
     <div class="latestep_intro">
-      <h2>New Episodes every week on Monday</h2>
+      <h2>New Episodes every other week on Monday</h2>
       <h5>Here is this week's episode, dive in and catch a glimpse of what we are all about ...</h5>
     </div>
     <div class="latestep_player">
@@ -269,66 +269,71 @@ const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
         autoLoad={true}
       />
       <div class="ep_actions">
-        <Button type="secondary">Go to Episode</Button>
+        <a href={`/episodes#${latestEpisode.id}`} id="latestEpBtn" class="btn secondary">Go to Episode</a>
       </div>
     </div>
   </section>
   
-  <section class="container nextep">
-    <Image
-      src={DarMap}
-      alt="Next Episode Image"
-      width={240}
-      height={240}
-      class="nextep_image left"
-    />
-    <Image
-      src={KampalaMap}
-      alt="Next Episode Image"
-      width={240}
-      height={240}
-      class="nextep_image right"
-    />
-    <div class="host profile">
-      <Image
-        src={nextEp?.fields?.host?.fields.file.url}
-        alt="Host Image"
-        width={160}
-        height={160}
-        class="image profile"
-      />
-      <div class="info">
-        <h4 class="name">{nextEp?.fields?.host?.fields?.title}</h4>
-        <h5 class="title">Host & Producer</h5>
-      </div>
-    </div>
-    <div class="nextep_details">
-      <h6 class="nextep_number">UP NEXT</h6>
-      <h5 class="nextep_title">
-        {nextEp.fields.episodeTitle}
-      </h5>
-      <h6 class="nextep_date">RELEASING ON: {releaseDate}</h6>
-    </div>
-    <div class="nextep_guests">
-      {
-        nextEp?.fields?.guests?.map(guest => (
-          <div class="guest profile">
-            <Image
-              src={guest.fields.file.url}          
-              alt="Guest Image"
-              width={100}
-              height={100}
-              class="image"
-            />
-            <div class="info">
-              <h4 class="name">{guest.title}</h4>
-              <h5 class="title">Guest</h5>
-            </div>
+  {
+    nextEp?.fields?.releaseDate && nextEp.fields.releaseDate > today.toISOString() && (
+        <section class="container nextep">
+        <Image
+          src={DarMap}
+          alt="Next Episode Image"
+          width={240}
+          height={240}
+          class="nextep_image left"
+        />
+        <Image
+          src={KampalaMap}
+          alt="Next Episode Image"
+          width={240}
+          height={240}
+          class="nextep_image right"
+        />
+        <div class="host profile">
+          <Image
+            src={nextEp?.fields?.host?.fields.file.url}
+            alt="Host Image"
+            width={160}
+            height={160}
+            class="image profile"
+          />
+          <div class="info">
+            <h4 class="name">{nextEp?.fields?.host?.fields?.title}</h4>
+            <h5 class="title">Host</h5>
           </div>
-        ))
-      }      
-    </div>
-  </section>
+        </div>
+        <div class="nextep_details">
+          <h6 class="nextep_number">UP NEXT</h6>
+          <h5 class="nextep_title">
+            {nextEp.fields.episodeTitle}
+          </h5>
+          <h6 class="nextep_date">RELEASING ON: {releaseDate}</h6>
+        </div>
+        <div class="nextep_guests">
+          {
+            nextEp?.fields?.guests?.map(guest => (
+              <div class="guest profile">
+                <Image
+                  src={guest.fields.file.url}          
+                  alt="Guest Image"
+                  width={100}
+                  height={100}
+                  class="image"
+                />
+                <div class="info">
+                  <h4 class="name">{guest.fields.title}</h4>
+                  <h5 class="title">Guest</h5>
+                </div>
+              </div>
+            ))
+          }      
+        </div>
+      </section>
+
+    )
+  }
 
   <section class="container recenteps">
       <div class="recenteps_intro">
@@ -372,26 +377,14 @@ const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
   </section>
 
   <section class="container quotes">
-    <div class="intro">
-      <h3 class="heading">
-        Statements that reorganized our brain chemistry ... "
-      </h3>
-      <h6 class="sub-heading">
-        "Don't ever underestimate the power of your words. Just one voice can change the hearts and minds of people." 
-        <br/> <i>— Barack Obama</i>
-      </h6>
-      <div class="quotes nav">
-        <div class="nav_button prev" id="prevBtn"><RightArrow/></div>
-        <div class="nav_button next" id="nextBtn"><RightArrow/></div>
-      </div>
-    </div>
+    <div class="nav_button prev" id="prevBtn"><RightArrow/></div>
     <div class="carousel-wrapper">
       <div class="contaier-quotes" id="carouselTrack">
         {
           quoteCards.items.map(item => (
             <Image
-              src={item.fields.quoteCard.fields.file.url}
-              alt={item.fields.quoteCard.fields.title}
+              src={item.fields.quoteCard?.fields?.file?.url ?? 'https://placehold.co/400'}
+              alt={item.fields.quoteCard?.fields?.title ?? 'Quote Card'}
               width={400}
               height={400}
               class="quote_image"
@@ -400,12 +393,13 @@ const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
         }
       </div>
     </div>
+    <div class="nav_button next" id="nextBtn"><RightArrow/></div>
   </section>
   
   <section class="container newsletters">
     <div class="prompt">
       <h1>
-        WE ARE BUILDING A COMMUNITY ...
+        WE ARE BUILDING A COMMUNITY
       </h1>
       <h4>
         And you can join countless others in this glorious purpose that is bigger than any one person by signing up for our newsletters and events.
@@ -427,7 +421,7 @@ const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
   </section>
 </Layout>
 
-<script>
+<script define:vars={{latestEpisode}} type="module" >
   import { navigate } from "astro:transitions/client";
   import { initializeAllCarousels } from "../utils/carousel.js"
   import { gsap } from "gsap";
@@ -453,7 +447,8 @@ const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
             duration: 0.2
           })
           gsap.to(imgbg, {
-            filter: "blur(4px) brightness(0.8)"
+            filter: "blur(4px) brightness(0.8)",
+            background: "rgba(191,160,230, 0.773)"
           })
           gsap.from(texts, {
             y:100,
@@ -466,7 +461,8 @@ const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
             duration: 0.2
           })
           gsap.to(imgbg, {
-            filter: "blur(0px) brightness(1)"
+            filter: "blur(0px) brightness(1)",
+            background: "rgba(191,160,230, 0.773)"
           })
           gsap.fromTo(texts, {
             y:10,
@@ -556,7 +552,6 @@ const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
       formData.append("email",sub_email)
       fetch(scriptURL, { method: 'POST', body: formData})
         .then(response => {
-          console.log('Success!', response)
           field_name.value = ''
           field_email.value = ''
           submitBtn.textContent = "SUBSCRIBE";
@@ -570,6 +565,7 @@ const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
           alert("An error occurred. Please try again.")
         })
     })
+
   });
 
 

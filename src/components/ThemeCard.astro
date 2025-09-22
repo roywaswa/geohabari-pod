@@ -6,14 +6,14 @@ interface Props {
   description?: string;
   background?: string;
   icon?: string;
-  
 }
+
 const { 
   title = 'CAREER',
-  description="Navigate diverse career paths in the geospatial industry. Discussing pivotal moments, key learnings, and challenges, these episodes inspire you to explore new career horizons." ,
+  description = "Navigate diverse career paths in the geospatial industry. Discussing pivotal moments, key learnings, and challenges, these episodes inspire you to explore new career horizons.",
   background = "https://placehold.co/400",
   icon = "https://placehold.co/72"
-  } = Astro.props as Props;
+} = Astro.props as Props;
 ---
 
 <div class="card-theme">
@@ -37,81 +37,101 @@ const {
   </div>
 </div>
 
-
-
-
 <style lang="scss">
   @use "../styles/partials/combined.scss" as *;
-
-  .card-theme{
-    display: flex;
+  
+  .card-theme {
     position: relative;
-    width:  20rem;
-    height: auto;
-    padding: $spacing-6 $spacing-4;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
-    flex-shrink: 0;
+    width: min(18vw, 15rem); // Responsive width based on viewport
+    height: auto;
+    padding: $spacing-4 $spacing-3;
     aspect-ratio: 1/1;
     overflow: hidden;
-    transition: hover 2s ease-in-out;
-
     border-radius: $radius-md;
+    flex-shrink: 0;
+    transition: transform 0.3s ease-in-out;
     
-    .bg-image{
+    // Purple overlay using pseudo-element (more reliable)
+    &::before {
+      content: '';
       position: absolute;
-      top:0;
-      left:0;
+      top: 0;
+      left: 0;
       width: 100%;
-      height: auto;
-      object-fit: fill;
-      align-self: center;
-      aspect-ratio: 1/1;
-      z-index: -1;
+      height: 100%;
+      background: rgba(128, 90, 213, 0.6);
+      z-index: 1;
+      pointer-events: none;
     }
-
-    .theme-icon{
-      // border: 2px solid $purple;
+    
+    .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    
+    .theme-icon {
       mix-blend-mode: lighten;
+      position: relative;
+      z-index: 2;
+      width: min(4rem, 12vw);
+      height: min(4rem, 12vw);
     }
+    
     .theme-details {
-      width:100%;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+      
       h3 {
         margin: 0;
         color: $white;
+        font-size: clamp(0.875rem, 2.5vw, 1.125rem);
       }
-      p{
+      
+      p {
         display: none;
         color: $white;
         font-weight: 500;
-        letter-spacing: 1.2;
-        line-height: 80%;
-        font-size: small;
+        letter-spacing: 0.12em;
+        line-height: 1.2;
+        font-size: clamp(0.6rem, 0.8vw, 0.80rem);
       }
     }
-    &:hover{
-      .theme-details p{
-        display: inline;
+    
+    &:hover {
+      .theme-details p {
+        display: block;
       }
     }
   }
-
+  
   @media (max-width: 480px) {
-    .card-theme{
-      width:  160px;
-      height: 160px;
+    .card-theme {
+      width: 10rem;
+      height: 10rem;
       padding: $spacing-4 $spacing-3;
-      .theme-icon{
-        width: 48px;
-        height: 48px;
+      
+      .theme-icon {
+        width: 3rem;
+        height: 3rem;
       }
+      
       .theme-details {
         h3 {
-          font-size: medium;
+          font-size: 0.75rem;
         }
-        p{
-          font-size: x-small;
+        
+        p {
+          font-size: 0.5rem;
         }
       }
     }

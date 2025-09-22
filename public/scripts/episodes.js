@@ -15,8 +15,6 @@ export async function createEpisodesList(episodes) {
       <p rawHTML=${episode.description.slice(0, 100)}>...</p>`;
     episodeContainer.appendChild(li);
   });
-  console.log(episodeContainer);
-  
 }
 
 

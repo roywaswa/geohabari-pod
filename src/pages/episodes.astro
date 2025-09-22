@@ -91,12 +91,12 @@ const initialEpisode = firstSeasonEpisodes[0];
       <!-- Episode List Container -->
       <ul id="episodes-list-container" class="ep-list"></ul>
     </div>
-    
+
     <!-- Episode Player Section -->
     <div class="episode">
       <!-- Streaming Platform Links -->
       <div class="streaming">
-        <div class="platform">
+        <a href="https://open.spotify.com/show/5n3pUUtfdAdGS4d2hMz2yc?si=327dae6667fa4c5a" class="platform">
           <div class="platform-text">
             <small>Listen on</small>
             <p>Spotify</p>
@@ -109,8 +109,8 @@ const initialEpisode = firstSeasonEpisodes[0];
               height={32}
             />
           </div>
-        </div>
-        <div class="platform">
+        </a>
+        <a href="https://podcasts.apple.com/ke/podcast/geohabari/id1747885525" class="platform">
           <div class="platform-text">
             <small>Listen on</small>
             <p>Apple Podcasts</p>
@@ -123,8 +123,8 @@ const initialEpisode = firstSeasonEpisodes[0];
               height={32}
             />
           </div>
-        </div>
-        <div class="platform">
+        </a>
+        <a href="https://podcastaddict.com/podcast/geohabari/5021923" class="platform">
           <div class="platform-text">
             <small>Listen on</small>
             <p>Podcast Addict</p>
@@ -137,7 +137,7 @@ const initialEpisode = firstSeasonEpisodes[0];
               height={32}
             />
           </div>
-        </div>
+        </a>
       </div>
       
       <!-- Audio Player Component -->
@@ -241,7 +241,6 @@ const initialEpisode = firstSeasonEpisodes[0];
       history.replaceState(null, '', `#${episode.id}`);
     }
 
-    console.log(`Selected episode: ${episode.title}`);
   }
 
   /**
@@ -254,17 +253,14 @@ const initialEpisode = firstSeasonEpisodes[0];
       return false; // No fragment found
     }
 
-    console.log('Looking for episode with ID:', fragment);
 
     // Search through all episodes to find the one with matching ID
     const targetEpisode = episodes?.find(ep => ep.id && ep.id.toString() === fragment);
     
     if (!targetEpisode) {
-      console.log('Episode not found with ID:', fragment);
       return false;
     }
 
-    console.log('Found target episode:', targetEpisode);
 
     // Find which season this episode belongs to
     const episodeSeason = targetEpisode.season_number || targetEpisode.season || 1;
@@ -364,8 +360,6 @@ const initialEpisode = firstSeasonEpisodes[0];
       loadEpisodeFromFragment();
     });
 
-    console.log('Episodes page initialized');
-    console.log('Episodes by season:', episodesBySeason);
-    console.log('Active season:', activeSeasonNumber);
+
   });
 </script>
