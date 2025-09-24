@@ -14,9 +14,10 @@ const {
   background = "https://placehold.co/400",
   icon = "https://placehold.co/72"
 } = Astro.props as Props;
+const tag = title.split(' ').join('+').toLowerCase();
 ---
 
-<div class="card-theme">
+<a href={`/episodes?tag=${tag}`} class="card-theme">
   <Image
     src={icon}
     alt="Theme Icon"
@@ -35,7 +36,7 @@ const {
     <h3>{title}</h3>
     <p>{description}</p>
   </div>
-</div>
+</a>
 
 <style lang="scss">
   @use "../styles/partials/combined.scss" as *;

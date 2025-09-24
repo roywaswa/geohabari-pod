@@ -17,6 +17,11 @@ import SpotifyIcon from "../images/icons/spotify.png"
 import PodcastAddictIcon from "../images/icons/podcast_addict.png"
 import platforms from "../data/platforms.json"
 
+// --- Extract URL query parameters ---
+const url = new URL(Astro.request.url);
+const tagParam = url.searchParams.get('tag');
+const seasonParam = url.searchParams.get('season');
+
 // --- Data Fetching (Server-side) ---
 const seasons = await getSeasonList();
 const episodes = await getAllEpisodes();
@@ -47,7 +52,7 @@ episodes?.forEach(ep => {
 });
 
 const availableSeasons = seasons.sort((a, b) => (b.season || b.season_number) - (a.season || a.season_number));
-const defaultSeason = availableSeasons[0]?.season || availableSeasons[0]?.season_number || 1;
+const defaultSeason = seasonParam ? parseInt(seasonParam) : (availableSeasons[0]?.season || availableSeasons[0]?.season_number || 1);
 
 // Get the first episode for initial player state
 const firstSeasonEpisodes = episodesBySeason[defaultSeason] || [];
@@ -62,9 +67,10 @@ const initialEpisode = firstSeasonEpisodes[0];
         {
           availableSeasons.map((season, index) => {
             const seasonNum = season.season || season.season_number;
+            const isActive = seasonParam ? seasonNum === defaultSeason : index === 0;
             return (
               <div 
-                class={`season ${index === 0 ? 'active' : ''}`} 
+                class={`season ${isActive ? 'active' : ''}`} 
                 data-season={seasonNum}
               >
                 <h5>SEASON {seasonNum}</h5>
@@ -78,10 +84,10 @@ const initialEpisode = firstSeasonEpisodes[0];
       <div class="ep-filter">
         <p>Filter by Tag</p>
         <select id="tag-filter">
-          <option class="tag" value="all">All</option>
+          <option class="tag" value="all" selected={!tagParam}>All</option>
           {
             Array.from(allTags).sort().map(tag => (
-              <option class="tag" value={tag}>
+              <option class="tag" value={tag} selected={tagParam === tag}>
                 {tag.charAt(0).toUpperCase() + tag.slice(1)}
               </option>
             ))
@@ -101,7 +107,7 @@ const initialEpisode = firstSeasonEpisodes[0];
           platforms.map((platform) => (
             <a href={
               platform.url
-            } class="platform" target="_blank" rel="noopener noreferrer">
+            } class="platform btn tertiary" target="_blank" rel="noopener noreferrer">
               <div class="platform-text">
                 <small>Listen on</small>
                 <p>{platform.name}</p>
@@ -135,7 +141,40 @@ const initialEpisode = firstSeasonEpisodes[0];
   </section>
 </Layout>
 
-<script define:vars={{ episodesBySeason, defaultSeason, episodes }} type="module">
+<script define:vars={{ episodesBySeason, defaultSeason, episodes, tagParam, seasonParam }} type="module">
+  /**
+   * Gets URL query parameters
+   */
+  function getUrlParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return {
+      tag: urlParams.get('tag'),
+      season: urlParams.get('season')
+    };
+  }
+
+  /**
+   * Updates URL with current filter state
+   */
+  function updateUrl(tag, season) {
+    const url = new URL(window.location);
+    
+    if (tag && tag !== 'all') {
+      url.searchParams.set('tag', tag);
+    } else {
+      url.searchParams.delete('tag');
+    }
+    
+    if (season && season !== defaultSeason) {
+      url.searchParams.set('season', season);
+    } else {
+      url.searchParams.delete('season');
+    }
+    
+    // Update URL without page reload
+    history.replaceState(null, '', url.toString());
+  }
+
   /**
    * Creates and populates the episode list based on selected season and tag filter
    */
@@ -231,14 +270,12 @@ const initialEpisode = firstSeasonEpisodes[0];
       return false; // No fragment found
     }
 
-
     // Search through all episodes to find the one with matching ID
     const targetEpisode = episodes?.find(ep => ep.id && ep.id.toString() === fragment);
     
     if (!targetEpisode) {
       return false;
     }
-
 
     // Find which season this episode belongs to
     const episodeSeason = targetEpisode.season_number || targetEpisode.season || 1;
@@ -281,12 +318,17 @@ const initialEpisode = firstSeasonEpisodes[0];
     }
 
     let activeSeasonNumber = defaultSeason;
-    let selectedTag = 'all';
+    let selectedTag = tagParam || 'all';
+
+    // Set the tag filter to the URL parameter value
+    if (tagFilter && tagParam) {
+      tagFilter.value = tagParam;
+    }
 
     // Check if there's a fragment in the URL and try to load that episode
     const fragmentLoaded = loadEpisodeFromFragment();
     
-    // If no fragment or episode not found, load default season
+    // If no fragment or episode not found, load default season with URL tag filter
     if (!fragmentLoaded) {
       if (episodesBySeason[activeSeasonNumber]) {
         createEpisodesList(episodesBySeason[activeSeasonNumber], selectedTag);
@@ -317,8 +359,8 @@ const initialEpisode = firstSeasonEpisodes[0];
           }
         }
 
-        // Clear URL fragment when manually switching seasons
-        history.replaceState(null, '', window.location.pathname);
+        // Update URL with current season
+        updateUrl(selectedTag, activeSeasonNumber);
       });
     });
 
@@ -330,6 +372,9 @@ const initialEpisode = firstSeasonEpisodes[0];
         if (episodesBySeason[activeSeasonNumber]) {
           createEpisodesList(episodesBySeason[activeSeasonNumber], selectedTag);
         }
+
+        // Update URL with current tag filter
+        updateUrl(selectedTag, activeSeasonNumber);
       });
     }
 
@@ -338,6 +383,33 @@ const initialEpisode = firstSeasonEpisodes[0];
       loadEpisodeFromFragment();
     });
 
-
+    // Listen for popstate events (back/forward navigation with query params)
+    window.addEventListener('popstate', () => {
+      const params = getUrlParams();
+      const newTag = params.tag || 'all';
+      const newSeason = params.season ? parseInt(params.season) : defaultSeason;
+      
+      // Update tag filter
+      if (tagFilter) {
+        tagFilter.value = newTag;
+      }
+      selectedTag = newTag;
+      
+      // Update season tab
+      if (newSeason !== activeSeasonNumber) {
+        activeSeasonNumber = newSeason;
+        seasonTabs.forEach(tab => {
+          tab.classList.remove('active');
+          if (parseInt(tab.getAttribute('data-season')) === activeSeasonNumber) {
+            tab.classList.add('active');
+          }
+        });
+      }
+      
+      // Reload episode list
+      if (episodesBySeason[activeSeasonNumber]) {
+        createEpisodesList(episodesBySeason[activeSeasonNumber], selectedTag);
+      }
+    });
   });
 </script>

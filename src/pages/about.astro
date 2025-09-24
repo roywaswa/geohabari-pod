@@ -3,59 +3,12 @@ import Image from "astro/components/Image.astro";
 import Layout from "../layout/Layout.astro";
 import NairobiMap from "../images/cities/nairobi.svg"
 import KampalaMap from "../images/cities/kampala.svg"
+import team_members from '../data/team.json';
 
 import '../styles/about.scss';
 
-const team_members = [
-  {
-    name:"Yariwo Kitiyo",
-    bio: "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.",
-    position: "Founder & Host",
-    profile_photo: "https://images.unsplash.com/photo-1551247074-b14d3491bec6?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    socials: {
-      x: "https://twitter.com/yariwo",
-      linkedin: "https://linkedin.com/in/yariwo",
-      github: "https://github.com/yariwo",
-      website: "https://yariwo.dev"
-    }
-  },
-  {
-    name:"Sarah Johnson",
-    bio: "Sarah is a geospatial data scientist with over 5 years of experience in mapping and spatial analysis. She brings technical expertise and creative problem-solving to every project.",
-    position: "Lead Data Scientist",
-    profile_photo: "https://images.unsplash.com/photo-1658498613819-6f3ab24df253?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    socials: {
-      x: "https://x.com/sarahjohnson",
-      linkedin: "https://linkedin.com/in/sarahjohnson",
-      github: "https://github.com/sarahjohnson",
-      email: "mailto:sarah@geohabari.com"
-    }
-  },
-  {
-    name:"Michael Chen",
-    bio: "Michael is a full-stack developer specializing in geospatial web applications. He's passionate about creating user-friendly interfaces that make complex data accessible to everyone.",
-    position: "Senior Developer",
-    profile_photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    socials: {
-      x: "https://x.com/michaelchen",
-      linkedin: "https://linkedin.com/in/michaelchen",
-      github: "https://github.com/michaelchen",
-      website: "https://michaelchen.dev"
-    }
-  },
-  {
-    name:"Amara Okafor",
-    bio: "Amara is a UX/UI designer with a background in geography and human-computer interaction. She ensures our products are not only functional but also intuitive and beautiful.",
-    position: "UX/UI Designer",
-    profile_photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    socials: {
-      x: "https://x.com/amaraokafor",
-      linkedin: "https://linkedin.com/in/amaraokafor",
-      github: "https://github.com/amaraokafor",
-      instagram: "https://instagram.com/amaraokafor"
-    }
-  }
-]
+console.log(team_members);
+
 ---
 
 <Layout>
@@ -169,26 +122,6 @@ const team_members = [
     </div>
   </section>
 
-  <!-- <section class="container aboutus">
-    <div class="text">
-      <h4>
-        We are a group of passionate techies from the geospatial community who love tech stories
-      </h4>
-      <h4>
-        Challenging the way the industry is designed and how technologies are used to improve lives.
-      </h4>
-      <h3>
-        To amplify african tech stories
-      </h3>
-    </div>
-    <Image
-      src="https://images.unsplash.com/photo-1505243542579-da5adfe8338f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      alt="About Us"
-      width={400}
-      height={400}
-      class="about_image"
-    />
-  </section> -->
 
   <section class="container team">
     <h3 class="heading">
@@ -240,14 +173,15 @@ const team_members = [
 <script>
 import { gsap } from "gsap";
 
+
 document.addEventListener("DOMContentLoaded", function() {
   // Team members data
   const teamMembers = [
     {
       name: "Yariwo Kitiyo",
-      bio: "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.",
+      bio: "Yariwo is a geospatial enthusiast and the founder of Geohabari. With a background in GIS and remote sensing, he is passionate about storytelling and using technology to solve real-world problems.",
       position: "Founder & Host",
-      profile_photo: "https://images.unsplash.com/photo-1551247074-b14d3491bec6?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      profile_photo: "/images/team/yariwo.jpg",
       socials: {
         x: "https://twitter.com/yariwo",
         linkedin: "https://linkedin.com/in/yariwo",
@@ -256,42 +190,55 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     },
     {
-      name: "Sarah Johnson",
-      bio: "Sarah is a geospatial data scientist with over 5 years of experience in mapping and spatial analysis. She brings technical expertise and creative problem-solving to every project.",
-      position: "Lead Data Scientist",
-      profile_photo: "https://images.unsplash.com/photo-1658498613819-6f3ab24df253?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      name: "Charles Mwangi",
+      bio: "Charles is a geospatial analyst with expertise in spatial data visualization and cartography. He loves transforming complex datasets into compelling visual stories that resonate with audiences.",
+      position: "Host",
+      profile_photo: "https://images.ctfassets.net/bmflyv4pf0a9/3EYJdNfI0u2Ku8cOrJa7Tm/ea0f16e093608dcac54b8518a1ef3f85/Charles_Mwangi.jpg",
       socials: {
-        x: "https://x.com/sarahjohnson",
-        linkedin: "https://linkedin.com/in/sarahjohnson",
-        github: "https://github.com/sarahjohnson",
-        email: "mailto:sarah@geohabari.com"
+        x: "https://x.com/charlesmwangi",
+        linkedin: "https://linkedin.com/in/charlesmwangi",
+        github: "https://github.com/charlesmwangi",
+        email: "mailto:charlesmwangi@geohabari.com"
       }
     },
     {
-      name: "Michael Chen",
-      bio: "Michael is a full-stack developer specializing in geospatial web applications. He's passionate about creating user-friendly interfaces that make complex data accessible to everyone.",
-      position: "Senior Developer",
-      profile_photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      name: "Linus Anari",
+      bio: "Linus is a GIS specialist with a knack for geospatial data analysis and environmental applications. He is dedicated to leveraging geospatial technologies to address environmental challenges and promote sustainable development.",
+      position: "Host",
+      profile_photo: "https://images.ctfassets.net/bmflyv4pf0a9/kHzqYI73DjZqlzZ1ZXpBe/4dc46cb074e497eb5de1d5ccc08cafba/Linus_Anari.jpeg",
       socials: {
-        x: "https://x.com/michaelchen",
-        linkedin: "https://linkedin.com/in/michaelchen",
-        github: "https://github.com/michaelchen",
-        website: "https://michaelchen.dev"
+        x: "https://x.com/charlesmwangi",
+        linkedin: "https://linkedin.com/in/charlesmwangi",
+        github: "https://github.com/charlesmwangi",
+        email: "mailto:charlesmwangi@geohabari.com"
       }
     },
     {
-      name: "Amara Okafor",
-      bio: "Amara is a UX/UI designer with a background in geography and human-computer interaction. She ensures our products are not only functional but also intuitive and beautiful.",
-      position: "UX/UI Designer",
-      profile_photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      name: "Vincent",
+      bio: "Vincent is a visual creative making brands heard and seen.  Loves sports, music, and farm. Good in Geo.",
+      position: "Creative Director",
+      profile_photo: "/images/team/male.jpg",
       socials: {
-        x: "https://x.com/amaraokafor",
-        linkedin: "https://linkedin.com/in/amaraokafor",
-        github: "https://github.com/amaraokafor",
-        instagram: "https://instagram.com/amaraokafor"
+        x: "https://x.com/vincent",
+        linkedin: "https://linkedin.com/in/vincent",
+        github: "https://github.com/vincent",
+        email: "mailto:vincent@geohabari.com"
+      }
+    },
+    {
+      name: "JohnMark Ochieng",
+      bio: "Johnmark Ochieng - Johnmark is a space communicator making space simple. Big on hiking and adventure, bigger on adrenaline. I think better at altitude.",
+      position: "Space Communicator",
+      profile_photo: "/images/team/male.jpg",
+      socials: {
+        x: "https://x.com/johnmarkochieng",
+        linkedin: "https://linkedin.com/in/johnmarkochieng",
+        github: "https://github.com/johnmarkochieng",
+        email: "mailto:johnmarkochieng@geohabari.com"
       }
     }
   ];
+
 
   // Get DOM elements
   const thumbnails = document.querySelectorAll('.team-thumbnail');
