@@ -56,18 +56,7 @@ const tag = title.split(' ').join('+').toLowerCase();
     flex-shrink: 0;
     transition: transform 0.3s ease-in-out;
     
-    // Purple overlay using pseudo-element (more reliable)
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(128, 90, 213, 0.6);
-      z-index: 1;
-      pointer-events: none;
-    }
+
     
     .bg-image {
       position: absolute;
