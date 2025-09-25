@@ -1,0 +1,77 @@
+---
+import Image from "astro/components/Image.astro"
+import Layout from "../layout/Layout.astro"
+import Button from "../components/Button.astro";
+import '../styles/contact.scss';
+---
+
+<Layout>
+  <section class="container contact">
+    <Image
+      src="https://images.unsplash.com/photo-1518365050014-70fe7232897f?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      alt="Contact Us"
+      width={600}
+      height={400}
+      class="contact-image"
+    />
+    <form action="POST" class="contact-form" name="contactForm">
+      <div class="title">
+        <h1>Get in Touch</h1>
+        <p>We'd love to hear from you! Fill out the form below and we'll get back to you sooner than you think !</p>
+      </div>
+      <div class="form-field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div class="form-field">
+        <label for="city">City</label>
+        <input type="text" id="city" name="city" required />
+      </div>
+      <div class="form-field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+      </div>
+      <button id="submitBtn" class="btn primary">HEAR ME OUT</button>
+    </form>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxD1AlL0nksw1TYrgLwQLzYWRurNPwAJKwOBtf6u6zXu-Jo3dAGcSbxVEsZ51B5wEMT/exec"
+    const form = document.forms["contactForm"]
+    const submitBtn = document.getElementById("submitBtn") as HTMLButtonElement
+    const formData = new FormData()
+    const field_name = document.getElementById("name") as HTMLInputElement
+    const field_email = document.getElementById("email") as HTMLInputElement
+    const field_city = document.getElementById("city") as HTMLInputElement
+    const field_message = document.getElementById("message") as HTMLTextAreaElement
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault()
+      submitBtn.innerText = "SENDING..."
+      formData.append("name", field_name.value)
+      formData.append("email", field_email.value)
+      formData.append("city", field_city.value)
+      formData.append("message", field_message.value)
+
+      fetch(scriptURL, { method: "POST", body: formData })
+        .then((response) => {
+          alert("Thanks for contacting us. We'll get back to you soon!")
+          submitBtn.innerText = "HEAR ME OUT"
+          field_name.value = ""
+          field_email.value = ""
+          field_city.value = ""
+          field_message.value = ""
+        })
+        .catch((error) => {
+          alert("Something went wrong. Please try again later.")
+          submitBtn.innerText = "HEAR ME OUT"
+        })
+    })
+  })
+</script>

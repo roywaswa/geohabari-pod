@@ -1,0 +1,83 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.scss';
+
+interface Props {
+  title?: string;
+  description?: string;
+  url?: string;
+  image?: string;
+}
+
+const {
+  title = 'GeoHabari',
+  description = 'AMPLIFYING AFRICAN TECH STORIES & ELEVATING TECHNICAL BRILLIANCE',
+  url = 'https://www.geohabari.com',
+  image = '/og-image.jpg',
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Basic SEO -->
+    <title>{title} | GeoHabari</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`${title} | GeoHabari`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={image} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | GeoHabari`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
+    <!-- Performance Hints -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+
+    <!-- Structured Data (Schema.org JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "GeoHabari",
+        "url": "https://www.geohabari.com",
+        "description": "Geohabari Podcast is a platform for us to tell our african tech stories for everyone from aspiring professionals to seasoned veterans . There is something for you ...",
+        "publisher": {
+          "@type": "Organization",
+          "name": "GeoHabari",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "/logo.png"
+          }
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <Header />
+    <main id="content" role="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

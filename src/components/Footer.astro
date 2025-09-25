@@ -1,0 +1,208 @@
+---
+import LogoImage from "../images/logo/geopod-green.svg";
+import platforms from "../data/platforms.json"
+---
+
+<footer>
+  <div class="component-footer">
+    <div class="containter-description">
+      <LogoImage class="logo-vector" width={150} height={56} />
+      <p>
+        Geohabari is an African tech podcast dedicated to amplifying African tech stories and elevating technical brilliance
+      </p>
+    </div>
+    <div class="containter-links">
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/episodes">Episodes</a>
+      </div>
+      <div class="email-links">
+        <h4>Reach Out</h4>
+        <a href="mailto:yariwokitiyo@geohabari.com">yariwokitiyo@geohabari.com</a>
+        <a href="mailto:info@geohabari.com">info@geohabari.com</a>
+      </div>
+    </div>
+    <div class="containter-socials">
+      <div class="subscribe">
+        <h4>Subscribe</h4>
+        <div class="sub-platforms">
+          {
+            platforms.map((platform) => (
+              <a href={platform.url} target="_blank">
+                <img src={platform.icon} alt={platform.name} width="auto" height="32" /> <br/>
+                {platform.name}
+              </a>
+            ))
+          }        
+          </div>
+      </div>
+      <div class="socials">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="https://x.com/geohabari">
+            X (twitter)
+          </a>
+          <a href="https://www.linkedin.com/company/geohabari">
+            linkedin
+          </a>
+          <a href="https://www.instagram.com/geohabari">
+            instagram
+          </a>
+          <a href="https://www.instagram.com/geohabari">
+            tiktok
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="copyright">&copy;{new Date().getFullYear()} GeoHabari. All rights reserved.</p>
+  <div class="dev-credit">
+    <p>Developed by <a href="mailto:roywaswa.rw@gmail.com" target="_blank" rel="noopener noreferrer">Roy Waswa</a></p>
+  </div>
+</footer>
+
+
+<style lang="scss">
+  @use '../styles/partials/combined.scss' as *;
+  
+  footer {
+    background-image: url('../images/footer-bg.png');
+    background-size: contain;
+    background-position: center;
+    position: relative;
+    padding: $spacing-2 $spacing-5;
+    @include flexbox(column, center, center);
+    gap: $spacing-3;
+
+    .component-footer {
+      @include flexbox(row, space-evenly, center);
+      flex-wrap: wrap;
+      gap: $spacing-2;
+
+      div {
+        @include flexbox(column, center, space-between);
+        gap: $spacing-1;
+        width: clamp(260px, 30vw, 400px);
+      }
+      .containter-description{
+        text-align: center;
+
+        .logo-vector {
+          margin-bottom: $spacing-2;
+          align-self: center;
+        }
+
+        p {
+          color: $white;
+          letter-spacing: 0.9px;
+          font-weight: 500;
+          line-height: 1.5;
+        }
+      }
+      .containter-links {
+        text-align: center;
+        align-items: center;
+        min-width: max-content;
+
+        div {
+          @include flexbox(column, center, space-between);
+          gap: $spacing-1;
+          min-width: max-content;
+        }
+        .nav-links {
+          a {
+            color: $white;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color $transition-fast;
+
+            &:hover {
+              color: $green;
+            }
+          }
+        }
+
+        .email-links {
+          h4 {
+            color: $white;
+          }
+
+          a {
+            color: $white;
+            text-decoration: none;
+            transition: color $transition-fast;
+
+            &:hover {
+              color: $green;
+            }
+          }
+        }
+      }
+      .containter-socials {
+        @include flexbox(column, space-evenly, center);
+        gap: $spacing-2;
+
+        .subscribe, .socials {
+          width: 100%;
+          text-align: center;
+          h4 {
+            color: $white;
+          }
+
+          .sub-platforms, .social-icons {
+            @include flexbox(row, center, space-between);
+            gap: $spacing-1;
+            width: 100%;
+
+            a {
+              color: $white;
+              text-decoration: none;
+              transition: color $transition-fast;
+
+              &:hover {
+                color: $green;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .copyright {
+      color: $white;
+      text-align: center;
+      margin-top: $spacing-2;
+    }
+  }
+
+  .dev-credit{
+    position: absolute;
+    bottom: $spacing-2;
+    right: $spacing-2;
+    z-index: 10;
+
+    p {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      color: $white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: small;
+
+      a {
+      color: $green;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+      }
+    }
+  }
+
+</style>
+

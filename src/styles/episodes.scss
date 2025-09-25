@@ -1,0 +1,594 @@
+/**
+ * episodes.scss
+ * * This file contains the styles for the podcast episodes page, including the
+ * custom audio player, episode list, and season/tag filters.
+ *
+ * It utilizes variables and mixins from `_combined.scss` for consistent
+ * design tokens (colors, spacing, shadows, etc.).
+ */
+
+// Import shared design tokens and utilities
+@use "../styles/partials/combined.scss" as *;
+
+section.episodes-player {
+  display: flex;
+  flex-direction: row;
+  gap: $spacing-3;
+  margin-top: $spacing-5;
+
+
+  div.ep-list-selector{
+    width: clamp(320px, 30vw, 720px);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+
+    ul {
+      list-style: none;
+      height: 80vh;
+      overflow-y: scroll;
+      padding: $spacing-4 0;
+    }
+  }
+  div.episode{
+    width: clamp(320px, 60vw, 960px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-3;
+    padding: $spacing-3;
+    height: 100vh;
+    overflow: hidden;
+    background-color: $white;
+    // border: 2px solid $green;
+    border-radius: $radius-md;
+
+    .streaming {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 100%;
+      height: 10vh;
+
+      .platform {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        gap: $spacing-1;
+        padding: $spacing-1 $spacing-2;
+        border-radius: $radius-md;
+        // background: lighten($color: $gray, $amount: 30);
+        transition: all 0.6ms ease-in ;
+        cursor: pointer;
+
+        &:hover{
+          // background: lighten($color: $purple, $amount: 30);
+        }
+
+        .platform-text {
+          >*{
+            margin: 0;
+          }
+          small{
+            display: none;
+          }
+          p{
+            font-weight: 500;
+            line-height: 0.9;
+          }
+        }
+        .platform-icon{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          >img{
+            aspect-ratio: 1/1;
+          }
+        }
+      }
+    }
+
+    .ep-player {
+      height: 40vh;
+      overflow: hidden;
+    }
+    .ep-descr{
+      height: 50vh;
+      overflow-y: scroll;
+
+      p {
+        font-size: small;
+      }
+    }
+  }
+  @media (max-width: 480px) {
+    flex-direction: column;
+    div.ep-list-selector{
+      width: 100%;
+      height: auto;
+      ul {
+        height: 50vh;
+      }
+    }
+  }
+}
+
+/* --- Custom Audio Player Styles --- */
+.custom-audio-player {
+  background: $white;
+  border-radius: $radius-lg;
+  padding: $spacing-3 $spacing-5;
+  transition: $transition-base;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  >div{
+    width: 100%;
+  }
+  // A single container for the audio player, with a clean, rounded card-like appearance.
+
+  .player-main-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-4;
+    // Centers the primary control buttons (play, skip back, skip forward).
+
+    .play-btn {
+      width: clamp(48px, 6vw, 56px);
+      height: clamp(48px, 6vw, 56px);
+      border-radius: $radius-full;
+      background: $purple;
+      border: none;
+      color: $white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: $transition-fast;
+      box-shadow: $shadow-sm;
+      // Main play/pause button with a dynamic size and hover effects for a premium feel.
+
+      &:hover:not(:disabled) {
+        background: $purple-light;
+        transform: scale(1.05);
+        box-shadow: $shadow-md;
+      }
+
+      &:disabled {
+        background: $gray;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+    }
+
+    .control-btn {
+      width: clamp(32px, 5vw, 40px);
+      height: clamp(32px, 5vw, 40px);
+      border-radius: $radius-full;
+      background: $gray-light;
+      border: none;
+      color: $black;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: $transition-fast;
+      // Styles for secondary control buttons (skip, etc.) with consistent sizing and hover.
+
+      &:hover {
+        background: $purple-light;
+        color: $purple-dark;
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .player-progress {
+    // Container for the progress bar and time display.
+
+    .time-info {
+      display: flex;
+      align-items: center;
+      gap: $spacing-3;
+      font-size: 14px;
+      color: $gray;
+      font-weight: 500;
+      // Displays current and total time, horizontally aligned with the progress bar.
+
+      .progress-container {
+        flex: 1;
+        position: relative;
+        // Allows the progress bar to fill the remaining space.
+
+        .progress-bar {
+          position: relative;
+          height: 6px;
+          background: $gray-light;
+          border-radius: $radius-sm;
+          overflow: hidden;
+          // The track for the progress bar.
+
+          .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, $purple, $purple-light);
+            border-radius: $radius-sm;
+            transition: width 0.1s ease;
+            width: 0%;
+            box-shadow: 0 0 8px rgba($purple, 0.3);
+            // The filled portion of the progress bar, with a smooth gradient and animation.
+          }
+
+          .progress-slider {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 6px;
+            background: transparent;
+            appearance: none;
+            cursor: pointer;
+            border-radius: $radius-sm;
+            // The invisible range input that overlays the progress bar for user interaction.
+
+            &::-webkit-slider-thumb {
+              appearance: none;
+              width: 16px;
+              height: 16px;
+              border-radius: $radius-full;
+              background: $purple;
+              border: 2px solid $white;
+              box-shadow: $shadow-sm;
+              transition: $transition-fast;
+              // Custom thumb style for WebKit browsers.
+
+              &:hover {
+                transform: scale(1.2);
+                box-shadow: $shadow-md;
+              }
+            }
+
+            &::-moz-range-thumb {
+              width: 16px;
+              height: 16px;
+              border-radius: $radius-full;
+              background: $purple;
+              border: 2px solid $white;
+              box-shadow: $shadow-sm;
+              // Custom thumb style for Firefox.
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .player-bottom-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+  }
+  .player-volume {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    // Container for the volume controls.
+
+    .control-btn {
+      width: clamp(28px, 5vw, 36px);
+      height: clamp(28px, 5vw, 36px);
+      border-radius: $radius-full;
+      background: $gray-light;
+      border: none;
+      color: $black;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: $transition-fast;
+      // Style for the mute button.
+
+      &:hover {
+        background: $purple-light;
+        color: $purple-dark;
+      }
+    }
+
+    .volume-slider {
+      width: clamp(50px, 12vw, 80px);
+      height: 4px;
+      background: $gray-light;
+      appearance: none;
+      border-radius: $radius-sm;
+      cursor: pointer;
+      // The volume slider's track, with a slightly smaller width than the progress bar.
+
+      &::-webkit-slider-thumb {
+        appearance: none;
+        width: 14px;
+        height: 14px;
+        border-radius: $radius-full;
+        background: $purple;
+        border: 1px solid $white;
+        box-shadow: $shadow-sm;
+        transition: $transition-fast;
+        // Custom thumb style for WebKit browsers.
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+
+      &::-moz-range-thumb {
+        width: 14px;
+        height: 14px;
+        border-radius: $radius-full;
+        background: $purple;
+        border: 1px solid $white;
+        box-shadow: $shadow-sm;
+        // Custom thumb style for Firefox.
+      }
+    }
+  }
+
+  .playback-speed {
+    display: flex;
+    justify-content: flex-end;
+    // Aligns the speed button to the right.
+
+    #speed-btn {
+      padding: $spacing-2 $spacing-3;
+      border-radius: $radius-lg;
+      background: $gray-light;
+      border: none;
+      color: $black;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: $transition-fast;
+      min-width: 36px;
+      // Button to toggle playback speed.
+
+      &:hover {
+        background: $purple-light;
+        color: $purple-dark;
+      }
+
+      &:active {
+        background: $purple;
+        color: $white;
+      }
+    }
+  }
+}
+
+/* --- Episode Cover --- */
+.ep-cover {
+  // width: clamp(200px, 40vw, 400px);
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1/1;
+  border-radius: $radius-md;
+  border: 2px solid $purple;
+
+  // Responsive image for the episode cover.
+}
+
+/* --- Episode List Styles --- */
+.ep-list-item {
+  transition: $transition-fast;
+  cursor: pointer;
+  padding: $spacing-3;
+  border-radius: $radius-md;
+  border: 1px solid transparent;
+  margin-bottom: $spacing-2;
+  // Styles for each episode item in the list, with clear hover and active states.
+
+  &:hover {
+    background: rgba($purple-light, 0.1);
+    border-color: $purple-light;
+    transform: translateY(-1px);
+    box-shadow: $shadow-sm;
+  }
+
+  &.active {
+    background: rgba($purple-light, 0.2);
+    border-color: $purple;
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+    // Active state highlighting the currently selected episode.
+
+    h5, h6 {
+      color: $purple-dark;
+      font-weight: 600;
+    }
+
+    p {
+      color: $black;
+    }
+  }
+
+  h6 {
+    color: $purple;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: $spacing-1;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  h5 {
+    color: $black;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: $spacing-2;
+    line-height: 1.4;
+  }
+
+  p {
+    color: $gray;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+.no-episodes {
+  text-align: center;
+  padding: $spacing-7 $spacing-4;
+  color: $gray;
+  font-style: italic;
+  background: rgba($gray-light, 0.1);
+  border-radius: $radius-md;
+  border: 2px dashed $gray-light;
+  // Styles for the "no episodes found" message.
+}
+
+/* --- Season Tabs --- */
+.seasons-tab {
+  display: flex;
+  flex-wrap: wrap;
+  // Container for the season tabs.
+
+  .season {
+    transition: $transition-fast;
+    cursor: pointer;
+    padding: $spacing-3 $spacing-4;
+    border-radius: $radius-md;
+    border: 1px solid $gray-light;
+    background: $white;
+    margin-right: $spacing-2;
+    margin-bottom: $spacing-2;
+    width: clamp(120px, 20vw, 200px);
+    // Styles for individual season tabs, with clear visual feedback for hover and active states.
+
+    &:hover {
+      background: rgba($purple-light, 0.1);
+      border-color: $purple-light;
+      transform: translateY(-1px);
+    }
+
+    &.active {
+      background: $purple;
+      border-color: $purple-dark;
+      color: $white;
+      box-shadow: $shadow-md;
+      // Active state styling to indicate the currently selected season.
+
+      h5 {
+        color: $white;
+      }
+    }
+
+    h5 {
+      margin: 0;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: $purple-dark;
+    }
+  }
+}
+
+/* --- Tag Filter --- */
+.ep-filter {
+  select {
+    background: $white;
+    border: 1px solid $gray-light;
+    border-radius: $radius-md;
+    padding: $spacing-2 $spacing-3;
+    color: $black;
+    transition: $transition-fast;
+    cursor: pointer;
+    // Styling for the tag filter dropdown menu.
+
+    &:hover {
+      border-color: $purple-light;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $purple;
+      box-shadow: 0 0 0 3px rgba($purple, 0.1);
+    }
+  }
+
+  p {
+    color: $gray;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: $spacing-2;
+    // Label for the tag filter.
+  }
+}
+
+/* --- Responsive Adjustments --- */
+// Media queries for different screen sizes.
+@media (max-width: $breakpoint-md) {
+  .custom-audio-player {
+    padding: $spacing-4;
+    // Smaller padding on medium screens.
+
+    .player-main-controls {
+      gap: $spacing-3;
+      margin-bottom: $spacing-4;
+      // Reduced spacing on medium screens.
+
+      .play-btn {
+        width: clamp(40px, 6vw, 48px);
+        height: clamp(40px, 6vw, 48px);
+      }
+
+      .control-btn {
+        width: clamp(28px, 5vw, 36px);
+        height: clamp(28px, 5vw, 36px);
+      }
+    }
+
+    .player-volume {
+      .volume-slider {
+        width: clamp(40px, 12vw, 60px);
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .custom-audio-player {
+    padding: $spacing-3;
+    // Even smaller padding on small screens.
+
+    .player-main-controls {
+      gap: $spacing-2;
+      // Reduced spacing for small screens.
+
+      .control-btn {
+        width: 32px;
+        height: 32px;
+      }
+    }
+
+    .time-info {
+      font-size: 12px;
+      gap: $spacing-2;
+    }
+
+    .player-volume {
+      .volume-slider {
+        width: clamp(30px, 10vw, 50px);
+      }
+    }
+  }
+}

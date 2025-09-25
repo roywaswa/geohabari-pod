@@ -1,0 +1,129 @@
+---
+import Image from 'astro/components/Image.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  background?: string;
+  icon?: string;
+}
+
+const { 
+  title = 'CAREER',
+  description = "Navigate diverse career paths in the geospatial industry. Discussing pivotal moments, key learnings, and challenges, these episodes inspire you to explore new career horizons.",
+  background = "https://placehold.co/400",
+  icon = "https://placehold.co/72"
+} = Astro.props as Props;
+const tag = title.split(' ').join('+').toLowerCase();
+---
+
+<a href={`/episodes?tag=${tag}`} class="card-theme">
+  <Image
+    src={icon}
+    alt="Theme Icon"
+    width={72}
+    height={72}
+    class="theme-icon"
+  />
+  <Image
+    src={background}
+    alt="Background Image"
+    width={400}
+    height={400}
+    class="bg-image"
+  />
+  <div class="theme-details">
+    <h3>{title}</h3>
+    <p>{description}</p>
+  </div>
+</a>
+
+<style lang="scss">
+  @use "../styles/partials/combined.scss" as *;
+  
+  .card-theme {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: min(20vw, 16rem); // Responsive width based on viewport
+    height: auto;
+    padding: $spacing-4 $spacing-3;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: $radius-md;
+    flex-shrink: 0;
+    transition: transform 0.3s ease-in-out;
+    
+
+    
+    .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    
+    .theme-icon {
+      mix-blend-mode: lighten;
+      position: relative;
+      z-index: 2;
+      width: min(4rem, 12vw);
+      height: min(4rem, 12vw);
+    }
+    
+    .theme-details {
+      width: 100%;
+      position: relative;
+      z-index: 2;
+      
+      h3 {
+        margin: 0;
+        color: $white;
+        font-size: clamp(0.875rem, 2.5vw, 1.125rem);
+      }
+      
+      p {
+        display: none;
+        color: $white;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        line-height: 1.2;
+        font-size: clamp(0.6rem, 0.8vw, 0.80rem);
+      }
+    }
+    
+    &:hover {
+      .theme-details p {
+        display: block;
+      }
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .card-theme {
+      width: 10rem;
+      height: 10rem;
+      padding: $spacing-4 $spacing-3;
+      
+      .theme-icon {
+        width: 3rem;
+        height: 3rem;
+      }
+      
+      .theme-details {
+        h3 {
+          font-size: 0.75rem;
+        }
+        
+        p {
+          font-size: 0.5rem;
+        }
+      }
+    }
+  }
+</style>

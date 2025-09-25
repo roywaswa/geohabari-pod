@@ -1,0 +1,633 @@
+---
+import Image from "astro/components/Image.astro"
+import Button from "../components/Button.astro";
+import ThemeCard from "../components/ThemeCard.astro";
+import EpisodeCard from "../components/EpisodeCard.astro";
+import Layout from "../layout/Layout.astro"
+import DarMap from "../images/cities/dar.svg"
+import NairobiMap from "../images/cities/nairobi.svg"
+import KampalaMap from "../images/cities/kampala.svg"
+import PodcastAddictIcon from "../images/icons/podcast-addict.svg"
+import PodcastPlayer from "../components/PodcastPlayer.jsx";
+import AudioPlayer from "../components/AudioPlayer.astro";
+import { RightArrow } from "../components/Icons";
+import '../styles/home.scss';
+import { getRecentEpisodes } from "../utils/buzzsprout.js";
+import { contentfulClient } from "../utils/contentful";
+import platforms from "../data/platforms.json"
+import topics from "../data/topics.json"
+
+
+const recentEpisodes = await getRecentEpisodes();
+const latestEpisode = recentEpisodes[0] || {};
+const quoteCards = await contentfulClient.getEntries({
+  content_type: "episodeQuoteCards",
+});
+const nextEp = await contentfulClient.getEntries({
+  content_type: "upcomingEpisode",
+}).then(res => res.items[0])
+const date = nextEp?.fields?.releaseDate ? new Date(String(nextEp.fields.releaseDate)) : new Date()
+const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
+                  (date.getMonth() + 1).toString().padStart(2, '0') + "-" +
+                  date.getFullYear()
+const today = new Date();
+const recentEps = recentEpisodes.slice(0, 5);
+---
+
+<Layout title="Home">
+  <section class="container hero">
+    <div class="hero-content">
+      <h1 class="heading">
+        AMPLIFYING AFRICAN TECH STORIES & ELEVATING TECHNICAL BRILLIANCE
+      </h1>
+      <h4 class="sub-heading">
+        Geohabari Podcast is a platform for us to tell our african tech stories for everyone from aspiring professionals to seasoned veterans . There is something for you ...
+      </h4>
+      <div class="cta-component">
+        <a href="/episodes" class="cta-btn">
+          <h5>LISTEN NOW</h5>
+        </a>
+        <div class="secondary-cta">
+          {
+            platforms.map((platform) => (
+              <a href={platform.url} target="_blank" class="platform">
+                <img
+                  src={platform.icon}
+                  alt={platform.name}
+                  width="auto"
+                  height={32}
+                  class="icon"
+                />
+                <small>{platform.name}</small>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    <div class="hero-graphics">
+      <Image
+        src={NairobiMap}
+        alt="Hero Graphics"
+        width={72}
+        height={72}
+        class="hero-image"
+      />
+      <Image
+        src="/images/team/yariwo.jpg"
+        alt="Hero Graphics"
+        width={72}
+        height={72}
+        class="hero-image"
+      />
+      <Image
+        src="/images/team/lanari.jpeg"
+        alt="Hero Graphics"
+        width={72}
+        height={72}
+        class="hero-image"
+      />
+      <Image
+        src="/images/team/cmwangi.jpeg"
+        alt="Hero Graphics"
+        width={72}
+        height={72}
+        class="hero-image"
+      />
+      
+      <Image
+        src="/images/team/jmochieng.jpeg"
+        alt="Hero Graphics"
+        width={72}
+        height={72}
+        class="hero-image"
+        loading="lazy"
+        
+      />
+      <Image
+        src="/images/team/vincent.jpeg"
+        alt="Hero Graphics"
+        width={72}
+        height={72}
+        class="hero-image"
+      />
+      <Image
+        src={DarMap}
+        alt="Hero Graphics"
+        width={72}
+        height={72}
+        class="hero-image"
+      />
+    </div>
+  </section>
+
+
+  <section class="container topics">
+    <div class="topics-heading">
+      <h2>
+        With conversations that cut across the board
+      </h2>
+      <h5>
+        We have curated themes that resonate with our audience and reflect the diverse facets of the tech industry both in Kenya and Africa at large.
+      </h5>
+    </div>
+    <div class="container-themes">
+      {
+        topics.map(topic => (
+          <ThemeCard 
+            title={topic.title}
+            description={topic.description}
+            icon={topic.icon}
+            background={topic.background}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="container latestep">
+    <div class="latestep_intro">
+      <h2>New Episodes every other week on Monday</h2>
+      <h5>Here is this week's episode, dive in and catch a glimpse of what we are all about ...</h5>
+    </div>
+    <div class="latestep_player">
+      <AudioPlayer 
+        audioUrl={latestEpisode.audio_url}
+        title={latestEpisode.title || "The Space Economy Playbook"}
+        episodeNumber={latestEpisode.season_number && latestEpisode.episode_number 
+          ? `LATEST EPISODE #S${latestEpisode.season_number}E${latestEpisode.episode_number.toString().padStart(2, '0')}`
+          : "LATEST EPISODE #S2E04"
+        }
+        coverImageUrl={latestEpisode.artwork_url || "https://placehold.co/240"}
+        duration={latestEpisode.duration}
+        autoLoad={true}
+      />
+      <div class="ep_actions">
+        <a href={`/episodes#${latestEpisode.id}`} id="latestEpBtn" class="btn secondary">Go to Episode</a>
+      </div>
+    </div>
+  </section>
+  
+  {
+    nextEp?.fields?.releaseDate && nextEp.fields.releaseDate > today.toISOString() && (
+        <section class="container nextep">
+        <Image
+          src={DarMap}
+          alt="Next Episode Image"
+          width={240}
+          height={240}
+          class="nextep_image left"
+        />
+        <Image
+          src={KampalaMap}
+          alt="Next Episode Image"
+          width={240}
+          height={240}
+          class="nextep_image right"
+        />
+        <div class="host profile">
+          <Image
+            src={nextEp?.fields?.host?.fields.file.url}
+            alt="Host Image"
+            width={160}
+            height={160}
+            class="image profile"
+          />
+          <div class="info">
+            <h4 class="name">{nextEp?.fields?.host?.fields?.title}</h4>
+            <h5 class="title">Host</h5>
+          </div>
+        </div>
+        <div class="nextep_details">
+          <h6 class="nextep_number">UP NEXT</h6>
+          <h5 class="nextep_title">
+            {nextEp.fields.episodeTitle}
+          </h5>
+          <h6 class="nextep_date">RELEASING ON: {releaseDate}</h6>
+        </div>
+        <div class="nextep_guests">
+          {
+            nextEp?.fields?.guests?.map(guest => (
+              <div class="guest profile">
+                <Image
+                  src={guest.fields.file.url}          
+                  alt="Guest Image"
+                  width={100}
+                  height={100}
+                  class="image"
+                />
+                <div class="info">
+                  <h4 class="name">{guest.fields.title}</h4>
+                  <h5 class="title">Guest</h5>
+                </div>
+              </div>
+            ))
+          }      
+        </div>
+      </section>
+
+    )
+  }
+
+  <section class="RecentEps">
+    <!-- Background Elements -->
+    <div class="background_elements">
+      <div class="floating_circle_1"></div>
+      <div class="floating_circle_2"></div>
+      <div class="floating_circle_3"></div>
+    </div>
+
+    <div class="container">
+      <!-- Section Header -->
+      <div class="section_header">
+        <div class="header_accent">
+          <div class="accent_dot"></div>
+          <span>Latest Content</span>
+          <div class="accent_dot"></div>
+        </div>
+        <h3>EPISODES</h3>
+        <p class="header_description">
+          Dive into our latest conversations with industry leaders, innovators, and creative minds
+        </p>
+      </div>
+
+      <!-- Main Carousel -->
+      <div class="carousel_container">
+        <div class="episode_slider">
+          <div class="slider_track" id="slider-track">
+            {recentEps.map((episode, index) => (
+              <div class="episode_card">
+                <!-- Episode Artwork -->
+                <div class="artwork_container">
+                  <img 
+                    src={episode.artwork_url} 
+                    alt={episode.title}
+                    class="episode_image"
+                    width="400" 
+                    height="400"
+                  />
+                </div>
+                <div class="episode_info">
+                  <h4 class="episode_title">{episode.title}</h4>
+                  {/* <p class="episode_description" set:html={episode.description.slice(0,80)}></p> */}
+                  <a
+                    href={`/episodes#${episode.id}`}
+                    class="listen_button"
+                  >
+                    Listen Now
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <button
+          id="prev-btn"
+          class="nav_arrow nav_prev"
+          aria-label="Previous episode"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15,18 9,12 15,6"></polyline>
+          </svg>
+        </button>
+        
+        <button
+          id="next-btn"
+          class="nav_arrow nav_next"
+          aria-label="Next episode"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9,18 15,12 9,6"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Enhanced Dot Indicators -->
+      <div class="slider_crumbs" id="slider-crumbs">
+        {recentEps.map((_, index) => (
+          <button
+            class={`crumb ${index === 0 ? 'crumb_active' : ''}`}
+            data-index={index}
+            aria-label={`Go to episode ${index + 1}`}
+          ></button>
+        ))}
+      </div>
+
+      <!-- Episode Counter -->
+      <div class="episode_counter" id="episode-counter">
+        Episode 1 of {Math.min(recentEps.length, 5)}
+      </div>
+    </div>
+  </section>
+
+  <section class="container quotes">
+    <div class="nav_button prev" id="prevBtn"><RightArrow/></div>
+    <div class="carousel-wrapper">
+      <div class="contaier-quotes" id="carouselTrack">
+        {
+          quoteCards.items.map(item => (
+            <Image
+              src={item.fields.quoteCard?.fields?.file?.url ?? 'https://placehold.co/400'}
+              alt={item.fields.quoteCard?.fields?.title ?? 'Quote Card'}
+              width={400}
+              height={400}
+              class="quote_image"
+            />
+          ))
+        }
+      </div>
+    </div>
+    <div class="nav_button next" id="nextBtn"><RightArrow/></div>
+  </section>
+  
+  <section class="container newsletters">
+    <div class="prompt">
+      <h1>
+        WE ARE BUILDING A COMMUNITY
+      </h1>
+      <h4>
+        And you can join countless others in this glorious purpose that is bigger than any one person by signing up for our newsletters and events.
+      </h4>
+    </div>
+    <form action="POST" class="newsletter" name="subscription">
+      <h2>Welcome to Geohabari ...</h2>
+      <div class="form-field">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter your name" class="name_input" />
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email address" class="email_input" />
+      </div>
+      <button id="submitBtn" class="btn primary :disabled">SUBSCRIBE</button>
+    </form>
+  </section>
+</Layout>
+
+<script>
+  import { navigate } from "astro:transitions/client";
+  import { initializeAllCarousels } from "../utils/carousel.js"
+  import { gsap } from "gsap";
+  import { SplitText, Observer } from "gsap/all";
+  gsap.registerPlugin(SplitText, Observer);
+  initializeAllCarousels();
+
+  class EpisodeCarousel {
+    constructor() {
+      this.currentIndex = 0;
+      this.maxEpisodes = 5;
+      this.touchStart = 0;
+      this.touchEnd = 0;
+      this.autoAdvanceInterval = null;
+      
+      this.sliderTrack = document.getElementById('slider-track');
+      this.prevBtn = document.getElementById('prev-btn');
+      this.nextBtn = document.getElementById('next-btn');
+      this.crumbs = document.querySelectorAll('.crumb');
+      this.episodeCounter = document.getElementById('episode-counter');
+      
+      this.init();
+    }
+
+    init() {
+      if (!this.sliderTrack) return;
+      
+      // Event listeners
+      this.prevBtn?.addEventListener('click', () => this.prevSlide());
+      this.nextBtn?.addEventListener('click', () => this.nextSlide());
+      
+      // Crumb navigation
+      this.crumbs.forEach((crumb, index) => {
+        crumb.addEventListener('click', () => this.goToSlide(index));
+      });
+      
+      // Touch events for mobile swipe
+      this.sliderTrack.addEventListener('touchstart', (e) => this.handleTouchStart(e));
+      this.sliderTrack.addEventListener('touchmove', (e) => this.handleTouchMove(e));
+      this.sliderTrack.addEventListener('touchend', () => this.handleTouchEnd());
+      
+      // Auto-advance
+      this.startAutoAdvance();
+      
+      // Pause auto-advance on hover
+      this.sliderTrack.addEventListener('mouseenter', () => this.stopAutoAdvance());
+      this.sliderTrack.addEventListener('mouseleave', () => this.startAutoAdvance());
+    }
+
+    nextSlide() {
+      this.currentIndex = this.currentIndex === this.maxEpisodes - 1 ? 0 : this.currentIndex + 1;
+      this.updateSlider();
+    }
+
+    prevSlide() {
+      this.currentIndex = this.currentIndex === 0 ? this.maxEpisodes - 1 : this.currentIndex - 1;
+      this.updateSlider();
+    }
+
+    goToSlide(index) {
+      this.currentIndex = index;
+      this.updateSlider();
+    }
+
+    updateSlider() {
+      // Update slider position
+      this.sliderTrack.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+      
+      // Update crumbs
+      this.crumbs.forEach((crumb, index) => {
+        crumb.classList.toggle('crumb_active', index === this.currentIndex);
+      });
+      
+      // Update counter
+      if (this.episodeCounter) {
+        this.episodeCounter.textContent = `Episode ${this.currentIndex + 1} of ${this.maxEpisodes}`;
+      }
+    }
+
+    handleTouchStart(e) {
+      this.touchEnd = null;
+      this.touchStart = e.touches[0].clientX;
+    }
+
+    handleTouchMove(e) {
+      this.touchEnd = e.touches[0].clientX;
+    }
+
+    handleTouchEnd() {
+      if (!this.touchStart || !this.touchEnd) return;
+      
+      const distance = this.touchStart - this.touchEnd;
+      const isLeftSwipe = distance > 50;
+      const isRightSwipe = distance < -50;
+
+      if (isLeftSwipe) this.nextSlide();
+      if (isRightSwipe) this.prevSlide();
+    }
+
+    startAutoAdvance() {
+      this.stopAutoAdvance();
+      this.autoAdvanceInterval = setInterval(() => {
+        this.nextSlide();
+      }, 10000);
+    }
+
+    stopAutoAdvance() {
+      if (this.autoAdvanceInterval) {
+        clearInterval(this.autoAdvanceInterval);
+        this.autoAdvanceInterval = null;
+      }
+    }
+  }
+
+  // Initialize carousel when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    new EpisodeCarousel();
+  });
+
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    //Start Card Observer
+    gsap.utils.toArray(".card-theme").forEach((card) => {
+      if (!card) return;
+      let imgbg = (card as HTMLElement).querySelector(".bg-image")
+      let texts = (card as HTMLElement).querySelector(".theme-details")
+      Observer.create({
+        target: card as HTMLElement,
+        type: "pointer",
+        onHover: () => {
+          gsap.to(card, {
+            scale: 1.01,
+            ease: "power1.in",
+            duration: 0.2
+          })
+          gsap.to(imgbg, {
+            filter: "blur(4px) brightness(0.8)",
+            background: "rgba(191,160,230, 0.773)"
+          })
+          gsap.from(texts, {
+            y:100,
+          })
+        },
+        onHoverEnd: () => {
+          gsap.to(card, {
+            scale:1,
+            ease: "power1.out",
+            duration: 0.2
+          })
+          gsap.to(imgbg, {
+            filter: "blur(0px) brightness(1)",
+            background: "rgba(191,160,230, 0.773)"
+          })
+          gsap.fromTo(texts, {
+            y:10,
+            opacity:0.5
+          }, {
+            y:0,
+            opacity:1
+          })
+        }
+      })
+    })
+    // End Card Observer
+    
+    gsap.set(".heading", { opacity: 1 });
+
+    let split;
+    SplitText.create(".heading", {
+      type: "words,lines",
+      linesClass: "line",
+      autoSplit: true,
+      mask: "lines",
+      onSplit: (self) => {
+        split = gsap.from(self.lines, {
+          duration: 1.2,
+          yPercent: 100,
+          opacity: 0.78,
+          stagger: 0.1,
+          ease: "expo.out",
+        });
+        return split;
+      }
+    });
+
+    let timeline = gsap.timeline({
+      defaults: { duration: 1.6, ease: "expo.out" },
+    });
+
+    timeline.from(".hero-content", {
+      y: 100,
+      opacity: 0,
+      duration: 1.2,
+      ease: "expo.out",
+    });
+    timeline.from(".hero-image", {
+      x: -200,
+      ease: "expo.out",
+      duration: 1.2,
+    }, "<");
+
+    gsap.to(".img-strip", {
+      scrollTrigger: {
+        trigger: ".img-strip",
+        start: "-200px 100px",
+        end: "bottom 200px",
+        scrub: true,
+        markers: false,
+      },
+      x: `-100%`,
+      ease: "power1",
+    });
+
+
+    // END OF GSAP ANIMATIONS
+
+    // OTHER FUNCTIONS
+    let cta_btn = document.querySelector(".cta-btn")
+    cta_btn?.addEventListener("click", () => {
+      navigate("/episodes")
+    })
+
+    // Mail Subscription
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxIuL6LcFNe55Izy0n9aL1cA85_pYm6lSMEtS5QZJkZMZk2yJUmpHBlat3RRsl66d7W/exec'
+    const form = document.forms['subscription']
+    const field_name = document.querySelector("input#name") as HTMLInputElement
+    const field_email = document.querySelector("input#email") as HTMLInputElement
+    const submitBtn = document.querySelector("#submitBtn") as HTMLButtonElement
+
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      submitBtn.disabled = true
+      submitBtn.textContent = "Processing ...";
+      let sub_name = field_name?.value || ''
+      let sub_email = field_email?.value || ''
+      const formData = new FormData()
+      formData.append("name", sub_name)
+      formData.append("email",sub_email)
+      fetch(scriptURL, { method: 'POST', body: formData})
+        .then(response => {
+          field_name.value = ''
+          field_email.value = ''
+          submitBtn.textContent = "SUBSCRIBE";
+          submitBtn.disabled = false
+          alert("Subscription successful. Welcome to Geohabari!")
+        })
+        .catch(error => {
+          console.error('Error!', error.message)
+          submitBtn.textContent = "SUBSCRIBE";
+          submitBtn.disabled = false
+          alert("An error occurred. Please try again.")
+        })
+    })
+
+  });
+
+
+  
+</script>
+
+

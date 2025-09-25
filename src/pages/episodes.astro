@@ -1,0 +1,415 @@
+---
+/**
+ * episodes.astro
+ * * This file serves as the main page for the podcast's episode list and player.
+ * It fetches episode data and season information, organizes it, and passes it
+ * to the main page layout and the AudioPlayer component for dynamic rendering.
+ */
+
+// --- Component Imports ---
+import Image from "astro/components/Image.astro"
+import Layout from "../layout/Layout.astro"
+import AudioPlayer from "../components/AudioPlayer.astro"
+import "../styles/episodes.scss";
+import { getAllEpisodes, getSeasonList } from "../utils/buzzsprout";
+import ApplePodcastIcon from "../images/icons/apple_podcast.png"
+import SpotifyIcon from "../images/icons/spotify.png"
+import PodcastAddictIcon from "../images/icons/podcast_addict.png"
+import platforms from "../data/platforms.json"
+
+// --- Extract URL query parameters ---
+const url = new URL(Astro.request.url);
+const tagParam = url.searchParams.get('tag');
+const seasonParam = url.searchParams.get('season');
+
+// --- Data Fetching (Server-side) ---
+const seasons = await getSeasonList();
+const episodes = await getAllEpisodes();
+
+// --- Data Preparation and Transformation ---
+const episodesBySeason = {};
+episodes?.forEach(ep => {
+  const seasonNum = ep.season_number || ep.season || 1;
+  if (!episodesBySeason[seasonNum]) {
+    episodesBySeason[seasonNum] = [];
+  }
+  episodesBySeason[seasonNum].push({
+    ...ep,
+    season: seasonNum,
+    episodeNumber: ep.episode_number || ep.episodeNumber || ep.number
+  });
+});
+
+Object.keys(episodesBySeason).forEach(season => {
+  episodesBySeason[season].sort((a, b) => (b.episodeNumber || 0) - (a.episodeNumber || 0));
+});
+
+const allTags = new Set();
+episodes?.forEach(ep => {
+  if (ep.tags) {
+    ep.tags.split(',').forEach(tag => allTags.add(tag.trim().toLowerCase()));
+  }
+});
+
+const availableSeasons = seasons.sort((a, b) => (b.season || b.season_number) - (a.season || a.season_number));
+const defaultSeason = seasonParam ? parseInt(seasonParam) : (availableSeasons[0]?.season || availableSeasons[0]?.season_number || 1);
+
+// Get the first episode for initial player state
+const firstSeasonEpisodes = episodesBySeason[defaultSeason] || [];
+const initialEpisode = firstSeasonEpisodes[0];
+---
+
+<Layout>
+  <section class="container episodes-player">
+    <div class="ep-list-selector">
+      <!-- Season Tabs -->
+      <div class="seasons-tab">
+        {
+          availableSeasons.map((season, index) => {
+            const seasonNum = season.season || season.season_number;
+            const isActive = seasonParam ? seasonNum === defaultSeason : index === 0;
+            return (
+              <div 
+                class={`season ${isActive ? 'active' : ''}`} 
+                data-season={seasonNum}
+              >
+                <h5>SEASON {seasonNum}</h5>
+              </div>
+            );
+          })
+        }
+      </div>
+      
+      <!-- Tag Filter -->
+      <div class="ep-filter">
+        <p>Filter by Tag</p>
+        <select id="tag-filter">
+          <option class="tag" value="all" selected={!tagParam}>All</option>
+          {
+            Array.from(allTags).sort().map(tag => (
+              <option class="tag" value={tag} selected={tagParam === tag}>
+                {tag.charAt(0).toUpperCase() + tag.slice(1)}
+              </option>
+            ))
+          }
+        </select>
+      </div>
+      
+      <!-- Episode List Container -->
+      <ul id="episodes-list-container" class="ep-list"></ul>
+    </div>
+
+    <!-- Episode Player Section -->
+    <div class="episode">
+      <!-- Streaming Platform Links -->
+      <div class="streaming">
+        {
+          platforms.map((platform) => (
+            <a href={
+              platform.url
+            } class="platform btn tertiary" target="_blank" rel="noopener noreferrer">
+              <div class="platform-text">
+                <small>Listen on</small>
+                <p>{platform.name}</p>
+              </div>
+              <div class="platform-icon">
+                <img
+                  src={platform.icon}
+                  alt={`${platform.name} Icon`}
+                  height={32}
+                />
+              </div>
+            </a>
+          ))
+        }
+      </div>
+      
+      <!-- Audio Player Component -->
+        <AudioPlayer 
+          audioUrl={initialEpisode?.audio_url}
+          title={initialEpisode?.title}
+          episodeNumber={initialEpisode ? `S${initialEpisode.season}E${initialEpisode.episodeNumber}` : undefined}
+          coverImageUrl={initialEpisode?.artwork_url}
+          duration={initialEpisode?.duration}
+          autoLoad={false}
+        />
+          <!-- Episode Description -->
+        <div class="ep-descr">
+          <p id="current-episode-description"></p>
+        </div>
+    </div>
+  </section>
+</Layout>
+
+<script define:vars={{ episodesBySeason, defaultSeason, episodes, tagParam, seasonParam }} type="module">
+  /**
+   * Gets URL query parameters
+   */
+  function getUrlParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return {
+      tag: urlParams.get('tag'),
+      season: urlParams.get('season')
+    };
+  }
+
+  /**
+   * Updates URL with current filter state
+   */
+  function updateUrl(tag, season) {
+    const url = new URL(window.location);
+    
+    if (tag && tag !== 'all') {
+      url.searchParams.set('tag', tag);
+    } else {
+      url.searchParams.delete('tag');
+    }
+    
+    if (season && season !== defaultSeason) {
+      url.searchParams.set('season', season);
+    } else {
+      url.searchParams.delete('season');
+    }
+    
+    // Update URL without page reload
+    history.replaceState(null, '', url.toString());
+  }
+
+  /**
+   * Creates and populates the episode list based on selected season and tag filter
+   */
+  function createEpisodesList(episodes, selectedTag = 'all') {
+    const episodeContainer = document.getElementById('episodes-list-container');
+    if (!episodeContainer) {
+      console.error('Episodes container not found');
+      return;
+    }
+
+    episodeContainer.innerHTML = '';
+
+    if (!episodes || episodes.length === 0) {
+      episodeContainer.innerHTML = '<li class="no-episodes">No episodes found for this season.</li>';
+      return;
+    }
+
+    // Filter episodes by tag
+    let filteredEpisodes = episodes;
+    if (selectedTag !== 'all') {
+      filteredEpisodes = episodes.filter(episode => {
+        const tags = episode.tags ? episode.tags.toLowerCase().split(',').map(tag => tag.trim()) : [];
+        return tags.includes(selectedTag);
+      });
+    }
+
+    if (filteredEpisodes.length === 0) {
+      episodeContainer.innerHTML = '<li class="no-episodes">No episodes found with selected filter.</li>';
+      return;
+    }
+
+    // Create episode list items
+    filteredEpisodes.forEach((episode, index) => {
+      const li = document.createElement('li');
+      li.className = 'ep-list-item';
+      li.setAttribute('data-episode-id', episode.id || index);
+      
+      const description = episode.description ? 
+        episode.description.replace(/<[^>]*>/g, '').slice(0, 100) + '...' : 
+        'No description available';
+
+      li.innerHTML = `
+        <h6>S${episode.season || 1}E${episode.episodeNumber || 1}</h6>
+        <h5>${episode.title || 'Untitled Episode'}</h5>
+        <p>${description}</p>
+      `;
+
+      li.addEventListener('click', () => selectEpisode(episode, li));
+      episodeContainer.appendChild(li);
+    });
+
+    return filteredEpisodes;
+  }
+
+  /**
+   * Handles episode selection and updates the audio player
+   */
+  function selectEpisode(episode, listItem) {
+    // Update active state in list
+    document.querySelectorAll('.ep-list-item').forEach(item => {
+      item.classList.remove('active');
+    });
+    listItem.classList.add('active');
+
+    // Load episode into audio player using the global controller
+    if (window.audioPlayerController) {
+      const episodeData = {
+        audioUrl: episode.audio_url,
+        title: episode.title || 'Untitled Episode',
+        episodeNumber: `S${episode.season_number || episode.season || 1}E${episode.episode_number || episode.episodeNumber || 1}`,
+        description: episode.description || 'No description available for this episode.',
+        coverImageUrl: episode.artwork_url || 'https://placehold.co/400x400',
+        duration: episode.duration
+      };
+      document.querySelector("#current-episode-description").innerHTML = episode.description
+      window.audioPlayerController.loadEpisode(episodeData);
+    }
+
+    // Update URL fragment without triggering page reload
+    if (episode.id) {
+      history.replaceState(null, '', `#${episode.id}`);
+    }
+
+  }
+
+  /**
+   * Finds and loads an episode by its ID from the URL fragment
+   */
+  function loadEpisodeFromFragment() {
+    const fragment = window.location.hash.substring(1); // Remove the # symbol
+    
+    if (!fragment) {
+      return false; // No fragment found
+    }
+
+    // Search through all episodes to find the one with matching ID
+    const targetEpisode = episodes?.find(ep => ep.id && ep.id.toString() === fragment);
+    
+    if (!targetEpisode) {
+      return false;
+    }
+
+    // Find which season this episode belongs to
+    const episodeSeason = targetEpisode.season_number || targetEpisode.season || 1;
+    
+    // Switch to the correct season tab
+    const seasonTabs = document.querySelectorAll('.seasons-tab .season');
+    seasonTabs.forEach(tab => {
+      tab.classList.remove('active');
+      if (parseInt(tab.getAttribute('data-season')) === episodeSeason) {
+        tab.classList.add('active');
+      }
+    });
+
+    // Load the episode list for that season
+    const seasonEpisodes = episodesBySeason[episodeSeason];
+    if (seasonEpisodes) {
+      const filteredEpisodes = createEpisodesList(seasonEpisodes, 'all');
+      
+      // Find and select the specific episode
+      const episodeListItems = document.querySelectorAll('.ep-list-item');
+      episodeListItems.forEach(item => {
+        const itemEpisodeId = item.getAttribute('data-episode-id');
+        if (itemEpisodeId === fragment) {
+          selectEpisode(targetEpisode, item);
+        }
+      });
+    }
+
+    return true;
+  }
+
+  // Initialize the page
+  document.addEventListener('DOMContentLoaded', () => {
+    const seasonTabs = document.querySelectorAll('.seasons-tab .season');
+    const tagFilter = document.getElementById('tag-filter');
+
+    if (!seasonTabs.length) {
+      console.error('No season tabs found');
+      return;
+    }
+
+    let activeSeasonNumber = defaultSeason;
+    let selectedTag = tagParam || 'all';
+
+    // Set the tag filter to the URL parameter value
+    if (tagFilter && tagParam) {
+      tagFilter.value = tagParam;
+    }
+
+    // Check if there's a fragment in the URL and try to load that episode
+    const fragmentLoaded = loadEpisodeFromFragment();
+    
+    // If no fragment or episode not found, load default season with URL tag filter
+    if (!fragmentLoaded) {
+      if (episodesBySeason[activeSeasonNumber]) {
+        createEpisodesList(episodesBySeason[activeSeasonNumber], selectedTag);
+      }
+    } else {
+      // Update activeSeasonNumber to match the loaded episode's season
+      const fragment = window.location.hash.substring(1);
+      const targetEpisode = episodes?.find(ep => ep.id && ep.id.toString() === fragment);
+      if (targetEpisode) {
+        activeSeasonNumber = targetEpisode.season_number || targetEpisode.season || 1;
+      }
+    }
+
+    // Season tab event listeners
+    seasonTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        seasonTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        activeSeasonNumber = parseInt(tab.getAttribute('data-season'));
+        
+        if (episodesBySeason[activeSeasonNumber]) {
+          createEpisodesList(episodesBySeason[activeSeasonNumber], selectedTag);
+        } else {
+          const episodeContainer = document.getElementById('episodes-list-container');
+          if (episodeContainer) {
+            episodeContainer.innerHTML = '<li class="no-episodes">No episodes found for this season.</li>';
+          }
+        }
+
+        // Update URL with current season
+        updateUrl(selectedTag, activeSeasonNumber);
+      });
+    });
+
+    // Tag filter event listener
+    if (tagFilter) {
+      tagFilter.addEventListener('change', (e) => {
+        selectedTag = e.target.value;
+        
+        if (episodesBySeason[activeSeasonNumber]) {
+          createEpisodesList(episodesBySeason[activeSeasonNumber], selectedTag);
+        }
+
+        // Update URL with current tag filter
+        updateUrl(selectedTag, activeSeasonNumber);
+      });
+    }
+
+    // Listen for hash changes (back/forward navigation)
+    window.addEventListener('hashchange', () => {
+      loadEpisodeFromFragment();
+    });
+
+    // Listen for popstate events (back/forward navigation with query params)
+    window.addEventListener('popstate', () => {
+      const params = getUrlParams();
+      const newTag = params.tag || 'all';
+      const newSeason = params.season ? parseInt(params.season) : defaultSeason;
+      
+      // Update tag filter
+      if (tagFilter) {
+        tagFilter.value = newTag;
+      }
+      selectedTag = newTag;
+      
+      // Update season tab
+      if (newSeason !== activeSeasonNumber) {
+        activeSeasonNumber = newSeason;
+        seasonTabs.forEach(tab => {
+          tab.classList.remove('active');
+          if (parseInt(tab.getAttribute('data-season')) === activeSeasonNumber) {
+            tab.classList.add('active');
+          }
+        });
+      }
+      
+      // Reload episode list
+      if (episodesBySeason[activeSeasonNumber]) {
+        createEpisodesList(episodesBySeason[activeSeasonNumber], selectedTag);
+      }
+    });
+  });
+</script>

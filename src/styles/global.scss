@@ -1,0 +1,147 @@
+@use './partials/combined.scss' as *;
+
+* {
+  font-family: 'Bender', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: $black;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  font-family: 'Bender', sans-serif;
+  background-color: $white;
+}
+
+// Global styles for the application
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Bender', sans-serif;
+  
+}
+
+main{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  padding: $spacing-4 $spacing-7;
+  width: clamp(380px, 100%, 1540px);
+
+  @media (max-width: 768px) {
+    padding: $spacing-4 $spacing-5;
+  }
+  @media (max-width: 480px) {
+    padding: $spacing-3 $spacing-3;
+  }
+}
+
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $spacing-4;
+  width: 100%;
+
+  label {
+    margin-bottom: $spacing-1;
+    font-weight: 600;
+    color: $black;
+  }
+
+  input, textarea {
+    outline: none;
+    padding: $spacing-3 $spacing-4;
+    border: 0;
+    border-bottom: 2px solid $green;
+    color: $black;
+    background-color: $gray-light;
+
+    &:focus {
+      border-color: $purple;
+      background-color: $white;
+      outline: none;
+    }
+  }
+}
+
+
+.truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* limit to 2 lines */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.btn {
+  border: none;
+  padding: $spacing-2 $spacing-4;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &.primary{
+    background-color: $purple; 
+    color: $white;
+
+    &:hover {
+      background-color: $purple;
+    }
+
+    &:active {
+      background-color: $purple-dark;
+    }
+  }
+
+  &.secondary {
+    background-color: $white;
+    color: $black;
+    border: 2px solid $purple;
+
+    &:hover {
+      background-color: $purple-light;
+      color: $white;
+    }
+
+    &:active {
+      background-color: $purple;
+      color: $white;
+    }
+  }
+
+  &.tertiary {
+    background-color: $white;
+    color: $black;
+    border: 2px solid $green;
+
+    &:hover {
+      background-color: $green-light;
+    }
+
+    &:active {
+      background-color: $green;
+      color: $white;
+    }
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: $black;
+  font-weight: 700;
+  transition: color $transition-fast;
+  padding: $spacing-1;
+  height: max-content;
+
+  &:hover {
+    color: $green;
+    border-bottom: 2px solid $green;
+  }
+}

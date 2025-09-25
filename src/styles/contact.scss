@@ -1,0 +1,54 @@
+@use "../styles/partials/combined.scss" as *;
+
+
+section.contact {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-6;
+
+  .contact-image {
+    width: clamp(300px, 50vw, 720px);
+    height: auto;
+    aspect-ratio: 3.5 / 4;
+    border-radius: $radius-md;
+    object-fit: cover;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-4;
+    width: clamp(300px, 40vw, 600px);
+
+    .title {
+      text-align: center;
+      margin-bottom: $spacing-4;
+
+      h1 {
+        margin: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  section.contact {
+    flex-direction: column;
+    padding: $spacing-4;
+
+    .contact-image {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4/3;
+    }
+
+    .contact-form {
+      width: 100%;
+    }
+  }
+}
+
+
