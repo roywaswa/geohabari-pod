@@ -5,26 +5,17 @@ interface Props {
   title?: string;
   description?: string;
   background?: string;
-  icon?: string;
 }
 
 const { 
   title = 'CAREER',
   description = "Navigate diverse career paths in the geospatial industry. Discussing pivotal moments, key learnings, and challenges, these episodes inspire you to explore new career horizons.",
   background = "https://placehold.co/400",
-  icon = "https://placehold.co/72"
 } = Astro.props as Props;
 const tag = title.split(' ').join('+').toLowerCase();
 ---
 
 <a href={`/episodes?tag=${tag}`} class="card-theme">
-  <Image
-    src={icon}
-    alt="Theme Icon"
-    width={72}
-    height={72}
-    class="theme-icon"
-  />
   <Image
     src={background}
     alt="Background Image"

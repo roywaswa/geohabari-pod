@@ -32,6 +32,19 @@ const releaseDate = date.getDate().toString().padStart(2, '0') + "-" +
                   date.getFullYear()
 const today = new Date();
 const recentEps = recentEpisodes.slice(0, 5);
+
+const themes = await contentfulClient.getEntries({
+  content_type: "podcastThemes",
+}).then(res => {
+  // console.log(res.items[0].fields.backgroundImage.fields.file.url)
+  const themelist = res.items.map(item => ({
+    title: item.fields.themeTitle,
+    description: item.fields.themeDescription,
+    background: typeof item.fields.backgroundImage === 'object' && item.fields.backgroundImage?.fields?.file?.url || "https://placehold.co/400",
+  }))
+  return themelist;
+})
+console.log(themes);
 ---
 
 <Layout title="Home">
@@ -132,15 +145,14 @@ const recentEps = recentEpisodes.slice(0, 5);
       </h5>
     </div>
     <div class="container-themes">
-      {
-        topics.map(topic => (
+      {themes ? themes.map(theme => (
           <ThemeCard 
-            title={topic.title}
-            description={topic.description}
-            icon={topic.icon}
-            background={topic.background}
+            title={theme.title}
+            description={theme.description}
+            background={theme.background}
           />
-        ))
+        )):
+        <p>Loading themes...</p>
       }
     </div>
   </section>
