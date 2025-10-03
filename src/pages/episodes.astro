@@ -80,19 +80,27 @@ const initialEpisode = firstSeasonEpisodes[0];
         }
       </div>
       
-      <!-- Tag Filter -->
+      <!-- Tag Filter Pills -->
       <div class="ep-filter">
         <p>Filter by Tag</p>
-        <select id="tag-filter">
-          <option class="tag" value="all" selected={!tagParam}>All</option>
+        <div class="tag-pills" id="tag-pills-container">
+          <button 
+            class={`tag-pill ${!tagParam ? 'active' : ''}`}
+            data-tag="all"
+          >
+            All
+          </button>
           {
             Array.from(allTags).sort().map(tag => (
-              <option class="tag" value={tag} selected={tagParam === tag}>
+              <button 
+                class={`tag-pill ${tagParam === tag ? 'active' : ''}`}
+                data-tag={tag}
+              >
                 {tag.charAt(0).toUpperCase() + tag.slice(1)}
-              </option>
+              </button>
             ))
           }
-        </select>
+        </div>
       </div>
       
       <!-- Episode List Container -->
@@ -173,6 +181,21 @@ const initialEpisode = firstSeasonEpisodes[0];
     
     // Update URL without page reload
     history.replaceState(null, '', url.toString());
+  }
+
+  /**
+   * Updates the active state of tag pills
+   */
+  function updateTagPillsState(selectedTag) {
+    const tagPills = document.querySelectorAll('.tag-pill');
+    tagPills.forEach(pill => {
+      const pillTag = pill.getAttribute('data-tag');
+      if (pillTag === selectedTag) {
+        pill.classList.add('active');
+      } else {
+        pill.classList.remove('active');
+      }
+    });
   }
 
   /**
@@ -310,7 +333,7 @@ const initialEpisode = firstSeasonEpisodes[0];
   // Initialize the page
   document.addEventListener('DOMContentLoaded', () => {
     const seasonTabs = document.querySelectorAll('.seasons-tab .season');
-    const tagFilter = document.getElementById('tag-filter');
+    const tagPills = document.querySelectorAll('.tag-pill');
 
     if (!seasonTabs.length) {
       console.error('No season tabs found');
@@ -320,10 +343,8 @@ const initialEpisode = firstSeasonEpisodes[0];
     let activeSeasonNumber = defaultSeason;
     let selectedTag = tagParam || 'all';
 
-    // Set the tag filter to the URL parameter value
-    if (tagFilter && tagParam) {
-      tagFilter.value = tagParam;
-    }
+    // Update tag pills to reflect URL parameter
+    updateTagPillsState(selectedTag);
 
     // Check if there's a fragment in the URL and try to load that episode
     const fragmentLoaded = loadEpisodeFromFragment();
@@ -364,11 +385,15 @@ const initialEpisode = firstSeasonEpisodes[0];
       });
     });
 
-    // Tag filter event listener
-    if (tagFilter) {
-      tagFilter.addEventListener('change', (e) => {
-        selectedTag = e.target.value;
+    // Tag pill event listeners
+    tagPills.forEach(pill => {
+      pill.addEventListener('click', (e) => {
+        selectedTag = pill.getAttribute('data-tag');
         
+        // Update active state of pills
+        updateTagPillsState(selectedTag);
+        
+        // Filter episodes
         if (episodesBySeason[activeSeasonNumber]) {
           createEpisodesList(episodesBySeason[activeSeasonNumber], selectedTag);
         }
@@ -376,7 +401,7 @@ const initialEpisode = firstSeasonEpisodes[0];
         // Update URL with current tag filter
         updateUrl(selectedTag, activeSeasonNumber);
       });
-    }
+    });
 
     // Listen for hash changes (back/forward navigation)
     window.addEventListener('hashchange', () => {
@@ -389,11 +414,9 @@ const initialEpisode = firstSeasonEpisodes[0];
       const newTag = params.tag || 'all';
       const newSeason = params.season ? parseInt(params.season) : defaultSeason;
       
-      // Update tag filter
-      if (tagFilter) {
-        tagFilter.value = newTag;
-      }
+      // Update tag pills
       selectedTag = newTag;
+      updateTagPillsState(selectedTag);
       
       // Update season tab
       if (newSeason !== activeSeasonNumber) {
@@ -413,3 +436,43 @@ const initialEpisode = firstSeasonEpisodes[0];
     });
   });
 </script>
+
+<style>
+  .tag-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .tag-pill {
+    padding: 0.35rem 0.9rem;
+    border: 1.5px solid #a5a5a5;
+    border-radius: 50px;
+    background: transparent;
+    color: #2a2a2a;
+    font-size: 0.7rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: lowercase;
+  }
+
+  .tag-pill:hover {
+    border-color: #7c3aed;
+    color: #7c3aed;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
+  }
+
+  .tag-pill.active {
+    border-color: #8b5cf6;
+    background: #8b5cf6;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  }
+
+  .tag-pill:active {
+    transform: translateY(0);
+  }
+</style>
