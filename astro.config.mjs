@@ -7,6 +7,7 @@ import playformCompress from '@playform/compress';
 import icon from 'astro-icon';
 import robotsTxt from 'astro-robots-txt';
 import partytown from '@astrojs/partytown';
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: 'https://geohabari.com', // Required for sitemap
@@ -50,5 +51,8 @@ export default defineConfig({
   }),
   build: {
     inlineStylesheets: 'auto',
+  },
+  vite: {
+    plugins: [tailwindcss()],
   },
 });
