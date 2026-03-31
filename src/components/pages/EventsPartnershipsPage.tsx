@@ -198,16 +198,29 @@ type SelectedItem =
 	  }
 	| null;
 
+function parseEventDate(dateStr: string): Date {
+	const cleaned = dateStr.replace(/(\d+)-(\d+),/, "$1,").trim();
+	return new Date(cleaned);
+}
+
 export function EventsPartnershipsPage() {
 	const [activeTab, setActiveTab] = useState<"events" | "partnerships">("events");
 	const [selectedCategory, setSelectedCategory] = useState<string>("all");
+	const [selectedTiming, setSelectedTiming] = useState<"all" | "upcoming" | "past">("all");
 	const [selectedItem, setSelectedItem] = useState<SelectedItem>(null);
 
 	const categories = ["all", "Networking", "Tech Talk", "Workshop", "Education", "Conference"];
-	const filteredEvents =
-		selectedCategory === "all"
-			? events
-			: events.filter((event) => event.category === selectedCategory);
+
+	const now = new Date();
+	const filteredEvents = events.filter((event) => {
+		const matchCategory = selectedCategory === "all" || event.category === selectedCategory;
+		const eventDate = parseEventDate(event.date);
+		const matchTiming =
+			selectedTiming === "all" ||
+			(selectedTiming === "upcoming" && eventDate >= now) ||
+			(selectedTiming === "past" && eventDate < now);
+		return matchCategory && matchTiming;
+	});
 
 	return (
 		<div className="min-h-screen bg-gradient-to-b from-[#f9f9f9] via-white to-[#f9f9f9]">
@@ -319,6 +332,26 @@ export function EventsPartnershipsPage() {
 								transition={{ duration: 0.3 }}
 								className=" flex flex-col gap-12"
 							>
+								{/* Timing Filter */}
+								<div className="flex items-center gap-3 justify-center">
+									{(["all", "upcoming", "past"] as const).map((timing) => (
+										<motion.button
+											key={timing}
+											whileHover={{ y: -2 }}
+											whileTap={{ scale: 0.98 }}
+											transition={{ duration: 0.15 }}
+											onClick={() => setSelectedTiming(timing)}
+											className={`px-[24px] py-[12px] rounded-full text-[14px] leading-[1.2] font-semibold transition-all border ${
+												selectedTiming === timing
+													? "bg-gradient-to-r from-[#783fc6] to-[#6a35b5] text-white border-transparent shadow-md"
+													: "bg-white text-[#1d1d1d]/60 hover:bg-[#783fc6]/5 hover:text-[#783fc6] border-[#783fc6]/15"
+											}`}
+										>
+											{timing === "all" ? "All Events" : timing === "upcoming" ? "Upcoming" : "Past Events"}
+										</motion.button>
+									))}
+								</div>
+
 								{/* Category Filter */}
 								<div className="flex items-center gap-3 flex-wrap justify-center">
 									<div className="flex items-center gap-[8px] text-[#1d1d1d]/50">
@@ -346,20 +379,40 @@ export function EventsPartnershipsPage() {
 								</div>
 
 								{/* Events Grid */}
-								<motion.div
-									variants={containerVariants}
-									initial="hidden"
-									animate="visible"
-									className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[32px]"
-								>
-									{filteredEvents.map((event) => (
-										<EventCardFull
-											key={event.id}
-											event={event}
-											onClick={() => setSelectedItem({ type: "event", data: event })}
-										/>
-									))}
-								</motion.div>
+								{filteredEvents.length > 0 ? (
+									<motion.div
+										variants={containerVariants}
+										initial="hidden"
+										animate="visible"
+										className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[32px]"
+									>
+										{filteredEvents.map((event) => (
+											<EventCardFull
+												key={event.id}
+												event={event}
+												onClick={() => setSelectedItem({ type: "event", data: event })}
+											/>
+										))}
+									</motion.div>
+								) : (
+									<motion.div
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										className="text-center py-16 space-y-4"
+									>
+										<div className="w-16 h-16 bg-[#783fc6]/10 rounded-full flex items-center justify-center mx-auto">
+											<Calendar className="w-8 h-8 text-[#783fc6]" />
+										</div>
+										<h3 className="text-xl font-semibold text-[#1d1d1d]">
+											No {selectedTiming !== "all" ? selectedTiming : ""} events found
+										</h3>
+										<p className="text-[#1d1d1d]/50 max-w-md mx-auto">
+											{selectedTiming === "upcoming"
+												? "Stay tuned! New events are being planned."
+												: "Try adjusting your filters to see more events."}
+										</p>
+									</motion.div>
+								)}
 							</motion.div>
 						) : (
 							<motion.div

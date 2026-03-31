@@ -193,6 +193,7 @@ export function createBuzzsproutClient(podcastId, apiToken) {
 
 // Default client using environment variables
 let defaultClient = null;
+let useDummy = false;
 
 export function getDefaultClient() {
   if (!defaultClient) {
@@ -200,7 +201,11 @@ export function getDefaultClient() {
     const apiToken = import.meta.env.BUZZSPROUT_API_TOKEN;
     
     if (!podcastId || !apiToken) {
-      throw new Error('Missing BUZZSPROUT_PODCAST_IDENTIFIER or BUZZSPROUT_API_TOKEN in environment variables');
+      console.warn('[Buzzsprout] Missing API credentials — using dummy data fallback.');
+      useDummy = true;
+      // Return a no-op client; actual functions below handle the dummy branch
+      defaultClient = { _dummy: true };
+      return defaultClient;
     }
     
     defaultClient = new BuzzsproutAPI(podcastId, apiToken);
@@ -209,32 +214,57 @@ export function getDefaultClient() {
   return defaultClient;
 }
 
+// Import dummy data for fallback
+import { dummyEpisodes } from "../data/dummy.js";
+
 // Simple convenience functions
 export async function getAllEpisodes(forceRefresh = false) {
-  return getDefaultClient().getAllEpisodes(forceRefresh);
+  const client = getDefaultClient();
+  if (client._dummy) return dummyEpisodes;
+  try { return await client.getAllEpisodes(forceRefresh); } catch { return dummyEpisodes; }
 }
 
 export async function getRecentEpisodes(count = 5) {
-  return getDefaultClient().getRecentEpisodes(count);
+  const client = getDefaultClient();
+  if (client._dummy) return dummyEpisodes.slice(0, count);
+  try { return await client.getRecentEpisodes(count); } catch { return dummyEpisodes.slice(0, count); }
 }
 
 export async function getEpisode(episodeId) {
-  return getDefaultClient().getEpisode(episodeId);
+  const client = getDefaultClient();
+  if (client._dummy) return dummyEpisodes.find(e => e.id === episodeId) || dummyEpisodes[0];
+  try { return await client.getEpisode(episodeId); } catch { return dummyEpisodes[0]; }
 }
 
 export async function searchEpisodes(searchTerm) {
-  return getDefaultClient().searchEpisodes(searchTerm);
+  const client = getDefaultClient();
+  if (client._dummy) return dummyEpisodes.filter(e => e.title.toLowerCase().includes(searchTerm.toLowerCase()));
+  try { return await client.searchEpisodes(searchTerm); } catch { return []; }
 }
 
 export async function getEpisodesPaginated(page = 1, perPage = 10) {
-  return getDefaultClient().getEpisodesPaginated(page, perPage);
+  const client = getDefaultClient();
+  if (client._dummy) return dummyEpisodes.slice((page - 1) * perPage, page * perPage);
+  try { return await client.getEpisodesPaginated(page, perPage); } catch { return dummyEpisodes; }
 }
 
 export async function getEpisodesBySeason(seasonNumber) {
-  return getDefaultClient().getEpisodesBySeason(seasonNumber);
+  const client = getDefaultClient();
+  if (client._dummy) {
+    const grouped = {};
+    dummyEpisodes.forEach(ep => {
+      const s = ep.season_number || 1;
+      if (!grouped[s]) grouped[s] = [];
+      grouped[s].push(ep);
+    });
+    return seasonNumber ? (grouped[seasonNumber] || []) : grouped;
+  }
+  try { return await client.getEpisodesBySeason(seasonNumber); } catch { return []; }
 }
 
-export async function getSeasonList(){
-  return getDefaultClient().getSeasonList();
+export async function getSeasonList() {
+  const client = getDefaultClient();
+  if (client._dummy) return [{ season: 2, episodeCount: 3 }, { season: 3, episodeCount: 2 }];
+  try { return await client.getSeasonList(); } catch { return []; }
 }
 

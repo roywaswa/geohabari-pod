@@ -45,7 +45,12 @@ export default {
     {
       name: 'Apple Podcasts',
       handle: 'Geohabari',
-      url: 'https://podcasts.apple.com/podcast/your-podcast-id'
+      url: 'https://podcasts.apple.com/ke/podcast/geohabari/id1747885525'
+    },
+    {
+      name: 'YouTube',
+      handle: '@GeohabariPod',
+      url: 'https://www.youtube.com/@GeohabariPod'
     }
   ],
   

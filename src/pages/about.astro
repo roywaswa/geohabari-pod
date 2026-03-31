@@ -8,122 +8,148 @@ import team_members from '../data/team.json';
 import '../styles/about.scss';
 ---
 
-<Layout>
-  <section class="container intro">
-    <h3 class="heading">
-      Welcome to Geohabari Podcast
-    </h3>
-    <h2>
-      Amplifying African Tech Stories & Elevating Technical Brilliance
-    </h2>
+<Layout title="About" darkHero={true}>
+  <!-- Hero intro -->
+  <section class="about-hero">
+    <div class="about-hero-bg"></div>
+    <div class="about-hero-cosmos">
+      <div class="about-cosmos-grid"></div>
+      <div class="about-glow about-glow-purple"></div>
+      <div class="about-glow about-glow-green"></div>
+      <div class="about-ring about-ring-1"></div>
+      <div class="about-ring about-ring-2"></div>
+    </div>
+    <div class="logo-dots logo-dots-white logo-dots-lg about-hero-dots" style="position:absolute;top:15%;right:8%;z-index:1;opacity:0.08;">
+      <div class="ld"></div><div class="ld"></div><div class="ld-empty"></div>
+      <div class="ld"></div><div class="ld"></div><div class="ld"></div>
+      <div class="ld-empty"></div><div class="ld"></div><div class="ld"></div>
+    </div>
+    <div class="logo-dots logo-dots-white" style="position:absolute;bottom:18%;left:6%;z-index:1;opacity:0.06;">
+      <div class="ld"></div><div class="ld"></div><div class="ld-empty"></div>
+      <div class="ld"></div><div class="ld"></div><div class="ld"></div>
+      <div class="ld-empty"></div><div class="ld"></div><div class="ld"></div>
+    </div>
+    <div class="about-hero-particles">
+      <div class="particle p1"></div>
+      <div class="particle p2"></div>
+      <div class="particle p3"></div>
+      <div class="particle p4"></div>
+      <div class="particle p5"></div>
+    </div>
+    <div class="about-hero-content">
+      <div class="about-hero-badge">
+        <span class="badge-pulse"></span>
+        <span class="badge-label">About Us</span>
+      </div>
+      <h1 class="heading">
+        We're a <span class="hero-accent">community</span><br/>
+        first — then a podcast
+      </h1>
+      <p class="about-subtitle">
+        Geohabari is where African geospatial and tech voices gather to share stories, learn, and grow together.
+      </p>
+    </div>
   </section>
 
-  <section class="container identity">
-    <h3 class="heading">
-      who we are
-    </h3>
-    <div class="content">
+  <!-- Identity -->
+  <section class="identity">
+    <div class="identity-inner">
       <Image
         src="https://plus.unsplash.com/premium_photo-1679079456790-bf73ddd14964?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="Identity Image"
         width={600}
         height={400}
-        class="image"
+        class="identity-image"
       />
-      <div class="desc">
+      <div class="identity-text">
+        <span class="section-label">Who We Are</span>
         <h2>
-          We are the new kids in the block that are challenging the norm ...
+          A community of makers, mappers, and storytellers
         </h2>
-        <div class="details">
+        <div class="identity-details">
           <p>
-            We focus on how technology intertwines with life and activities; BUT more than that, we focus on the voices, the people behind the scenes
+            Geohabari started as a space for African geospatial and tech voices — and it's grown into a community. We focus on the people behind the tech: the builders, the thinkers, and everyone who believes African innovation deserves a bigger stage.
           </p>
-          <p>
-            More than just a podcast. 
-              <br/>We are a platform. 
-              <br/>A lens. 
-              <br/>A conversation
+          <p class="identity-highlight">
+            We're not just a podcast.
+            <br/>We're a community.
+            <br/>A platform for connection.
+            <br/>A place where stories and ideas meet.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="container misvis">
-    <div class="misvis_text">
-      <h3 class="heading">to what ends</h3>
-      <div class="contaier-misvis">
-        <div class="mission">
-          <h3>MISSION</h3>
-          <p>
-            To amplify African geospatial and tech stories, making complex ideas simple, relatable, and impactful — one conversation at a time.
-          </p>
-          <Image
-            src={NairobiMap}
-            alt="Mission Image"
-            width={220}
-            height={220}
-            class="misvis_map"
-          />
-        </div>
-        <div class="vision">
-          <Image
-            src={KampalaMap}
-            alt="Mission Image"
-            width={220}
-            height={220}
-            class="misvis_map"
-          />
-          <h3>VISION</h3>
-          <p>
-            A world where African voices shape the narrative of innovation, technology, and place — from the ground up.
-          </p>
+  <!-- Mission & Vision -->
+  <section class="misvis">
+    <div class="misvis-inner">
+      <div class="misvis-text">
+        <span class="section-label">What Drives Us</span>
+        <p class="misvis-intro">Our mission and vision guide everything we do as a community — from the conversations we host to the people we platform.</p>
+        <div class="misvis-cards">
+          <div class="misvis-card mission-card">
+            <div class="misvis-icon">
+              <Image src={NairobiMap} alt="Mission" width={80} height={80} class="misvis_map" />
+            </div>
+            <h3>Mission</h3>
+            <p>
+              To amplify African geospatial and tech stories, making complex ideas simple, relatable, and impactful — one conversation at a time. We build community by sharing knowledge and lifting each other up.
+            </p>
+          </div>
+          <div class="misvis-card vision-card">
+            <div class="misvis-icon">
+              <Image src={KampalaMap} alt="Vision" width={80} height={80} class="misvis_map" />
+            </div>
+            <h3>Vision</h3>
+            <p>
+              A world where African voices shape the narrative of innovation, technology, and place — from the ground up. A community where every member can learn, contribute, and grow.
+            </p>
+          </div>
         </div>
       </div>
+      <Image
+        src="https://images.unsplash.com/photo-1642165870627-cd54c078a11f?q=80&w=685&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="Mission and Vision"
+        width={600}
+        height={400}
+        class="misvis-image"
+      />
     </div>
-    <Image
-      src="https://images.unsplash.com/photo-1642165870627-cd54c078a11f?q=80&w=685&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      alt="Mission and Vision"
-      width={600}
-      height={400}
-      class="mission_image"
-    />
   </section>
 
-  <section class="container purpose">
-    <div class="intro">
-      <h3 class="heading">why we exist</h3>
-      <h2>
-        We are Elevators and Amplifiers
-      </h2>
+  <!-- Purpose -->
+  <section class="purpose">
+    <div class="purpose-intro">
+      <span class="section-label">Why We Exist</span>
+      <h2>Elevating voices, building community</h2>
       <p>
-        Geospatial technology is everywhere — powering the apps we use, the cities we live in, the farms we depend on, and the decisions that shape our future. But too often, it feels distant, overly technical, or out of reach. Geohabari was created to change that.
+        Geospatial and tech shape the world we live in — but too often the stories behind them feel distant or out of reach. Geohabari exists to change that: we demystify the tech, spotlight African innovation, and bring together a community that learns and grows together.
       </p>
     </div>
-    <div class="details">
+    <div class="purpose-details">
       <Image
         src="https://plus.unsplash.com/premium_photo-1712254285216-26092c37cf8c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="Purpose Image"
         width={600}
         height={200}
-        class="purpose_image"
+        class="purpose-image"
       />
-      <div class="purpose_text">
+      <div class="purpose-text">
         <p>
-          We exist to demystify geospatial technology — to break it down, open it up, and let it speak in everyday language. But more than that, we're here to spotlight African innovation — the thinkers, builders, mappers, and dreamers who are solving real-world problems with homegrown solutions.
+          Aligned with our mission and vision, we break down complex ideas into everyday language and give a platform to the thinkers, builders, and mappers solving real problems across the continent. Every episode is a chance for our community to learn something new and connect with the people behind the tech.
         </p>
-        <h5>
-          "When you understand space, you understand power. That's why we tell these stories."
-        </h5>
+        <blockquote>
+          "When you understand space, you understand power. That's why we tell these stories — together."
+        </blockquote>
       </div>
     </div>
   </section>
 
-
-  <section class="container team">
-    <h3 class="heading">
-      Meet the Team
-    </h3>
+  <!-- Team -->
+  <section class="team">
+    <span class="section-label">The People</span>
+    <h2>Meet the team behind the community</h2>
     <div class="team-carousel">
       <div class="team-thumbnails">
         {team_members.map((member, index) => (
@@ -169,10 +195,35 @@ import '../styles/about.scss';
 
 <script>
 import { gsap } from "gsap";
-
+import { ScrollTrigger } from "gsap/all";
+gsap.registerPlugin(ScrollTrigger);
 
 document.addEventListener("DOMContentLoaded", function() {
-  // Team members data
+  // Staggered section reveals
+  gsap.utils.toArray(".identity-inner, .misvis-inner, .purpose-intro, .purpose-details").forEach(el => {
+    gsap.from(el, {
+      scrollTrigger: { trigger: el, start: "top 85%", once: true },
+      y: 50, opacity: 0, duration: 0.9, ease: "power3.out"
+    });
+  });
+
+  // Mission/Vision cards
+  gsap.utils.toArray(".misvis-card").forEach((card, i) => {
+    gsap.from(card, {
+      scrollTrigger: { trigger: card, start: "top 88%", once: true },
+      y: 40, opacity: 0, scale: 0.95, duration: 0.7, delay: i * 0.15, ease: "back.out(1.2)"
+    });
+  });
+
+  // Hero text reveal
+  gsap.from(".about-hero-content", { y: 40, opacity: 0, duration: 1, delay: 0.3, ease: "power3.out" });
+
+  // Team section entrance
+  gsap.from(".team-carousel", {
+    scrollTrigger: { trigger: ".team-carousel", start: "top 85%", once: true },
+    y: 50, opacity: 0, duration: 0.8, ease: "power2.out"
+  });
+
   const teamMembers = [
     {
       name: "Yariwo Kitiyo",
@@ -212,7 +263,7 @@ document.addEventListener("DOMContentLoaded", function() {
     },
     {
       name: "Vincent Cheruiyot",
-      bio: "Vincent is a visual creative making brands heard and seen.  Loves sports, music, and farm. Good in Geo.",
+      bio: "Vincent is a visual creative making brands heard and seen. Loves sports, music, and farm. Good in Geo.",
       position: "Visual Creative",
       profile_photo: "/images/team/vincent.jpeg",
       socials: {
@@ -224,7 +275,7 @@ document.addEventListener("DOMContentLoaded", function() {
     },
     {
       name: "JohnMark Ochieng",
-      bio: "Johnmark Ochieng - Johnmark is a space communicator making space simple. Big on hiking and adventure, bigger on adrenaline. I think better at altitude.",
+      bio: "Johnmark is a space communicator making space simple. Big on hiking and adventure, bigger on adrenaline. I think better at altitude.",
       position: "Space Communicator",
       profile_photo: "/images/team/jmochieng.jpeg",
       socials: {
@@ -237,7 +288,6 @@ document.addEventListener("DOMContentLoaded", function() {
   ];
 
 
-  // Get DOM elements
   const thumbnails = document.querySelectorAll('.team-thumbnail');
   const mainPhoto = document.getElementById('main-photo');
   const spotlightName = document.getElementById('spotlight-name');
@@ -250,14 +300,12 @@ document.addEventListener("DOMContentLoaded", function() {
   let autoPlayInterval;
   let isAnimating = false;
 
-  // Function to update spotlight content
   function updateSpotlight(index, animate = true) {
     if (isAnimating && animate) return;
     
     const member = teamMembers[index];
     currentIndex = index;
 
-    // Update active thumbnail
     thumbnails.forEach((thumb, i) => {
       thumb.classList.toggle('active', i === index);
     });
@@ -265,17 +313,14 @@ document.addEventListener("DOMContentLoaded", function() {
     if (animate) {
       isAnimating = true;
       
-      // Animate out
       gsap.to([mainPhoto, spotlightName, spotlightRole, spotlightBio, socialLinks], {
         opacity: 0,
         x: 30,
         duration: 0.3,
         ease: "power2.out",
         onComplete: function() {
-          // Update content
           updateContent(member);
           
-          // Animate in
           gsap.to([mainPhoto, spotlightName, spotlightRole, spotlightBio, socialLinks], {
             opacity: 1,
             x: 0,
@@ -293,7 +338,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  // Function to update content without animation
   function updateContent(member) {
     mainPhoto.src = member.profile_photo;
     mainPhoto.alt = member.name;
@@ -301,7 +345,6 @@ document.addEventListener("DOMContentLoaded", function() {
     spotlightRole.textContent = member.position;
     spotlightBio.textContent = member.bio;
 
-    // Update social links
     socialLinks.innerHTML = '';
     Object.entries(member.socials).forEach(([platform, url]) => {
       const link = document.createElement('a');
@@ -313,7 +356,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // Auto-play functionality
   function startAutoPlay() {
     autoPlayInterval = setInterval(() => {
       const nextIndex = (currentIndex + 1) % teamMembers.length;
@@ -332,7 +374,6 @@ document.addEventListener("DOMContentLoaded", function() {
     startAutoPlay();
   }
 
-  // Add click event listeners to thumbnails
   thumbnails.forEach((thumbnail, index) => {
     thumbnail.addEventListener('click', function() {
       if (index !== currentIndex && !isAnimating) {
@@ -342,34 +383,13 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  // Pause auto-play on hover
   teamCarousel.addEventListener('mouseenter', stopAutoPlay);
   teamCarousel.addEventListener('mouseleave', startAutoPlay);
 
-  // Initialize carousel
   updateSpotlight(0, false);
   
-  // Start auto-play after a short delay
   setTimeout(() => {
     startAutoPlay();
   }, 5000);
-
-  // Initial animations
-  //gsap.from('.team-thumbnail', {
-  //  opacity: 0,
-  //  y: 20,
-  //  duration: 0.6,
-  //  stagger: 0.1,
-  //  ease: "power2.out"
-  //});
-
-  // gsap.from(['.spotlight-image', '.spotlight-details'], {
-    // opacity: 0,
-    // x: 30,
-    // duration: 0.8,
-    // stagger: 0.2,
-    // ease: "power2.out",
-    // delay: 0.3
-  // });
 });
 </script>

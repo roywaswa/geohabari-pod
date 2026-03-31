@@ -1,8 +1,135 @@
 ---
 import Layout from "../layout/Layout.astro"
-import {EventsPartnershipsPage} from "../components/pages/EventsPartnershipsPage"
 ---
 
-<Layout>
-  <EventsPartnershipsPage client:load />
+<Layout title="Events & Partnerships">
+  <div class="coming-soon-wrapper">
+    <div class="coming-soon-bg"></div>
+    <div class="coming-soon-content">
+      <div class="coming-soon-badge">
+        <span class="cs-pulse"></span>
+        <span>In Development</span>
+      </div>
+      <h1>Coming <span class="cs-accent">Soon</span></h1>
+      <p>We're working on an exciting events and partnerships experience. Stay tuned for updates on conferences, meetups, and collaboration opportunities across the African geospatial ecosystem.</p>
+      <a href="/" class="cs-back-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to Home
+      </a>
+    </div>
+  </div>
 </Layout>
+
+<style lang="scss">
+  @use "../styles/partials/combined.scss" as *;
+
+  .coming-soon-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .coming-soon-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, #110a2e 0%, #060818 60%, #030510 100%);
+    z-index: 0;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 70% 50% at 50% 50%, black 30%, transparent 80%);
+    }
+  }
+
+  .coming-soon-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 540px;
+    padding: $spacing-5;
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(3rem, 8vw, 5rem);
+      color: $white-pure;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: $spacing-4;
+    }
+
+    .cs-accent {
+      background: linear-gradient(135deg, $green, #A3E635);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      color: rgba(255,255,255,0.45);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: $spacing-6;
+    }
+  }
+
+  .coming-soon-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: 6px 16px;
+    border-radius: $radius-full;
+    background: rgba(141,198,63,0.08);
+    border: 1px solid rgba(141,198,63,0.15);
+    margin-bottom: $spacing-5;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $green;
+
+    .cs-pulse {
+      width: 8px;
+      height: 8px;
+      background: $green;
+      border-radius: 50%;
+      animation: cs-pulse 2s ease-in-out infinite;
+      box-shadow: 0 0 8px rgba(141,198,63,0.6);
+    }
+  }
+
+  .cs-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: $radius-full;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: $white-pure;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s;
+
+    &:hover {
+      background: rgba(141,198,63,0.12);
+      border-color: rgba(141,198,63,0.3);
+    }
+  }
+
+  @keyframes cs-pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(141,198,63,0.6); }
+    50% { opacity: 0.4; box-shadow: 0 0 4px rgba(141,198,63,0.3); }
+  }
+</style>
