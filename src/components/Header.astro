@@ -120,7 +120,7 @@ function isActive(href: string): boolean {
   <nav class="container_nav">
     <a class={`nav-link ${isActive('/') ? 'active' : ''}`} href="/">Home</a>
     <a class={`nav-link ${isActive('/about') ? 'active' : ''}`} href="/about">About</a>
-    <a class={`nav-link ${isActive('/events-partnerships') ? 'active' : ''}`} href="/events-partnerships">Events</a>
+    <a class={`nav-link ${isActive('https://tickets.geohabari.com/events') ? 'active' : ''}`} href="https://tickets.geohabari.com/events" target="_blank" rel="noopener noreferrer">Events</a>
     <a class={`nav-link ${isActive('/contact') ? 'active' : ''}`} href="/contact">Contact</a>
     <a class={`nav-cta ${isActive('/episodes') ? 'active' : ''}`} href="/episodes">Episodes</a>
   </nav>
